@@ -3,14 +3,12 @@ using UnityEngine.AI;
 
 public class EnemyCore : MonoBehaviour
 {
-    [Tooltip("The target GameObject to move towards. If left empty, will automatically search within scene for Player")]
+    [Tooltip("The target GameObject to move towards. If left empty, will automatically search within scene for game objects with the Player tag")]
     public GameObject target=null;
-    [Tooltip("Whether the target is stationary (true) or moving (false). Different functions are used for each")]
+    [Tooltip("Whether the target is stationary (true) or moving (false). Stationary only calculates the destination once")]
     public bool TargetIsStationary = false;
     [Tooltip("If the target is moving, how often (in seconds) to update the path. Does nothing if TargetIsStationary is true")]
     public float UpdateInterval = 0;
-    [Tooltip("The speed of the character")]
-    public float MovementSpeed = 3;
     
     private NavMeshPath path;
     private float elapsed = 1; //timer to determine when to update the path to a moving target
@@ -30,8 +28,6 @@ public class EnemyCore : MonoBehaviour
         {
             Debug.LogWarning("No NavMeshAgent found on " + this.name);
         }
-
-        agent.speed = MovementSpeed;
 
         if (target == null)
         {
