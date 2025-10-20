@@ -22,21 +22,7 @@ public class PauseManager : MonoBehaviour
     private bool isPaused = false;
     private InputAction pauseAction;
     
-    public static PauseManager Instance { get; private set; }
-    
-    private void Awake()
-    {
-        // Singleton pattern to ensure only one pause manager exists
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
+    // Removed singleton pattern - each scene has its own PauseManager
     
     private void Start()
     {
@@ -64,7 +50,10 @@ public class PauseManager : MonoBehaviour
             pauseMenuPanel.SetActive(false);
         
         isPaused = false;
+        Time.timeScale = 1f; // Ensure time scale is normal
     }
+    
+
     
     /// <summary>
     /// Setup button listeners
