@@ -84,7 +84,8 @@ public class MenuManager : MonoBehaviour
     public void StartGame()
     {
         Debug.Log("Starting game...");
-        SceneManager.LoadScene(gameSceneName);
+        // Use scene index instead of name for more reliability
+        SceneManager.LoadScene(1); // DemoScene should be at index 1
     }
     
     /// <summary>
