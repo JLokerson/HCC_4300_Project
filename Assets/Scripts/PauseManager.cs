@@ -183,10 +183,6 @@ public class PauseManager : MonoBehaviour
     
     private void Update()
     {
-        // Fallback input handling if Input System action is not set up
-        if (pauseAction == null && Input.GetKeyDown(KeyCode.Escape))
-        {
-            TogglePause();
-        }
+        
     }
 }
