@@ -14,6 +14,9 @@ public class EnemyCore : MonoBehaviour
     private float elapsed = 1; //timer to determine when to update the path to a moving target
     private NavMeshAgent agent=null;
 
+    public float health = 3f;
+    public bool immortal = false;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -78,4 +81,17 @@ public class EnemyCore : MonoBehaviour
             }
         }                  
     }   
+
+    public void TakeDamage(float damageAmount)
+    {
+        health -= damageAmount;
+        if(health <= 0f && !immortal)
+        {
+            Destroy(gameObject);
+        }
+        else if (health<=0f && immortal)
+        {
+            Debug.Log("Snail enters shell");
+        }
+    }
 }

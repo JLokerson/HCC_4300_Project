@@ -3,7 +3,10 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     public float speed = 10f;
+    [Tooltip("How long the bullet can exist before automatically destroying itself\n(Like if it somehow gets out of bounds it won't fly forever)")]
     public float lifetime = 3f; // How long the bullet exists before being destroyed
+
+    public float damage = 1f;
 
     private Vector3 moveDirection = Vector3.zero;
 
@@ -31,7 +34,7 @@ public class Projectile : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            Destroy(other.gameObject);
+            other.GetComponent<EnemyCore>()?.TakeDamage(damage);
             Destroy(gameObject);
         }
         if(other.gameObject.layer.Equals(LayerMask.NameToLayer("Environment")))
