@@ -93,7 +93,7 @@ MonoBehaviour:
   target: {fileID: 0}
   TargetIsStationary: 0
   UpdateInterval: 0.5
-  health: 10
+  maxHealth: 10
   immortal: 1
 --- !u!1 &7863646918458961590
 GameObject:

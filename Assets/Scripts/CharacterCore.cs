@@ -21,6 +21,7 @@ public class CharacterCore : MonoBehaviour
     public Material reloadReticle = null;
     public float fireRate = 0.5f;
     public float reloadTime = 2f;
+    public int MaxBulletCount = 5;
 
 
     private float nextFireTime;
@@ -28,6 +29,7 @@ public class CharacterCore : MonoBehaviour
     private InputAction reloadAction;
     private Renderer reticleRenderer=null;
     private bool isReloading = false;
+    private int CurrentBulletCount;
 
     private void Start()
     {
@@ -38,6 +40,7 @@ public class CharacterCore : MonoBehaviour
         reticleRenderer = reticle.GetComponent<Renderer>();
 
         reloadAction = InputSystem.actions.FindAction("Reload");
+        CurrentBulletCount = MaxBulletCount;
     }
 
     private void Update()
@@ -49,13 +52,13 @@ public class CharacterCore : MonoBehaviour
         controller.Move(move * Time.deltaTime * MovementSpeed); //this is the actual movement
 
         //shooting
-        if(shootAction.triggered && Time.time >= nextFireTime && !isReloading) //if shoot action triggered and the time is greater than what is calculated as the next time a shot can be fired and not reloading
+        if(shootAction.triggered && Time.time >= nextFireTime && !isReloading && CurrentBulletCount>0) //if shoot action triggered and the time is greater than what is calculated as the next time a shot can be fired and not reloading and has bullets
         {
             Shoot();            
             nextFireTime = Time.time + fireRate;
         }            
         //reload
-        else if(reloadAction.triggered && !isReloading)
+        else if((reloadAction.triggered || CurrentBulletCount<=0) && !isReloading) //if reload action triggered manually or out of bullets, reload if not currently
         {            
             Reload();
             nextFireTime = Time.time + reloadTime;
@@ -70,6 +73,7 @@ public class CharacterCore : MonoBehaviour
     private void Shoot()
     {
         reticleRenderer.material = shotReticle;
+        CurrentBulletCount--;
 
         if (bulletPrefab != null)
         {
@@ -87,6 +91,7 @@ public class CharacterCore : MonoBehaviour
         isReloading = true;
         reticleRenderer.material = reloadReticle;
         WaitForSeconds wait = new WaitForSeconds(reloadTime);
+        CurrentBulletCount = MaxBulletCount;
         isReloading = false;
     }
 
