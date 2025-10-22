@@ -141,8 +141,7 @@ public class PauseManager : MonoBehaviour
         if (pauseMenuPanel != null)
             pauseMenuPanel.SetActive(false);
         
-        // Lock cursor back to center for gameplay (optional)
-        Cursor.lockState = CursorLockMode.Locked;
+        
         Cursor.visible = false;
         
         Debug.Log("Game resumed");
