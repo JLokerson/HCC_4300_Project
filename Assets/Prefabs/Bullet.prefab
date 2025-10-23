@@ -161,6 +161,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   speed: 10
   lifetime: 3
+  maxDamage: 1
+  maxPiercing: 1
 --- !u!54 &-906243588928539179
 Rigidbody:
   m_ObjectHideFlags: 0

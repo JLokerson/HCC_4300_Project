@@ -17,6 +17,10 @@ public class EnemyCore : MonoBehaviour
     public float maxHealth = 3f;
     private float currentHealth;
 
+    [Tooltip("How much piercing resistance this enemy has (reduces how much piercing the projectile has left)")]
+    public float maxPiercingResistance = 1f;
+    private float currentPiercingResistance;
+
     public bool immortal = false;
     [Tooltip("How long the enemy is frozen for if immortal and health reaches 0 (snail in shell)")]
     public float stunDuration = 5;
@@ -54,6 +58,7 @@ public class EnemyCore : MonoBehaviour
             }
         }
         currentHealth = maxHealth;
+        currentPiercingResistance = maxPiercingResistance;
 
     }
 
@@ -107,5 +112,10 @@ public class EnemyCore : MonoBehaviour
         Debug.Log("Snail exits shell");
         agent.isStopped = false;
         currentHealth = maxHealth;
+    }
+
+    public float getPiercingResistance()
+    {
+        return currentPiercingResistance;
     }
 }
