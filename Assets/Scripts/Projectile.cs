@@ -20,11 +20,20 @@ public class Projectile : MonoBehaviour
     private Vector3 moveDirection = Vector3.zero;
        
 
-    public void SetTarget(Vector3 position) //this is called in CharacterCore when the bullet is fired
+    public void SetTarget(Vector3 position,float spread=0) //this is called in CharacterCore when the bullet is fired. default spread is 0 if none is specified
     {
         // Calculate direction at the moment of firing
         Vector3 target = new Vector3(position.x, transform.position.y, position.z);
         moveDirection = (target - transform.position).normalized;
+
+        // Apply spread
+        if (spread > 0)
+        {
+            float xSpread = Random.Range(-spread, spread);
+            float zSpread = Random.Range(-spread, spread);
+            moveDirection += new Vector3(xSpread, 0, zSpread);
+            moveDirection.Normalize();
+        }
     }
 
     void Start()

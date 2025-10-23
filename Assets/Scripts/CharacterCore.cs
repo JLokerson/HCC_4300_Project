@@ -24,6 +24,10 @@ public class CharacterCore : MonoBehaviour
     public float reloadTime = 2f;
     public int MaxBulletCount = 5;
 
+    [Tooltip("The spread of the bullets when fired, between 0 and 1. 0 means no spread")]
+    [Range(0, 1)]
+    public float bulletSpread = .2f;
+
 
     private float nextFireTime;
     private InputAction shootAction;
@@ -93,7 +97,7 @@ public class CharacterCore : MonoBehaviour
         {
             GameObject bulletObj=Instantiate(bulletPrefab, transform.position, transform.rotation); //create bullet at player
             Projectile bullet=bulletObj.GetComponent<Projectile>();
-            bullet.SetTarget(reticle.transform.position);
+            bullet.SetTarget(reticle.transform.position, bulletSpread);
 
             if(ammoCounter!=null)//update ammo counter display if it exists
             {

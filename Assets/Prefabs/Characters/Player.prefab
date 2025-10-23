@@ -212,6 +212,7 @@ MonoBehaviour:
   fireRate: 0.5
   reloadTime: 2
   MaxBulletCount: 5
+  bulletSpread: 0.275
 --- !u!114 &4767249336620690423
 MonoBehaviour:
   m_ObjectHideFlags: 0
