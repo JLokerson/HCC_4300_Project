@@ -141,8 +141,7 @@ public class PauseManager : MonoBehaviour
         if (pauseMenuPanel != null)
             pauseMenuPanel.SetActive(false);
         
-        // Lock cursor back to center for gameplay (optional)
-        Cursor.lockState = CursorLockMode.Locked;
+        
         Cursor.visible = false;
         
         Debug.Log("Game resumed");
@@ -183,10 +182,6 @@ public class PauseManager : MonoBehaviour
     
     private void Update()
     {
-        // Fallback input handling if Input System action is not set up
-        if (pauseAction == null && Input.GetKeyDown(KeyCode.Escape))
-        {
-            TogglePause();
-        }
+        
     }
 }
