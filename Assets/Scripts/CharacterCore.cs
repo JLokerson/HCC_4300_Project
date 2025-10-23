@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
@@ -31,6 +32,8 @@ public class CharacterCore : MonoBehaviour
     private bool isReloading = false;
     private int CurrentBulletCount;
 
+    private TextMeshPro ammoCounter=null;
+
     private void Start()
     {
         moveAction=InputSystem.actions.FindAction("Move"); //binds the "Move" actions from the Input Actions Asset
@@ -41,6 +44,17 @@ public class CharacterCore : MonoBehaviour
 
         reloadAction = InputSystem.actions.FindAction("Reload");
         CurrentBulletCount = MaxBulletCount;
+
+        try
+        {
+            ammoCounter = GameObject.Find("AmmoCounter").GetComponent<TextMeshPro>();
+            ammoCounter.text = CurrentBulletCount.ToString() + " / " + MaxBulletCount.ToString();
+        }
+        catch
+        {
+            Debug.LogWarning("No AmmoCounter TextMeshPro object found.");
+        }
+
     }
 
     private void Update()
@@ -60,7 +74,7 @@ public class CharacterCore : MonoBehaviour
         //reload
         else if((reloadAction.triggered || CurrentBulletCount<=0) && !isReloading) //if reload action triggered manually or out of bullets, reload if not currently
         {            
-            Reload();
+            StartCoroutine(Reload()); //start corutine lets us wait for some time without blocking the main thread
             nextFireTime = Time.time + reloadTime;
         }
         //set reticle back to normal
@@ -80,18 +94,33 @@ public class CharacterCore : MonoBehaviour
             GameObject bulletObj=Instantiate(bulletPrefab, transform.position, transform.rotation); //create bullet at player
             Projectile bullet=bulletObj.GetComponent<Projectile>();
             bullet.SetTarget(reticle.transform.position);
+
+            if(ammoCounter!=null)//update ammo counter display if it exists
+            {
+                ammoCounter.text = CurrentBulletCount.ToString() + " / " + MaxBulletCount.ToString();
+            }
         }
         else
         {
             Debug.LogWarning("Bullet Prefab is not assigned.");
         }
     }
-    private void Reload()
+    private System.Collections.IEnumerator Reload() //system.collections.ienumerator lets us use yield return to wait
     {
         isReloading = true;
         reticleRenderer.material = reloadReticle;
-        WaitForSeconds wait = new WaitForSeconds(reloadTime);
+        if(ammoCounter!=null)//update ammo counter display if it exists
+        {
+            ammoCounter.text = "Reloading...";
+        }
+
+        yield return new WaitForSeconds(reloadTime); //this is what actually waits for reload time
+
         CurrentBulletCount = MaxBulletCount;
+        if (ammoCounter != null)//update ammo counter display if it exists
+        {
+            ammoCounter.text = CurrentBulletCount.ToString() + " / " + MaxBulletCount.ToString();
+        }
         isReloading = false;
     }
 
