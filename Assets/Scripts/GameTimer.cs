@@ -1,4 +1,4 @@
-using UnityEngine;
+Ôªøusing UnityEngine;
 using System;
 
 public class GameTimer : MonoBehaviour
@@ -10,17 +10,26 @@ public class GameTimer : MonoBehaviour
     public event Action<string, float> OnTimerTick;   // formatted, rawSeconds
     public event Action OnTimerReset;
 
-    [SerializeField] private HealthSystem health;
+    [SerializeField] private Health health; // ‚üµ was HealthSystem
 
-    void Start()
+    void Awake()
     {
-        if (!health) health = GetComponent<HealthSystem>();
-        StartTimer();
+        // Be flexible: allow assignment in Inspector or auto-find on this object or parent
+        if (!health) health = GetComponent<Health>();
+        if (!health) health = GetComponentInParent<Health>();
+    }
 
-        if (health)
-        {
-            health.OnDied += HandleDeath;
-        }
+    void OnEnable()
+    {
+        if (health) health.OnDeath += HandleDeath; // ‚üµ was OnDied
+        StartTimer();
+        // Emit an initial tick so any listeners render 0:00 immediately
+        OnTimerTick?.Invoke(Format(ElapsedSeconds), ElapsedSeconds);
+    }
+
+    void OnDisable()
+    {
+        if (health) health.OnDeath -= HandleDeath;
     }
 
     void Update()
@@ -30,15 +39,8 @@ public class GameTimer : MonoBehaviour
         OnTimerTick?.Invoke(Format(ElapsedSeconds), ElapsedSeconds);
     }
 
-    public void StartTimer()
-    {
-        IsRunning = true;
-    }
-
-    public void StopTimer()
-    {
-        IsRunning = false;
-    }
+    public void StartTimer() => IsRunning = true;
+    public void StopTimer() => IsRunning = false;
 
     public void ResetTimer()
     {
@@ -56,8 +58,8 @@ public class GameTimer : MonoBehaviour
     private void HandleDeath()
     {
         StopTimer();
-        // You asked: ìcontinue counting until the player dies, then it resets.î
-        // We'll reset on respawn (call RestartTimer from your respawn code).
+        // Reset/restart from your respawn code when appropriate
+        // e.g., call RestartTimer() after you reload or respawn the player
     }
 
     private string Format(float seconds)
