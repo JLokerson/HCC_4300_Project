@@ -20,6 +20,7 @@ public class CharacterCore : MonoBehaviour
     public Material normalReticle = null;
     public Material shotReticle = null;
     public Material reloadReticle = null;
+    [Tooltip("The time between shots")]
     public float fireRate = 0.5f;
     public float reloadTime = 2f;
     public int MaxBulletCount = 5;
@@ -28,12 +29,11 @@ public class CharacterCore : MonoBehaviour
     [Range(0, 1)]
     public float bulletSpread = .2f;
 
-
-    private float nextFireTime;
     private InputAction shootAction;
     private InputAction reloadAction;
     private Renderer reticleRenderer=null;
     private bool isReloading = false;
+    private bool isShooting = false;
     private int CurrentBulletCount;
 
     private TextMeshPro ammoCounter=null;
@@ -70,28 +70,24 @@ public class CharacterCore : MonoBehaviour
         controller.Move(move * Time.deltaTime * MovementSpeed); //this is the actual movement
 
         //shooting
-        if(shootAction.triggered && Time.time >= nextFireTime && !isReloading && CurrentBulletCount>0) //if shoot action triggered and the time is greater than what is calculated as the next time a shot can be fired and not reloading and has bullets
+        if(shootAction.IsPressed() && !isReloading &&!isShooting && CurrentBulletCount>0) //if shoot action is pressed (held works too this way) and the time is greater than what is calculated as the next time a shot can be fired and not reloading and has bullets
         {
-            Shoot();            
-            nextFireTime = Time.time + fireRate;
+            StartCoroutine(Shoot()); //start corutine lets us wait for some time without blocking the main thread
         }            
         //reload
         else if((reloadAction.triggered || CurrentBulletCount<=0) && !isReloading) //if reload action triggered manually or out of bullets, reload if not currently
         {            
             StartCoroutine(Reload()); //start corutine lets us wait for some time without blocking the main thread
-            nextFireTime = Time.time + reloadTime;
+            
         }
-        //set reticle back to normal
-        else if (reticleRenderer.material!=normalReticle && Time.time >= nextFireTime) //set the reticle back to normal if enough time has passed since last shot
-        {
-            reticleRenderer.material = normalReticle;
-        }    
+        
     }
 
-    private void Shoot()
+    private System.Collections.IEnumerator Shoot() //system.collections.ienumerator lets us use yield return to wait
     {
         reticleRenderer.material = shotReticle;
         CurrentBulletCount--;
+        isShooting = true;
 
         if (bulletPrefab != null)
         {
@@ -108,6 +104,12 @@ public class CharacterCore : MonoBehaviour
         {
             Debug.LogWarning("Bullet Prefab is not assigned.");
         }
+        yield return new WaitForSeconds(fireRate); //this is what actually waits for fire rate time
+        isShooting = false;
+        if (!isReloading)
+        {
+            reticleRenderer.material = normalReticle;
+        }
     }
     private System.Collections.IEnumerator Reload() //system.collections.ienumerator lets us use yield return to wait
     {
@@ -121,6 +123,7 @@ public class CharacterCore : MonoBehaviour
         yield return new WaitForSeconds(reloadTime); //this is what actually waits for reload time
 
         CurrentBulletCount = MaxBulletCount;
+        reticleRenderer.material = normalReticle;
         if (ammoCounter != null)//update ammo counter display if it exists
         {
             ammoCounter.text = CurrentBulletCount.ToString() + " / " + MaxBulletCount.ToString();
