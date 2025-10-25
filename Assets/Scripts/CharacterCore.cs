@@ -14,6 +14,7 @@ public class CharacterCore : MonoBehaviour
     //shooting
     [Tooltip("The bullet prefab to shoot")]
     public GameObject bulletPrefab;
+    private Projectile bulletProperties=null;
     [Tooltip("The reticle object to aim with")]
     public GameObject reticle;
     [Tooltip("The time between shots")]
@@ -40,7 +41,7 @@ public class CharacterCore : MonoBehaviour
 
     private void Start()
     {
-        moveAction=InputSystem.actions.FindAction("Move"); //binds the "Move" actions from the Input Actions Asset
+        moveAction = InputSystem.actions.FindAction("Move"); //binds the "Move" actions from the Input Actions Asset
         controller = GetComponent<CharacterController>();
 
         shootAction = InputSystem.actions.FindAction("Attack"); //binds the "Attack" actions from the Input Actions Asset
@@ -59,6 +60,15 @@ public class CharacterCore : MonoBehaviour
             Debug.LogWarning("No AmmoCounter TextMeshPro object found.");
         }
 
+        try
+        {
+            bulletProperties = bulletPrefab.GetComponent<Projectile>();
+        }
+        catch
+        {
+            Debug.LogWarning("No Projectile component found on the bullet prefab.");
+
+        }
     }
 
     private void Update()
