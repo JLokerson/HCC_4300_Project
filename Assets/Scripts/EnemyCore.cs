@@ -14,6 +14,17 @@ public class EnemyCore : MonoBehaviour
     private float elapsed = 1; //timer to determine when to update the path to a moving target
     private NavMeshAgent agent=null;
 
+    public float maxHealth = 3f;
+    private float currentHealth;
+
+    [Tooltip("How much piercing resistance this enemy has (reduces how much piercing the projectile has left)")]
+    public float maxPiercingResistance = 1f;
+    private float currentPiercingResistance;
+
+    public bool immortal = false;
+    [Tooltip("How long the enemy is frozen for if immortal and health reaches 0 (snail in shell)")]
+    public float stunDuration = 5;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -46,7 +57,9 @@ public class EnemyCore : MonoBehaviour
                 Debug.LogWarning("No target specifed on " + this.name);
             }
         }
-                
+        currentHealth = maxHealth;
+        currentPiercingResistance = maxPiercingResistance;
+
     }
 
     // Update is called once per frame
@@ -78,4 +91,31 @@ public class EnemyCore : MonoBehaviour
             }
         }                  
     }   
+
+    public void TakeDamage(float damageAmount)
+    {
+        currentHealth -= damageAmount;
+        if(currentHealth <= 0f && !immortal)
+        {
+            Destroy(gameObject);
+        }
+        else if (currentHealth<=0f && immortal) //temporary snail test code
+        {
+            StartCoroutine(StunEnemy());
+        }
+    }
+    private System.Collections.IEnumerator StunEnemy()
+    {
+        Debug.Log("Snail enters shell");
+        agent.isStopped = true;
+        yield return new WaitForSeconds(stunDuration);
+        Debug.Log("Snail exits shell");
+        agent.isStopped = false;
+        currentHealth = maxHealth;
+    }
+
+    public float getPiercingResistance()
+    {
+        return currentPiercingResistance;
+    }
 }

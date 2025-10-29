@@ -94,6 +94,10 @@ MonoBehaviour:
   target: {fileID: 0}
   TargetIsStationary: 0
   UpdateInterval: 0.5
+  maxHealth: 10
+  maxPiercingResistance: 3
+  immortal: 1
+  stunDuration: 5
 --- !u!1 &7863646918458961590
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEditor;
 
 /// <summary>
 /// Handles the pause menu functionality during gameplay
@@ -17,7 +18,7 @@ public class PauseManager : MonoBehaviour
     [SerializeField] private Button quitButton;
     
     [Header("Scene Management")]
-    [SerializeField] private string mainMenuSceneName = "MainMenu";
+    [SerializeField] private SceneAsset mainMenuSceneName = null;
     
     private bool isPaused = false;
     private InputAction pauseAction;
@@ -141,8 +142,7 @@ public class PauseManager : MonoBehaviour
         if (pauseMenuPanel != null)
             pauseMenuPanel.SetActive(false);
         
-        // Lock cursor back to center for gameplay (optional)
-        Cursor.lockState = CursorLockMode.Locked;
+        
         Cursor.visible = false;
         
         Debug.Log("Game resumed");
@@ -155,7 +155,7 @@ public class PauseManager : MonoBehaviour
     {
         Time.timeScale = 1f; // Make sure time scale is reset
         Debug.Log("Returning to main menu...");
-        SceneManager.LoadScene(mainMenuSceneName);
+        SceneManager.LoadScene(mainMenuSceneName.name);
     }
     
     /// <summary>
@@ -183,10 +183,6 @@ public class PauseManager : MonoBehaviour
     
     private void Update()
     {
-        // Fallback input handling if Input System action is not set up
-        if (pauseAction == null && Input.GetKeyDown(KeyCode.Escape))
-        {
-            TogglePause();
-        }
+        
     }
 }
