@@ -2,10 +2,16 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(CharacterController))]
 public class CharacterCore : MonoBehaviour
 {
+    //upgrade system integration
+    [Header("Stat System")]
+    private StatManager statManager;
+    private UpgradeManager upgradeManager;
+
     [Tooltip("Used to modify the speed the player moves")]
     public float MovementSpeed = 5;
     private InputAction moveAction;
@@ -41,6 +47,17 @@ public class CharacterCore : MonoBehaviour
 
     private void Start()
     {
+        // Get StatManager and set up base stats
+        statManager = GetComponent<StatManager>();
+        upgradeManager = GetComponent<UpgradeManager>();
+
+        if (statManager != null)
+        {
+            // Set base values from inspector settings
+            //statManager.GetStat(StatType.MoveSpeed).BaseValue = MovementSpeed;
+            //statManager.GetStat(StatType.AttackSpeed).BaseValue = 1f / fireRate; // Convert time-between-shots to shots-per-second
+        }
+        
         moveAction = InputSystem.actions.FindAction("Move"); //binds the "Move" actions from the Input Actions Asset
         controller = GetComponent<CharacterController>();
 
@@ -75,20 +92,35 @@ public class CharacterCore : MonoBehaviour
     {
         //moveAction is a Vector2, which looks like (x,y) with x and y being -1, 0, or 1 depending on the input
         //(movement along an axis. 0 is none, -1 is one direction, and 1 is the other)
-        Vector2 moveValue= moveAction.ReadValue<Vector2>(); 
+        Vector2 moveValue= moveAction.ReadValue<Vector2>();
         Vector3 move = new Vector3(moveValue.x, 0, moveValue.y); //now we convert it to a Vector3 for 3D movement. the 0 is since we don't want to move up or down
-        controller.Move(move * Time.deltaTime * MovementSpeed); //this is the actual movement
+
+        //Read the current speed from the stat manager if it exists, otherwise use the default MovementSpeed
+        float currentSpeed = statManager != null ? statManager.GetStatValue(StatType.MoveSpeed) : MovementSpeed;
+
+        //Changed default MovementSpeed to currentSpeed to account for upgrades/modifiers
+        controller.Move(move * Time.deltaTime * currentSpeed); //this is the actual movement
 
         //shooting
-        if(shootAction.IsPressed() && !isReloading &&!isShooting && CurrentBulletCount>0) //if shoot action is pressed (held works too this way) and the time is greater than what is calculated as the next time a shot can be fired and not reloading and has bullets
+        if (shootAction.IsPressed() && !isReloading && !isShooting && CurrentBulletCount > 0) //if shoot action is pressed (held works too this way) and the time is greater than what is calculated as the next time a shot can be fired and not reloading and has bullets
         {
             StartCoroutine(Shoot()); //start corutine lets us wait for some time without blocking the main thread
-        }            
+        }
         //reload
-        else if((reloadAction.triggered || CurrentBulletCount<=0) && !isReloading) //if reload action triggered manually or out of bullets, reload if not currently
-        {            
+        else if ((reloadAction.triggered || CurrentBulletCount <= 0) && !isReloading) //if reload action triggered manually or out of bullets, reload if not currently
+        {
             StartCoroutine(Reload()); //start corutine lets us wait for some time without blocking the main thread
-            
+
+        }
+        
+        // Add to Update() method for testing:
+        if (Input.GetKeyDown(KeyCode.U)) // Press U to get upgrade
+        {
+            if (upgradeManager != null)
+            {
+                upgradeManager.AcquireUpgrade(upgradeManager.GetRandomAvailableUpgrades(1)[0]);
+                Debug.Log("Upgrade acquired! Check your speed and fire rate!");
+            }
         }
         
     }
@@ -101,11 +133,11 @@ public class CharacterCore : MonoBehaviour
 
         if (bulletPrefab != null)
         {
-            GameObject bulletObj=Instantiate(bulletPrefab, transform.position, transform.rotation); //create bullet at player
-            Projectile bullet=bulletObj.GetComponent<Projectile>();
+            GameObject bulletObj = Instantiate(bulletPrefab, transform.position, transform.rotation); //create bullet at player
+            Projectile bullet = bulletObj.GetComponent<Projectile>();
             bullet.SetTarget(reticle.transform.position, bulletSpread);
 
-            if(ammoCounter!=null)//update ammo counter display if it exists
+            if (ammoCounter != null)//update ammo counter display if it exists
             {
                 ammoCounter.text = CurrentBulletCount.ToString() + " / " + MaxBulletCount.ToString();
             }
@@ -114,7 +146,12 @@ public class CharacterCore : MonoBehaviour
         {
             Debug.LogWarning("Bullet Prefab is not assigned.");
         }
-        yield return new WaitForSeconds(fireRate); //this is what actually waits for fire rate time
+
+        //read the current attack speed from the stat manager if it exists, otherwise use the default fireRate
+        float currentAttackSpeed = statManager != null ? statManager.GetStatValue(StatType.AttackSpeed) : (1f / fireRate);
+        float timeBetweenShots = 1f / currentAttackSpeed; // Convert attacks-per-second back to seconds-between-attacks
+        
+        yield return new WaitForSeconds(timeBetweenShots); //this is what actually waits for fire rate time
         isShooting = false;
         if (!isReloading)
         {
