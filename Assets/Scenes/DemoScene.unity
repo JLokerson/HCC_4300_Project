@@ -119,6 +119,24 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &4502610 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4922636760702341083, guid: 70271ab65f95a35438065a3a1a2c9413, type: 3}
+  m_PrefabInstance: {fileID: 664183265}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4502615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4502610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7969bedb69798947a2d1fd10e8cfc9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SnailDirectionController
+  velocityThreshold: 0.1
 --- !u!1 &14554978
 GameObject:
   m_ObjectHideFlags: 0
@@ -1030,6 +1048,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2198670637283613198, guid: 70271ab65f95a35438065a3a1a2c9413, type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 4922636760702341083, guid: 70271ab65f95a35438065a3a1a2c9413, type: 3}
       propertyPath: m_Name
       value: Snail
@@ -1037,7 +1059,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4922636760702341083, guid: 70271ab65f95a35438065a3a1a2c9413, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4502615}
   m_SourcePrefab: {fileID: 100100000, guid: 70271ab65f95a35438065a3a1a2c9413, type: 3}
 --- !u!1001 &746280440
 PrefabInstance:
