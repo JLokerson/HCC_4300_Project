@@ -13,7 +13,11 @@ public enum StatType
     BulletDamage,
 
     AttackSpeed, //Measured in attacks per second
-    CriticalChance,
+    ReloadSpeed, //Measured in seconds to reload
+    MagazineSize, //Measured in number of bullets
+    CriticalChance, //Measured in percentage (0 to 1)
+    CriticalDamageMultiplier, //Measured as a multiplier (e.g., 2.0 = double damage)
+    BulletSpread, //Measured as a percentage (0 to 1)
     BulletPiercing,
     BulletSpeed,
 
