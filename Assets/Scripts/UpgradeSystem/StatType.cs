@@ -8,16 +8,17 @@ public enum StatType
 {
     // Movement Stats
     MoveSpeed,
-    
+
     // Combat Stats
     BulletDamage,
-    AttackSpeed,
+
+    AttackSpeed, //Measured in attacks per second
     CriticalChance,
     BulletPiercing,
     BulletSpeed,
 
     // Defensive Stats
     MaxHealth,
-    
+
     // Add more stat types as needed
 }

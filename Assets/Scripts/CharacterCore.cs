@@ -113,13 +113,13 @@ public class CharacterCore : MonoBehaviour
 
         }
         
-        // Add to Update() method for testing:
-        if (Input.GetKeyDown(KeyCode.U)) // Press U to get upgrade
+        // Press U to get upgrade for testing 
+        if (Input.GetKeyDown(KeyCode.U)) 
         {
             if (upgradeManager != null)
             {
                 upgradeManager.AcquireUpgrade(upgradeManager.GetRandomAvailableUpgrades(1)[0]);
-                Debug.Log("Upgrade acquired! Check your speed and fire rate!");
+                Debug.Log("Upgrade acquired!");
             }
         }
         
