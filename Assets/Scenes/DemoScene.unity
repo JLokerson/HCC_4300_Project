@@ -119,38 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &4502610 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4922636760702341083, guid: 70271ab65f95a35438065a3a1a2c9413, type: 3}
-  m_PrefabInstance: {fileID: 664183265}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &4502615
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4502610}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7969bedb69798947a2d1fd10e8cfc9e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SnailDirectionController
-  velocityThreshold: 0.1
---- !u!114 &4502620
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4502610}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5518ee84a2f77c45ba6c7a83d217fa7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyContactDamage
-  damage: 10
-  damageCooldown: 0.5
 --- !u!1 &14554978
 GameObject:
   m_ObjectHideFlags: 0
@@ -1325,10 +1293,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2786431755928837448, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4922636760702341083, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
       propertyPath: m_Name
       value: Enemy (1)
@@ -1336,30 +1300,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4922636760702341083, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 376024600}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
---- !u!1 &376024599 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4922636760702341083, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
-  m_PrefabInstance: {fileID: 376024598}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &376024600
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 376024599}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5518ee84a2f77c45ba6c7a83d217fa7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyContactDamage
-  damage: 10
-  damageCooldown: 0.5
 --- !u!1001 &384076174
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1408,10 +1350,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2786431755928837448, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4922636760702341083, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
       propertyPath: m_Name
       value: Enemy (6)
@@ -1419,30 +1357,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4922636760702341083, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 384076176}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
---- !u!1 &384076175 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4922636760702341083, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
-  m_PrefabInstance: {fileID: 384076174}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &384076176
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 384076175}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5518ee84a2f77c45ba6c7a83d217fa7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyContactDamage
-  damage: 10
-  damageCooldown: 0.5
 --- !u!1 &414089700
 GameObject:
   m_ObjectHideFlags: 0
@@ -1606,10 +1522,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2786431755928837448, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4922636760702341083, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
       propertyPath: m_Name
       value: Enemy (3)
@@ -1617,30 +1529,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4922636760702341083, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 442389042}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
---- !u!1 &442389041 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4922636760702341083, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
-  m_PrefabInstance: {fileID: 442389040}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &442389042
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 442389041}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5518ee84a2f77c45ba6c7a83d217fa7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyContactDamage
-  damage: 10
-  damageCooldown: 0.5
 --- !u!1001 &445594140
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1768,98 +1658,21 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1057559930409579937, guid: 2d05ce5b510e68c428ae152f97aac112, type: 3}
-      insertIndex: 3
-      addedObject: {fileID: 479807076}
-    - targetCorrespondingSourceObject: {fileID: 1057559930409579937, guid: 2d05ce5b510e68c428ae152f97aac112, type: 3}
-      insertIndex: 4
-      addedObject: {fileID: 479807082}
-    - targetCorrespondingSourceObject: {fileID: 1057559930409579937, guid: 2d05ce5b510e68c428ae152f97aac112, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 479807070}
-    - targetCorrespondingSourceObject: {fileID: 1057559930409579937, guid: 2d05ce5b510e68c428ae152f97aac112, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 479807069}
-    - targetCorrespondingSourceObject: {fileID: 1057559930409579937, guid: 2d05ce5b510e68c428ae152f97aac112, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 479807068}
     - targetCorrespondingSourceObject: {fileID: 4952740697201863018, guid: 2d05ce5b510e68c428ae152f97aac112, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 2d05ce5b510e68c428ae152f97aac112, type: 3}
---- !u!1 &479807067 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1057559930409579937, guid: 2d05ce5b510e68c428ae152f97aac112, type: 3}
+--- !u!114 &479807076 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 960294043739221050, guid: 2d05ce5b510e68c428ae152f97aac112, type: 3}
   m_PrefabInstance: {fileID: 479807066}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &479807068
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 479807067}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a35db07b1e463e46b10f9b55a632bd3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GameTimer
-  health: {fileID: 479807070}
---- !u!114 &479807069
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 479807067}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58aa7815329acba47abad1c0ab26363c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::XPSystem
---- !u!114 &479807070
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 479807067}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fa08993814a29249934a76c334ef075, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HealthSystem
---- !u!114 &479807076
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 479807067}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1323b9bf2ae74824381e9aa0b1993387, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
-  maxHealth: 100
-  currentHealth: 0
-  destroyOnDeath: 0
-  canTakeDamage: 1
-  invulnSecondsAfterHit: 0.15
---- !u!114 &479807082
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 479807067}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a833501d76bcbd545a36611d8bd310c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
-  mainMenuSceneName: MainMenu
-  mainMenuBuildIndex: 0
 --- !u!1001 &482636780
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2447,18 +2260,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 262680835329437270, guid: 70271ab65f95a35438065a3a1a2c9413, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.12
-      objectReference: {fileID: 0}
-    - target: {fileID: 262680835329437270, guid: 70271ab65f95a35438065a3a1a2c9413, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 262680835329437270, guid: 70271ab65f95a35438065a3a1a2c9413, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.31
-      objectReference: {fileID: 0}
     - target: {fileID: 1169364289465441483, guid: 70271ab65f95a35438065a3a1a2c9413, type: 3}
       propertyPath: m_LocalPosition.x
       value: 19.11
@@ -2499,14 +2300,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2198670637283613198, guid: 70271ab65f95a35438065a3a1a2c9413, type: 3}
-      propertyPath: target
-      value: 
-      objectReference: {fileID: 479807067}
-    - target: {fileID: 2786431755928837448, guid: 70271ab65f95a35438065a3a1a2c9413, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4922636760702341083, guid: 70271ab65f95a35438065a3a1a2c9413, type: 3}
       propertyPath: m_Name
       value: Snail
@@ -2514,13 +2307,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4922636760702341083, guid: 70271ab65f95a35438065a3a1a2c9413, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 4502615}
-    - targetCorrespondingSourceObject: {fileID: 4922636760702341083, guid: 70271ab65f95a35438065a3a1a2c9413, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 4502620}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 70271ab65f95a35438065a3a1a2c9413, type: 3}
 --- !u!1001 &667574350
 PrefabInstance:
@@ -2636,10 +2423,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2786431755928837448, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4922636760702341083, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
       propertyPath: m_Name
       value: Enemy (2)
@@ -2647,30 +2430,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4922636760702341083, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 675545102}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
---- !u!1 &675545101 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4922636760702341083, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
-  m_PrefabInstance: {fileID: 675545100}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &675545102
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 675545101}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5518ee84a2f77c45ba6c7a83d217fa7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyContactDamage
-  damage: 10
-  damageCooldown: 0.5
 --- !u!1001 &693303354
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2719,10 +2480,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2786431755928837448, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4922636760702341083, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
       propertyPath: m_Name
       value: Enemy (5)
@@ -2730,30 +2487,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4922636760702341083, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 693303356}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
---- !u!1 &693303355 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4922636760702341083, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
-  m_PrefabInstance: {fileID: 693303354}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &693303356
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 693303355}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5518ee84a2f77c45ba6c7a83d217fa7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyContactDamage
-  damage: 10
-  damageCooldown: 0.5
 --- !u!1001 &696099943
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3764,10 +3499,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2786431755928837448, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4922636760702341083, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
       propertyPath: m_Name
       value: Enemy (4)
@@ -3775,30 +3506,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4922636760702341083, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 843649465}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
---- !u!1 &843649464 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4922636760702341083, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
-  m_PrefabInstance: {fileID: 843649463}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &843649465
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 843649464}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5518ee84a2f77c45ba6c7a83d217fa7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyContactDamage
-  damage: 10
-  damageCooldown: 0.5
 --- !u!1 &846511138
 GameObject:
   m_ObjectHideFlags: 0
@@ -6514,10 +6223,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2786431755928837448, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4922636760702341083, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
       propertyPath: m_Name
       value: Enemy (7)
@@ -6525,49 +6230,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4922636760702341083, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1592707622}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
---- !u!1 &1592707621 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4922636760702341083, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
-  m_PrefabInstance: {fileID: 1592707620}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1592707622
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1592707621}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5518ee84a2f77c45ba6c7a83d217fa7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyContactDamage
-  damage: 10
-  damageCooldown: 0.5
---- !u!1 &1594909248 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4922636760702341083, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
-  m_PrefabInstance: {fileID: 1881828252}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1594909253
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1594909248}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5518ee84a2f77c45ba6c7a83d217fa7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyContactDamage
-  damage: 10
-  damageCooldown: 0.5
 --- !u!1 &1599285783
 GameObject:
   m_ObjectHideFlags: 0
@@ -8395,10 +8059,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2786431755928837448, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4922636760702341083, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
       propertyPath: m_Name
       value: Enemy
@@ -8406,10 +8066,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4922636760702341083, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1594909253}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
 --- !u!1001 &1902511198
 PrefabInstance:
