@@ -21,6 +21,9 @@ MonoBehaviour:
     valuePerStack: 5
   - affectedStat: 2
     modifierType: 300
-    valuePerStack: 100
+    valuePerStack: 1
+  - affectedStat: 2
+    modifierType: 300
+    valuePerStack: 1
   maxStacks: 3
   isStackable: 1
