@@ -119,13 +119,13 @@ GameObject:
   - component: {fileID: 7462490430265079121}
   - component: {fileID: 2515586928962376998}
   - component: {fileID: 5200670122478001082}
-  - component: {fileID: 960294043739221050}
-  - component: {fileID: 1399635010273534226}
+  - component: {fileID: 4940168975262450252}
+  - component: {fileID: 9078347015398650363}
   - component: {fileID: 7461484062620807114}
   - component: {fileID: 4767249336620690423}
-  - component: {fileID: 4790964127131588148}
-  - component: {fileID: 2873594471427289819}
-  - component: {fileID: 3634576141212386118}
+  - component: {fileID: 6066347027140311121}
+  - component: {fileID: 8048753426995499325}
+  - component: {fileID: 3436708249715995942}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -196,7 +196,7 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &960294043739221050
+--- !u!114 &4940168975262450252
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -213,7 +213,7 @@ MonoBehaviour:
   destroyOnDeath: 0
   canTakeDamage: 1
   invulnSecondsAfterHit: 0.15
---- !u!114 &1399635010273534226
+--- !u!114 &9078347015398650363
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -274,7 +274,7 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &4790964127131588148
+--- !u!114 &6066347027140311121
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -287,7 +287,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameTimer
   health: {fileID: 0}
---- !u!114 &2873594471427289819
+--- !u!114 &8048753426995499325
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -310,7 +310,7 @@ MonoBehaviour:
     baseValue: 5
   - statType: 7
     baseValue: 0.2
---- !u!114 &3634576141212386118
+--- !u!114 &3436708249715995942
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -322,7 +322,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b9781611784f314b9ed22449be20399, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeManager
-  statManager: {fileID: 2873594471427289819}
+  statManager: {fileID: 8048753426995499325}
   availableUpgrades:
   - {fileID: 11400000, guid: 92eb8813bed554e4eb645c87f40ebd66, type: 2}
 --- !u!1 &4952740697201863018
