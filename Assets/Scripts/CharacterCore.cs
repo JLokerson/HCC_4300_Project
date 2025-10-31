@@ -16,6 +16,7 @@ public class CharacterCore : MonoBehaviour
     private CharacterController controller;
 
     //shooting
+    [Header("Shooting System")]
     [Tooltip("The bullet prefab to shoot")]
     public GameObject bulletPrefab;
     private Projectile bulletProperties=null;
@@ -33,6 +34,17 @@ public class CharacterCore : MonoBehaviour
     private int CurrentBulletCount;
 
     private TextMeshPro ammoCounter=null;
+
+    [Header("Audio")]
+    [SerializeField]
+    private AudioClip footstepSound=null;    
+    public AudioClip damageSound = null;
+    [SerializeField]
+    private AudioClip reloadStartSound = null;
+    [SerializeField]
+    private AudioClip reloadFinishSound = null;
+
+    private AudioSource audioSource = null;
 
     private void Start()
     {
@@ -77,6 +89,9 @@ public class CharacterCore : MonoBehaviour
             Debug.LogWarning("No Projectile component found on the bullet prefab.");
 
         }
+
+        // Set up audio source
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -91,6 +106,15 @@ public class CharacterCore : MonoBehaviour
 
         //Use currentSpeed to account for upgrades/modifiers
         controller.Move(move * Time.deltaTime * currentSpeed); //this is the actual movement
+        //if moving and has audio source
+        if(move.magnitude > 0.1f&& audioSource!=null)
+        {
+            // Play footstep sound if it exists and isn't currently playing
+            if (footstepSound != null && !audioSource.isPlaying)
+            {
+                audioSource.PlayOneShot(footstepSound);
+            }
+        }
 
         //shooting
         if (shootAction.IsPressed() && !isReloading && !isShooting && CurrentBulletCount > 0) //if shoot action is pressed (held works too this way) and the time is greater than what is calculated as the next time a shot can be fired and not reloading and has bullets
@@ -156,6 +180,7 @@ public class CharacterCore : MonoBehaviour
     private System.Collections.IEnumerator Reload() //system.collections.ienumerator lets us use yield return to wait
     {
         isReloading = true;
+        audioSource.PlayOneShot(reloadStartSound);
         reticleRenderer.material = reloadReticle;
         if(ammoCounter!=null)//update ammo counter display if it exists
         {
@@ -173,6 +198,7 @@ public class CharacterCore : MonoBehaviour
             int maxBullets = Mathf.RoundToInt(statManager != null ? statManager.GetStatValue(StatType.MagazineSize) : 5);
             ammoCounter.text = CurrentBulletCount.ToString() + " / " + maxBullets.ToString();
         }
+        audioSource.PlayOneShot(reloadFinishSound);
         isReloading = false;
     }
 

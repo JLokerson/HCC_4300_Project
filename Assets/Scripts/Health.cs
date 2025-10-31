@@ -22,9 +22,14 @@ public class Health : MonoBehaviour
 
     private bool invulnerable;
 
+    private AudioClip damageSound = null;
+    private AudioSource audioSource = null;
+
     void Awake()
     {
         currentHealth = Mathf.Max(1f, maxHealth);
+        audioSource = GetComponent<AudioSource>();
+        damageSound=GetComponent<CharacterCore>()?.damageSound;
     }
 
     public void TakeDamage(float amount)
@@ -42,6 +47,7 @@ public class Health : MonoBehaviour
 
         if (invulnSecondsAfterHit > 0f)
             StartCoroutine(TempInvuln(invulnSecondsAfterHit));
+        audioSource.PlayOneShot(damageSound);
     }
 
     public void Heal(float amount)

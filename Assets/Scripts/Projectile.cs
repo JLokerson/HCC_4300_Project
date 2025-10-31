@@ -1,4 +1,6 @@
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Projectile : MonoBehaviour
 {
@@ -16,6 +18,18 @@ public class Projectile : MonoBehaviour
     [Tooltip("How many times bullet can bounce off surfaces after it has no piercing left")]
     public int maxBounces = 0;
     private int currentBounces;
+
+    [Header("Audio")]
+    [SerializeField]
+    private AudioClip bounceSound = null;
+    [SerializeField]
+    private AudioClip breakSound = null;
+    [SerializeField]
+    private AudioClip spawnSound = null;
+    [SerializeField]
+    private AudioClip pierceSound = null;
+
+    private AudioSource audioSource = null;
 
     private Vector3 moveDirection = Vector3.zero;
        
@@ -42,6 +56,8 @@ public class Projectile : MonoBehaviour
         currentDamage = maxDamage;
         currentPiercing = maxPiercing;
         currentBounces = 0;
+        audioSource = GetComponent<AudioSource>();
+        audioSource.PlayOneShot(spawnSound);
     }
 
     void Update()
@@ -61,9 +77,10 @@ public class Projectile : MonoBehaviour
         }
         if (other.CompareTag("Enemy"))
         {
-            other.GetComponent<EnemyCore>()?.TakeDamage(currentDamage);
-            currentPiercing=currentPiercing-other.GetComponent<EnemyCore>()!.getPiercingResistance();
-            
+            EnemyCore enemy= other.GetComponent<EnemyCore>();                        
+            enemy?.TakeDamage(currentDamage);
+            currentPiercing = currentPiercing - enemy.getPiercingResistance();
+
         }
         if(other.gameObject.layer.Equals(LayerMask.NameToLayer("Environment")))
         {
@@ -79,9 +96,13 @@ public class Projectile : MonoBehaviour
             }
             else 
             { 
-                Destroy(gameObject);
-            }
-                
+                AudioSource.PlayClipAtPoint(breakSound, transform.position);
+                Destroy(gameObject); //destroy after sound plays
+            }                
+        }
+        else if(other.CompareTag("Enemy")||other.gameObject.layer.Equals("Environment"))
+        {
+            audioSource.PlayOneShot(pierceSound);
         }
     }
 
@@ -93,6 +114,7 @@ public class Projectile : MonoBehaviour
         {
             moveDirection = Vector3.Reflect(moveDirection, hit.normal);
             currentBounces++;
+            audioSource.PlayOneShot(bounceSound);
         }
     }
 }

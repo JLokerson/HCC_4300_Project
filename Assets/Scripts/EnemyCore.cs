@@ -25,6 +25,13 @@ public class EnemyCore : MonoBehaviour
     [Tooltip("How long the enemy is frozen for if immortal and health reaches 0 (snail in shell)")]
     public float stunDuration = 5;
 
+    [Header("Audio")]
+    [SerializeField]
+    private AudioClip footstepSound = null;
+
+    public AudioClip damageSound = null;
+    private AudioSource audioSource = null;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -60,6 +67,9 @@ public class EnemyCore : MonoBehaviour
         currentHealth = maxHealth;
         currentPiercingResistance = maxPiercingResistance;
 
+        // Set up audio source
+        audioSource = GetComponent<AudioSource>();
+
     }
 
     // Update is called once per frame
@@ -87,7 +97,12 @@ public class EnemyCore : MonoBehaviour
                 else
                 {
                     Debug.LogWarning("Failed to calculate path for " + this.name + " to " + target.name);
-                }                
+                }
+
+                if(footstepSound != null && audioSource != null && agent.velocity.magnitude > 0.1f && !audioSource.isPlaying)
+                {
+                    audioSource.PlayOneShot(footstepSound);
+                }
             }
         }                  
     }   
@@ -95,7 +110,8 @@ public class EnemyCore : MonoBehaviour
     public void TakeDamage(float damageAmount)
     {
         currentHealth -= damageAmount;
-        if(currentHealth <= 0f && !immortal)
+        audioSource.PlayOneShot(damageSound);
+        if (currentHealth <= 0f && !immortal)
         {
             Destroy(gameObject);
         }
