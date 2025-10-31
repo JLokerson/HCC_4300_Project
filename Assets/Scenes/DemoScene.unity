@@ -453,6 +453,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6066347027140311121, guid: 2d05ce5b510e68c428ae152f97aac112, type: 3}
+      propertyPath: health
+      value: 
+      objectReference: {fileID: 479807070}
     - target: {fileID: 7462490430265079121, guid: 2d05ce5b510e68c428ae152f97aac112, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.9
@@ -498,26 +502,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1057559930409579937, guid: 2d05ce5b510e68c428ae152f97aac112, type: 3}
-      insertIndex: 3
-      addedObject: {fileID: 479807076}
-    - targetCorrespondingSourceObject: {fileID: 1057559930409579937, guid: 2d05ce5b510e68c428ae152f97aac112, type: 3}
-      insertIndex: 4
-      addedObject: {fileID: 479807082}
-    - targetCorrespondingSourceObject: {fileID: 1057559930409579937, guid: 2d05ce5b510e68c428ae152f97aac112, type: 3}
-      insertIndex: -1
+      insertIndex: 7
       addedObject: {fileID: 479807070}
     - targetCorrespondingSourceObject: {fileID: 1057559930409579937, guid: 2d05ce5b510e68c428ae152f97aac112, type: 3}
-      insertIndex: -1
+      insertIndex: 8
       addedObject: {fileID: 479807069}
-    - targetCorrespondingSourceObject: {fileID: 1057559930409579937, guid: 2d05ce5b510e68c428ae152f97aac112, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 479807068}
-    - targetCorrespondingSourceObject: {fileID: 1057559930409579937, guid: 2d05ce5b510e68c428ae152f97aac112, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 479807084}
-    - targetCorrespondingSourceObject: {fileID: 1057559930409579937, guid: 2d05ce5b510e68c428ae152f97aac112, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 479807083}
     - targetCorrespondingSourceObject: {fileID: 4952740697201863018, guid: 2d05ce5b510e68c428ae152f97aac112, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
@@ -527,19 +516,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1057559930409579937, guid: 2d05ce5b510e68c428ae152f97aac112, type: 3}
   m_PrefabInstance: {fileID: 479807066}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &479807068
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 479807067}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a35db07b1e463e46b10f9b55a632bd3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GameTimer
-  health: {fileID: 479807070}
 --- !u!114 &479807069
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -564,11 +540,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fa08993814a29249934a76c334ef075, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HealthSystem
---- !u!114 &479807076
+--- !u!114 &479807076 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 4940168975262450252, guid: 2d05ce5b510e68c428ae152f97aac112, type: 3}
+  m_PrefabInstance: {fileID: 479807066}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 479807067}
   m_Enabled: 1
@@ -576,63 +551,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1323b9bf2ae74824381e9aa0b1993387, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
-  maxHealth: 100
-  currentHealth: 0
-  destroyOnDeath: 0
-  canTakeDamage: 1
-  invulnSecondsAfterHit: 0.15
---- !u!114 &479807082
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 479807067}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a833501d76bcbd545a36611d8bd310c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
-  mainMenuSceneName: MainMenu
-  mainMenuBuildIndex: 0
---- !u!114 &479807083
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 479807067}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b9781611784f314b9ed22449be20399, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UpgradeManager
-  statManager: {fileID: 479807084}
-  availableUpgrades:
-  - {fileID: 11400000, guid: 92eb8813bed554e4eb645c87f40ebd66, type: 2}
---- !u!114 &479807084
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 479807067}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e1255046bcd0124096ab8259652e1cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::StatManager
-  baseStats:
-  - statType: 0
-    baseValue: 5
-  - statType: 2
-    baseValue: 5
-  - statType: 3
-    baseValue: 2
-  - statType: 4
-    baseValue: 5
-  - statType: 7
-    baseValue: 0.2
 --- !u!1 &505813012
 GameObject:
   m_ObjectHideFlags: 0
