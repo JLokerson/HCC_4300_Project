@@ -119,8 +119,13 @@ GameObject:
   - component: {fileID: 7462490430265079121}
   - component: {fileID: 2515586928962376998}
   - component: {fileID: 5200670122478001082}
+  - component: {fileID: 4940168975262450252}
+  - component: {fileID: 9078347015398650363}
   - component: {fileID: 7461484062620807114}
   - component: {fileID: 4767249336620690423}
+  - component: {fileID: 6066347027140311121}
+  - component: {fileID: 8048753426995499325}
+  - component: {fileID: 3436708249715995942}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -191,6 +196,37 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &4940168975262450252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1057559930409579937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1323b9bf2ae74824381e9aa0b1993387, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Health
+  maxHealth: 100
+  currentHealth: 0
+  destroyOnDeath: 0
+  canTakeDamage: 1
+  invulnSecondsAfterHit: 0.15
+--- !u!114 &9078347015398650363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1057559930409579937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a833501d76bcbd545a36611d8bd310c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
+  mainMenuSceneName: MainMenu
+  mainMenuBuildIndex: 0
 --- !u!114 &7461484062620807114
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -203,16 +239,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f6598eb7a2a9c045b481a95977d3350, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterCore
-  MovementSpeed: 5
   bulletPrefab: {fileID: 8235750292647877918, guid: a2d441e0be5d3bc43919b251a220d8e9, type: 3}
   reticle: {fileID: 176206666722097896}
   normalReticle: {fileID: 2100000, guid: 0c3bd44a93d091a498033667a9fc3663, type: 2}
   shotReticle: {fileID: 2100000, guid: 2cf54aee73f0bea4282491ba8be5676d, type: 2}
   reloadReticle: {fileID: 2100000, guid: 5e78a13e3c2637a488f16517fe0a2ec8, type: 2}
-  fireRate: 0.5
-  reloadTime: 2
-  MaxBulletCount: 5
-  bulletSpread: 0.275
 --- !u!114 &4767249336620690423
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -243,6 +274,57 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &6066347027140311121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1057559930409579937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a35db07b1e463e46b10f9b55a632bd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameTimer
+  health: {fileID: 0}
+--- !u!114 &8048753426995499325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1057559930409579937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e1255046bcd0124096ab8259652e1cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StatManager
+  baseStats:
+  - statType: 0
+    baseValue: 5
+  - statType: 2
+    baseValue: 5
+  - statType: 3
+    baseValue: 2
+  - statType: 4
+    baseValue: 5
+  - statType: 7
+    baseValue: 0.2
+--- !u!114 &3436708249715995942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1057559930409579937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b9781611784f314b9ed22449be20399, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UpgradeManager
+  statManager: {fileID: 8048753426995499325}
+  availableUpgrades:
+  - {fileID: 11400000, guid: 92eb8813bed554e4eb645c87f40ebd66, type: 2}
 --- !u!1 &4952740697201863018
 GameObject:
   m_ObjectHideFlags: 0
