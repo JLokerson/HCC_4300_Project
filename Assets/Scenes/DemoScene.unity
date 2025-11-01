@@ -1265,6 +1265,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1169364289465441483, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1169364289465441483, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1169364289465441483, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.05
       objectReference: {fileID: 0}
@@ -1319,6 +1327,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4922636760702341083, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
       insertIndex: -1
       addedObject: {fileID: 376024600}
+    - targetCorrespondingSourceObject: {fileID: 4922636760702341083, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 376024605}
   m_SourcePrefab: {fileID: 100100000, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
 --- !u!1 &376024599 stripped
 GameObject:
@@ -1339,6 +1350,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyContactDamage
   damage: 10
   damageCooldown: 0.5
+--- !u!114 &376024605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 376024599}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89fd2399531d4a54bbceb01b36b8fa7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ZombieDirectionController
+  velocityThreshold: 0.1
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
+  flashSpeed: 10
+  debugMode: 0
 --- !u!1001 &384076174
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1347,6 +1374,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1169364289465441483, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1169364289465441483, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2.3
+      objectReference: {fileID: 0}
     - target: {fileID: 1169364289465441483, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
       propertyPath: m_LocalPosition.x
       value: -15.88
@@ -1402,6 +1437,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4922636760702341083, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
       insertIndex: -1
       addedObject: {fileID: 384076176}
+    - targetCorrespondingSourceObject: {fileID: 4922636760702341083, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 384076181}
   m_SourcePrefab: {fileID: 100100000, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
 --- !u!1 &384076175 stripped
 GameObject:
@@ -1422,6 +1460,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyContactDamage
   damage: 10
   damageCooldown: 0.5
+--- !u!114 &384076181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 384076175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89fd2399531d4a54bbceb01b36b8fa7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ZombieDirectionController
+  velocityThreshold: 0.1
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
+  flashSpeed: 10
+  debugMode: 0
 --- !u!1 &414089700
 GameObject:
   m_ObjectHideFlags: 0
@@ -1546,6 +1600,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1169364289465441483, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1169364289465441483, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1169364289465441483, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.47
       objectReference: {fileID: 0}
@@ -1600,6 +1662,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4922636760702341083, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
       insertIndex: -1
       addedObject: {fileID: 442389042}
+    - targetCorrespondingSourceObject: {fileID: 4922636760702341083, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 442389047}
   m_SourcePrefab: {fileID: 100100000, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
 --- !u!1 &442389041 stripped
 GameObject:
@@ -1620,6 +1685,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyContactDamage
   damage: 10
   damageCooldown: 0.5
+--- !u!114 &442389047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 442389041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89fd2399531d4a54bbceb01b36b8fa7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ZombieDirectionController
+  velocityThreshold: 0.1
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
+  flashSpeed: 10
+  debugMode: 0
 --- !u!1001 &445594140
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1701,7 +1782,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 546820713215014781, guid: 2d05ce5b510e68c428ae152f97aac112, type: 3}
       propertyPath: spriteScale
-      value: 0.4
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 1057559930409579937, guid: 2d05ce5b510e68c428ae152f97aac112, type: 3}
       propertyPath: m_Name
@@ -1709,23 +1790,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2515586928962376998, guid: 2d05ce5b510e68c428ae152f97aac112, type: 3}
       propertyPath: m_Size.x
-      value: 6.59633
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2515586928962376998, guid: 2d05ce5b510e68c428ae152f97aac112, type: 3}
       propertyPath: m_Size.y
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2515586928962376998, guid: 2d05ce5b510e68c428ae152f97aac112, type: 3}
       propertyPath: m_Size.z
-      value: 9.687734
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2515586928962376998, guid: 2d05ce5b510e68c428ae152f97aac112, type: 3}
       propertyPath: m_Center.x
-      value: 0.65915275
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2515586928962376998, guid: 2d05ce5b510e68c428ae152f97aac112, type: 3}
+      propertyPath: m_Center.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2515586928962376998, guid: 2d05ce5b510e68c428ae152f97aac112, type: 3}
       propertyPath: m_Center.z
-      value: 0.018845081
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5200670122478001082, guid: 2d05ce5b510e68c428ae152f97aac112, type: 3}
       propertyPath: m_Radius
@@ -2496,6 +2581,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1169364289465441483, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1169364289465441483, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1169364289465441483, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.47
       objectReference: {fileID: 0}
@@ -2550,6 +2643,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4922636760702341083, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
       insertIndex: -1
       addedObject: {fileID: 675545102}
+    - targetCorrespondingSourceObject: {fileID: 4922636760702341083, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 675545107}
   m_SourcePrefab: {fileID: 100100000, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
 --- !u!1 &675545101 stripped
 GameObject:
@@ -2570,6 +2666,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyContactDamage
   damage: 10
   damageCooldown: 0.5
+--- !u!114 &675545107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 675545101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89fd2399531d4a54bbceb01b36b8fa7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ZombieDirectionController
+  velocityThreshold: 0.1
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
+  flashSpeed: 10
+  debugMode: 0
 --- !u!1001 &693303354
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2578,6 +2690,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1169364289465441483, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1169364289465441483, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2.3
+      objectReference: {fileID: 0}
     - target: {fileID: 1169364289465441483, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.15
@@ -2633,6 +2753,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4922636760702341083, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
       insertIndex: -1
       addedObject: {fileID: 693303356}
+    - targetCorrespondingSourceObject: {fileID: 4922636760702341083, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 693303361}
   m_SourcePrefab: {fileID: 100100000, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
 --- !u!1 &693303355 stripped
 GameObject:
@@ -2653,6 +2776,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyContactDamage
   damage: 10
   damageCooldown: 0.5
+--- !u!114 &693303361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 693303355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89fd2399531d4a54bbceb01b36b8fa7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ZombieDirectionController
+  velocityThreshold: 0.1
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
+  flashSpeed: 10
+  debugMode: 0
 --- !u!1001 &696099943
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3624,6 +3763,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1169364289465441483, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1169364289465441483, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1169364289465441483, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
       propertyPath: m_LocalPosition.x
       value: -8.08
       objectReference: {fileID: 0}
@@ -3678,6 +3825,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4922636760702341083, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
       insertIndex: -1
       addedObject: {fileID: 843649465}
+    - targetCorrespondingSourceObject: {fileID: 4922636760702341083, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 843649470}
   m_SourcePrefab: {fileID: 100100000, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
 --- !u!1 &843649464 stripped
 GameObject:
@@ -3698,6 +3848,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyContactDamage
   damage: 10
   damageCooldown: 0.5
+--- !u!114 &843649470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 843649464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89fd2399531d4a54bbceb01b36b8fa7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ZombieDirectionController
+  velocityThreshold: 0.1
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
+  flashSpeed: 10
+  debugMode: 0
 --- !u!1 &846511138
 GameObject:
   m_ObjectHideFlags: 0
@@ -6393,6 +6559,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1169364289465441483, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1169364289465441483, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1169364289465441483, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
       propertyPath: m_LocalPosition.x
       value: 15.97
       objectReference: {fileID: 0}
@@ -6447,6 +6621,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4922636760702341083, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1592707622}
+    - targetCorrespondingSourceObject: {fileID: 4922636760702341083, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1592707627}
   m_SourcePrefab: {fileID: 100100000, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
 --- !u!1 &1592707621 stripped
 GameObject:
@@ -6467,6 +6644,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyContactDamage
   damage: 10
   damageCooldown: 0.5
+--- !u!114 &1592707627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1592707621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89fd2399531d4a54bbceb01b36b8fa7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ZombieDirectionController
+  velocityThreshold: 0.1
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
+  flashSpeed: 10
+  debugMode: 0
 --- !u!1 &1599285783
 GameObject:
   m_ObjectHideFlags: 0
@@ -8273,6 +8466,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1169364289465441483, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1169364289465441483, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1169364289465441483, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.12
       objectReference: {fileID: 0}
@@ -8327,6 +8528,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4922636760702341083, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1881828254}
+    - targetCorrespondingSourceObject: {fileID: 4922636760702341083, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1881828259}
   m_SourcePrefab: {fileID: 100100000, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
 --- !u!1 &1881828253 stripped
 GameObject:
@@ -8347,6 +8551,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyContactDamage
   damage: 10
   damageCooldown: 0.5
+--- !u!114 &1881828259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1881828253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89fd2399531d4a54bbceb01b36b8fa7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ZombieDirectionController
+  velocityThreshold: 0.1
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
+  flashSpeed: 10
+  debugMode: 0
 --- !u!1001 &1902511198
 PrefabInstance:
   m_ObjectHideFlags: 0
