@@ -12,6 +12,7 @@ public class CharacterCore : MonoBehaviour
     private CharacterController controller;
 
     //shooting
+    [Header("Shooting System")]
     [Tooltip("The bullet prefab to shoot")]
     public GameObject bulletPrefab;
     private Projectile bulletProperties=null;
@@ -39,6 +40,25 @@ public class CharacterCore : MonoBehaviour
 
     private TextMeshPro ammoCounter=null;
     private PlayerDirectionController directionController=null;
+
+    [Header("Audio")]
+    [SerializeField]
+    private AudioClip footstepSound=null;    
+    public AudioClip damageSound = null;
+    [SerializeField]
+    private AudioClip reloadStartSound = null;
+    [SerializeField]
+    private AudioClip reloadFinishSound = null;
+
+    private AudioSource audioSource = null;
+
+    [Header("Footstep Settings")]
+    [Tooltip("How often footsteps play while moving")]
+    public float baseStepRate = 1f; // Time between steps at base speed
+    public float minPitch = 0.9f;
+    public float maxPitch = 1.2f;
+
+    private float footstepTimer = 0f;
 
     private void Start()
     {
@@ -76,6 +96,9 @@ public class CharacterCore : MonoBehaviour
         {
             Debug.LogWarning("No PlayerDirectionController found on player.");
         }
+
+        // Set up audio source
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -85,6 +108,27 @@ public class CharacterCore : MonoBehaviour
         Vector2 moveValue= moveAction.ReadValue<Vector2>(); 
         Vector3 move = new Vector3(moveValue.x, 0, moveValue.y); //now we convert it to a Vector3 for 3D movement. the 0 is since we don't want to move up or down
         controller.Move(move * Time.deltaTime * MovementSpeed); //this is the actual movement
+
+        // Footstep sound logic
+        if (move.magnitude > 0.1f && audioSource != null && footstepSound != null)
+        {
+            // Calculate step interval inversely proportional to speed
+            float stepInterval = baseStepRate / currentSpeed;
+            footstepTimer += Time.deltaTime;
+
+            if (footstepTimer >= stepInterval)
+            {
+                // Vary pitch based on speed
+                audioSource.pitch = Mathf.Lerp(minPitch, maxPitch, (currentSpeed - 1f) / 4f);
+                audioSource.PlayOneShot(footstepSound);
+                footstepTimer = 0f;
+            }
+        }
+        else
+        {
+            footstepTimer = 0f; // Reset timer if not moving
+            audioSource.pitch = 1f; // Reset pitch
+        }
 
         //shooting
         if(shootAction.IsPressed() && !isReloading &&!isShooting && CurrentBulletCount>0) //if shoot action is pressed (held works too this way) and the time is greater than what is calculated as the next time a shot can be fired and not reloading and has bullets
@@ -144,6 +188,7 @@ public class CharacterCore : MonoBehaviour
     private System.Collections.IEnumerator Reload() //system.collections.ienumerator lets us use yield return to wait
     {
         isReloading = true;
+        audioSource.PlayOneShot(reloadStartSound);
         reticleRenderer.material = reloadReticle;
         if(ammoCounter!=null)//update ammo counter display if it exists
         {
@@ -158,6 +203,7 @@ public class CharacterCore : MonoBehaviour
         {
             ammoCounter.text = CurrentBulletCount.ToString() + " / " + MaxBulletCount.ToString();
         }
+        audioSource.PlayOneShot(reloadFinishSound);
         isReloading = false;
     }
 
