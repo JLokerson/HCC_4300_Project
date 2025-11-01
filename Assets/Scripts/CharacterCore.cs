@@ -33,6 +33,7 @@ public class CharacterCore : MonoBehaviour
     private int CurrentBulletCount;
 
     private TextMeshPro ammoCounter=null;
+    private PlayerDirectionController directionController=null;
 
     private void Start()
     {
@@ -75,7 +76,13 @@ public class CharacterCore : MonoBehaviour
         catch
         {
             Debug.LogWarning("No Projectile component found on the bullet prefab.");
+        }
 
+        // Get the direction controller component
+        directionController = GetComponent<PlayerDirectionController>();
+        if (directionController == null)
+        {
+            Debug.LogWarning("No PlayerDirectionController found on player.");
         }
     }
 
@@ -121,6 +128,12 @@ public class CharacterCore : MonoBehaviour
         reticleRenderer.material = shotReticle;
         CurrentBulletCount--;
         isShooting = true;
+        
+        // Notify direction controller about shooting state
+        if (directionController != null)
+        {
+            directionController.SetShooting(true);
+        }
 
         if (bulletPrefab != null)
         {
@@ -148,6 +161,13 @@ public class CharacterCore : MonoBehaviour
         
         yield return new WaitForSeconds(timeBetweenShots); //this is what actually waits for fire rate time
         isShooting = false;
+        
+        // Notify direction controller about shooting state
+        if (directionController != null)
+        {
+            directionController.SetShooting(false);
+        }
+        
         if (!isReloading)
         {
             reticleRenderer.material = normalReticle;
