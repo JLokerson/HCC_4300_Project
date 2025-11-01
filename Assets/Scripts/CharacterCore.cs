@@ -46,6 +46,14 @@ public class CharacterCore : MonoBehaviour
 
     private AudioSource audioSource = null;
 
+    [Header("Footstep Settings")]
+    [Tooltip("How often footsteps play while moving")]
+    public float baseStepRate = 1f; // Time between steps at base speed
+    public float minPitch = 0.9f;
+    public float maxPitch = 1.2f;
+
+    private float footstepTimer = 0f;
+
     private void Start()
     {
         // Get StatManager and set up base stats
@@ -106,14 +114,26 @@ public class CharacterCore : MonoBehaviour
 
         //Use currentSpeed to account for upgrades/modifiers
         controller.Move(move * Time.deltaTime * currentSpeed); //this is the actual movement
-        //if moving and has audio source
-        if(move.magnitude > 0.1f&& audioSource!=null)
+
+        // Footstep sound logic
+        if (move.magnitude > 0.1f && audioSource != null && footstepSound != null)
         {
-            // Play footstep sound if it exists and isn't currently playing
-            if (footstepSound != null && !audioSource.isPlaying)
+            // Calculate step interval inversely proportional to speed
+            float stepInterval = baseStepRate / currentSpeed;
+            footstepTimer += Time.deltaTime;
+
+            if (footstepTimer >= stepInterval)
             {
+                // Vary pitch based on speed
+                audioSource.pitch = Mathf.Lerp(minPitch, maxPitch, (currentSpeed - 1f) / 4f);
                 audioSource.PlayOneShot(footstepSound);
+                footstepTimer = 0f;
             }
+        }
+        else
+        {
+            footstepTimer = 0f; // Reset timer if not moving
+            audioSource.pitch = 1f; // Reset pitch
         }
 
         //shooting

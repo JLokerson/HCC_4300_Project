@@ -249,6 +249,9 @@ MonoBehaviour:
   damageSound: {fileID: 8300000, guid: 19e23c720fa95f44793d9db6bc06d96c, type: 3}
   reloadStartSound: {fileID: 8300000, guid: 4f2c66d04c4ed8c42b458b4bb4b7ad05, type: 3}
   reloadFinishSound: {fileID: 8300000, guid: a3c2edf87d94cdb49b319d57aaa0292e, type: 3}
+  baseStepRate: 1
+  minPitch: 0.9
+  maxPitch: 1.2
 --- !u!114 &4767249336620690423
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -352,7 +355,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 30
   Pan2D: 0
   rolloffMode: 1
   BypassEffects: 0

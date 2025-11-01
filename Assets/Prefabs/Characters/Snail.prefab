@@ -102,6 +102,9 @@ MonoBehaviour:
   stunDuration: 5
   footstepSound: {fileID: 8300000, guid: 562ff9c463bcf9b44920660e9ec7c192, type: 3}
   damageSound: {fileID: 8300000, guid: 81a47a57e719b7a43b37c740a87e5d85, type: 3}
+  baseStepRate: 1
+  minPitch: 0.9
+  maxPitch: 1.2
 --- !u!114 &6583932323767441006
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,7 +154,7 @@ AudioSource:
   Priority: 100
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 30
   Pan2D: 0
   rolloffMode: 1
   BypassEffects: 0
