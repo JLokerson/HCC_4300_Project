@@ -17,6 +17,7 @@ public class PlayerHealth : MonoBehaviour
     {
         health.OnDeath += HandleDeath;
         health.OnDamaged += HandleDamaged;
+        Debug.Log($"[PlayerHealth] Event handlers subscribed for {gameObject.name}");
     }
 
     void OnDisable()
@@ -76,19 +77,26 @@ public class PlayerHealth : MonoBehaviour
 
     bool TryLoadByName(string sceneName)
     {
-        if (string.IsNullOrEmpty(sceneName)) return false;
+        if (string.IsNullOrEmpty(sceneName)) 
+        {
+            Debug.LogWarning($"[PlayerHealth] Scene name is null or empty");
+            return false;
+        }
 
         // verify it exists in build settings before trying
         for (int i = 0; i < SceneManager.sceneCountInBuildSettings; i++)
         {
             string path = SceneUtility.GetScenePathByBuildIndex(i);
             string name = System.IO.Path.GetFileNameWithoutExtension(path);
+            Debug.Log($"[PlayerHealth] Checking build index {i}: {name} (looking for {sceneName})");
             if (name == sceneName)
             {
+                Debug.Log($"[PlayerHealth] Found scene '{sceneName}' at build index {i}. Loading...");
                 SceneManager.LoadScene(sceneName);
                 return true;
             }
         }
+        Debug.LogWarning($"[PlayerHealth] Scene '{sceneName}' not found in build settings");
         return false;
     }
 }

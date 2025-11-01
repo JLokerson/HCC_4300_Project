@@ -275,7 +275,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
   maxHealth: 100
-  currentHealth: 0
+  currentHealth: 100
   destroyOnDeath: 0
   canTakeDamage: 1
   invulnSecondsAfterHit: 0.15
