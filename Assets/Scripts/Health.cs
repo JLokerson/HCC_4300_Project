@@ -21,6 +21,9 @@ public class Health : MonoBehaviour
     public event Action OnDeath;
 
     private bool invulnerable;
+    
+    // Public property to check invulnerability status
+    public bool IsInvulnerable => invulnerable;
 
     void Awake()
     {

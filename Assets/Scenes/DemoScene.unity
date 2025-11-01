@@ -467,9 +467,33 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 546820713215014781, guid: 2d05ce5b510e68c428ae152f97aac112, type: 3}
+      propertyPath: spriteScale
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 1057559930409579937, guid: 2d05ce5b510e68c428ae152f97aac112, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 2515586928962376998, guid: 2d05ce5b510e68c428ae152f97aac112, type: 3}
+      propertyPath: m_Size.x
+      value: 6.59633
+      objectReference: {fileID: 0}
+    - target: {fileID: 2515586928962376998, guid: 2d05ce5b510e68c428ae152f97aac112, type: 3}
+      propertyPath: m_Size.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2515586928962376998, guid: 2d05ce5b510e68c428ae152f97aac112, type: 3}
+      propertyPath: m_Size.z
+      value: 9.687734
+      objectReference: {fileID: 0}
+    - target: {fileID: 2515586928962376998, guid: 2d05ce5b510e68c428ae152f97aac112, type: 3}
+      propertyPath: m_Center.x
+      value: 0.65915275
+      objectReference: {fileID: 0}
+    - target: {fileID: 2515586928962376998, guid: 2d05ce5b510e68c428ae152f97aac112, type: 3}
+      propertyPath: m_Center.z
+      value: 0.018845081
       objectReference: {fileID: 0}
     - target: {fileID: 7462490430265079121, guid: 2d05ce5b510e68c428ae152f97aac112, type: 3}
       propertyPath: m_LocalPosition.x
@@ -523,12 +547,6 @@ PrefabInstance:
       addedObject: {fileID: 479807082}
     - targetCorrespondingSourceObject: {fileID: 1057559930409579937, guid: 2d05ce5b510e68c428ae152f97aac112, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 479807070}
-    - targetCorrespondingSourceObject: {fileID: 1057559930409579937, guid: 2d05ce5b510e68c428ae152f97aac112, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 479807069}
-    - targetCorrespondingSourceObject: {fileID: 1057559930409579937, guid: 2d05ce5b510e68c428ae152f97aac112, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 479807068}
     - targetCorrespondingSourceObject: {fileID: 4952740697201863018, guid: 2d05ce5b510e68c428ae152f97aac112, type: 3}
       insertIndex: -1
@@ -551,31 +569,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a35db07b1e463e46b10f9b55a632bd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameTimer
-  health: {fileID: 479807070}
---- !u!114 &479807069
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 479807067}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58aa7815329acba47abad1c0ab26363c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::XPSystem
---- !u!114 &479807070
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 479807067}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fa08993814a29249934a76c334ef075, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HealthSystem
+  health: {fileID: 0}
 --- !u!114 &479807076
 MonoBehaviour:
   m_ObjectHideFlags: 0
