@@ -99,7 +99,7 @@ MonoBehaviour:
   maxPiercingResistance: 1
   immortal: 0
   stunDuration: 5
-  footstepSound: {fileID: 8300000, guid: d846f7f844e874c42b0ab83f4a37cf54, type: 3}
+  footstepSound: {fileID: 8300000, guid: 144693f44a6efb84ba1ab2f22b767f6c, type: 3}
   damageSound: {fileID: 8300000, guid: 19e23c720fa95f44793d9db6bc06d96c, type: 3}
 --- !u!114 &60895599879014408
 MonoBehaviour:
