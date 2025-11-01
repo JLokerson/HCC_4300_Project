@@ -25,13 +25,25 @@ public class Health : MonoBehaviour
     // Public property to check invulnerability status
     public bool IsInvulnerable => invulnerable;
 
+    private AudioClip damageSound = null;
+    private AudioSource audioSource = null;
+
     void Awake()
     {
         // Initialize health if it's not set or if it's 0
         if (currentHealth <= 0f)
         {
-            currentHealth = maxHealth;
+            currentHealth = Mathf.Max(1f, maxHealth);
         }
+        
+        // Initialize audio components
+        audioSource = GetComponent<AudioSource>();
+        var characterCore = GetComponent<CharacterCore>();
+        if (characterCore != null)
+        {
+            damageSound = characterCore.damageSound;
+        }
+        
         Debug.Log($"[Health] {gameObject.name} initialized with health: {currentHealth}/{maxHealth}");
     }
 
@@ -57,6 +69,7 @@ public class Health : MonoBehaviour
 
         if (invulnSecondsAfterHit > 0f)
             StartCoroutine(TempInvuln(invulnSecondsAfterHit));
+        audioSource.PlayOneShot(damageSound);
     }
 
     public void Heal(float amount)

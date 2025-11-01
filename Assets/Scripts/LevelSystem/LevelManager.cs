@@ -16,27 +16,83 @@ public class LevelManager : MonoBehaviour
     private  List<GameObject> enemySpawnNodes = new List<GameObject>();
     private List<GameObject> snailSpawnNodes = new List<GameObject>();
 
+    // Keep the old objective system for backward compatibility
     public List<LevelObjectiveDefinition> potentialObjectives=new List<LevelObjectiveDefinition>();
     [HideInInspector]
     public LevelObjectiveDefinition currentObjective;
-
     public Event OnObjectiveCompleted = new Event();
 
+    // Add the new objective system as well
+    [SerializeField]public List<Objective> objectives = new List<Objective>();
 
+    public static int CurrentLevel
+    {
+        get { return currentLevel; }
+        set { currentLevel = value; }
+    }
+
+    [Serializable]
+    public class Objective
+    {
+        [Tooltip("True when objective complete")]
+        public bool isCompleted;
+
+        public GameObject enemyPrefab;
+        public int maxEnemies;
+
+        [Tooltip("Time between spawns in seconds")]
+        public float spawnRate;
+        [Tooltip("Number of enemies to spawn per wave")]
+        public float spawnsPerWave;
+        private int enemiesDefeated;
+        private int currentEnemies;
+
+        public int EnemiesDefeated
+        {
+            get { return enemiesDefeated; }
+            set { enemiesDefeated = value; }
+        }
+        public int CurrentEnemies
+        {
+            get { return currentEnemies; }
+            set { currentEnemies = value; }
+        }
+
+        public Objective(int maxEnemies)
+        {
+            this.maxEnemies = maxEnemies;
+            this.enemiesDefeated = 0;
+            this.isCompleted = false;
+        }
+
+        private List<GameObject> spawnedEnemiesThisObjective = new List<GameObject>();
+        public void AddSpawnedEnemy(GameObject enemy)
+        {
+            spawnedEnemiesThisObjective.Add(enemy);
+        }
+        public void EnemyDefeated()
+        {
+            enemiesDefeated++;
+            currentEnemies--;
+            if (enemiesDefeated >= maxEnemies)
+            {
+                isCompleted = true;
+            }
+        }
+    }
 
     void Awake()
     {
-        //assign a random objective for the level from the list
+        //assign a random objective for the level from the list (old system)
         if(potentialObjectives!=null && potentialObjectives.Count>0)
         {
             currentObjective=potentialObjectives[UnityEngine.Random.Range(0,potentialObjectives.Count)];
             Debug.Log("Assigned Level Objective: "+currentObjective.name);
         }
-        else
+        else if (objectives == null || objectives.Count == 0)
         {
             Debug.LogError("No level objectives defined in LevelManager.");
         }
-
 
         //get all spawn nodes in scene
         spawnNodes = new List<GameObject>(GameObject.FindGameObjectsWithTag("Respawn"));
@@ -87,13 +143,29 @@ public class LevelManager : MonoBehaviour
         {
             Debug.LogError("No valid snail spawn nodes found.");
         }
-        StartCoroutine(SpawnCycle());
+        
+        // Start spawn cycles for both objective systems
+        if (currentObjective != null)
+        {
+            StartCoroutine(SpawnCycle());
+        }
+        
+        foreach (Objective objective in objectives)
+        {
+            StartCoroutine(SpawnCycle(objective));
+        }
     }
 
-    //starts spawning enemies
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+    //starts spawning enemies (old system)
     private System.Collections.IEnumerator SpawnCycle()
     {     
-        if (!currentObjective.isCompleted)
+        if (currentObjective != null && !currentObjective.isCompleted)
         {
             for (int i = 0; i < currentObjective.spawnsPerWave; i++)
             {
@@ -115,9 +187,37 @@ public class LevelManager : MonoBehaviour
         }       
     }
 
+    //starts spawning enemies (new system)
+    private System.Collections.IEnumerator SpawnCycle(Objective obj)
+    {     
+        if (!obj.isCompleted)
+        {
+            for (int i = 0; i < obj.spawnsPerWave; i++)
+            {
+                if (obj.isCompleted)
+                {
+                    break; //exit if objective completed during wave
+                }
+                //check if current enemies is less than max enemies
+                if (obj.CurrentEnemies < obj.maxEnemies)
+                {
+                    //spawn enemy
+                    GameObject enemySpawnNode = enemySpawnNodes[UnityEngine.Random.Range(0, enemySpawnNodes.Count)];
+                    Vector3 EnemySpawnPositionWithOffset = enemySpawnNode.GetComponent<ValidSpawnTypes>().GetRandomSpawnPosition();
+                    GameObject spawnedEnemy = Instantiate(obj.enemyPrefab, EnemySpawnPositionWithOffset, Quaternion.identity);
+                    obj.CurrentEnemies++;
+                    obj.AddSpawnedEnemy(spawnedEnemy);
+                }
+            }
+            yield return new WaitForSeconds(obj.spawnRate);
+            StartCoroutine(SpawnCycle(obj));//do it again until objective is complete
+        }       
+    }
+
+    // Keep the old completion check function for backward compatibility
     public void checkForCompletion() 
     { 
-        if (currentObjective.enemiesDefeated >= currentObjective.enemiesToKill)
+        if (currentObjective != null && currentObjective.enemiesDefeated >= currentObjective.enemiesToKill)
         {
             currentObjective.isCompleted = true;
             Debug.Log("Level Objective Completed!");

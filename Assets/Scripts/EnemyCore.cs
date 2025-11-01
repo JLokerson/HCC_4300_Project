@@ -30,6 +30,21 @@ public class EnemyCore : MonoBehaviour
     private float damageFlashDuration = 0.15f; // How long to flash after taking damage
     private float damageFlashTimer = 0f;
 
+    [Header("Audio")]
+    [SerializeField]
+    private AudioClip footstepSound = null;
+
+    public AudioClip damageSound = null;
+    private AudioSource audioSource = null;
+
+    [Header("Footstep Settings")]
+    [Tooltip("How often footsteps play while moving")]
+    public float baseStepRate = 1f; // Time between steps at base speed
+    public float minPitch = 0.9f;
+    public float maxPitch = 1.2f;
+
+    private float footstepTimer = 0f;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -65,6 +80,9 @@ public class EnemyCore : MonoBehaviour
         currentHealth = maxHealth;
         currentPiercingResistance = maxPiercingResistance;
 
+        // Set up audio source
+        audioSource = GetComponent<AudioSource>();
+
     }
 
     // Update is called once per frame
@@ -92,7 +110,7 @@ public class EnemyCore : MonoBehaviour
                 else
                 {
                     Debug.LogWarning("Failed to calculate path for " + this.name + " to " + target.name);
-                }                
+                }
             }
         }
         
@@ -105,7 +123,28 @@ public class EnemyCore : MonoBehaviour
                 isFlashingFromDamage = false;
             }
         }                  
-    }   
+
+        // --- Footstep sound logic: runs every frame ---
+        if (footstepSound != null && audioSource != null && agent != null && agent.velocity.magnitude > 0.1f)
+        {
+            float stepInterval = baseStepRate / agent.speed;
+            footstepTimer += Time.deltaTime;
+
+            if (footstepTimer >= stepInterval)
+            {
+                audioSource.pitch = Mathf.Lerp(minPitch, maxPitch, (agent.speed - 1f) / 4f);
+                audioSource.PlayOneShot(footstepSound);
+                footstepTimer = 0f;
+            }
+        }
+        else
+        {
+            footstepTimer = 0f;
+            if (audioSource != null)
+                audioSource.pitch = 1f;
+        }
+        // --- End footstep sound logic ---
+    }
 
     public void TakeDamage(float damageAmount)
     {
@@ -114,6 +153,12 @@ public class EnemyCore : MonoBehaviour
         // Trigger damage flash effect
         isFlashingFromDamage = true;
         damageFlashTimer = damageFlashDuration;
+        
+        // Play damage sound
+        if (audioSource != null && damageSound != null)
+        {
+            audioSource.PlayOneShot(damageSound);
+        }
         
         if(currentHealth <= 0f && !immortal)
         {
