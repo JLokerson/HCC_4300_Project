@@ -8911,6 +8911,42 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7729507188110105273, guid: 8987f853966e1274a9cf64e698efaa92, type: 3}
+      propertyPath: objectives.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7729507188110105273, guid: 8987f853966e1274a9cf64e698efaa92, type: 3}
+      propertyPath: objectives.Array.data[0].spawnRate
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7729507188110105273, guid: 8987f853966e1274a9cf64e698efaa92, type: 3}
+      propertyPath: objectives.Array.data[1].spawnRate
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7729507188110105273, guid: 8987f853966e1274a9cf64e698efaa92, type: 3}
+      propertyPath: objectives.Array.data[0].maxEnemies
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7729507188110105273, guid: 8987f853966e1274a9cf64e698efaa92, type: 3}
+      propertyPath: objectives.Array.data[1].maxEnemies
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7729507188110105273, guid: 8987f853966e1274a9cf64e698efaa92, type: 3}
+      propertyPath: objectives.Array.data[0].enemyPrefab
+      value: 
+      objectReference: {fileID: 4922636760702341083, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
+    - target: {fileID: 7729507188110105273, guid: 8987f853966e1274a9cf64e698efaa92, type: 3}
+      propertyPath: objectives.Array.data[1].enemyPrefab
+      value: 
+      objectReference: {fileID: 4922636760702341083, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
+    - target: {fileID: 7729507188110105273, guid: 8987f853966e1274a9cf64e698efaa92, type: 3}
+      propertyPath: objectives.Array.data[0].spawnsPerWave
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7729507188110105273, guid: 8987f853966e1274a9cf64e698efaa92, type: 3}
+      propertyPath: objectives.Array.data[1].spawnsPerWave
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
