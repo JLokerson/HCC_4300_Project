@@ -24,6 +24,11 @@ public class EnemyCore : MonoBehaviour
     public bool immortal = false;
     [Tooltip("How long the enemy is frozen for if immortal and health reaches 0 (snail in shell)")]
     public float stunDuration = 5;
+    
+    // Damage flash system
+    private bool isFlashingFromDamage = false;
+    private float damageFlashDuration = 0.15f; // How long to flash after taking damage
+    private float damageFlashTimer = 0f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -89,12 +94,27 @@ public class EnemyCore : MonoBehaviour
                     Debug.LogWarning("Failed to calculate path for " + this.name + " to " + target.name);
                 }                
             }
+        }
+        
+        // Handle damage flash timer
+        if (isFlashingFromDamage)
+        {
+            damageFlashTimer -= Time.deltaTime;
+            if (damageFlashTimer <= 0f)
+            {
+                isFlashingFromDamage = false;
+            }
         }                  
     }   
 
     public void TakeDamage(float damageAmount)
     {
         currentHealth -= damageAmount;
+        
+        // Trigger damage flash effect
+        isFlashingFromDamage = true;
+        damageFlashTimer = damageFlashDuration;
+        
         if(currentHealth <= 0f && !immortal)
         {
             Destroy(gameObject);
@@ -117,5 +137,15 @@ public class EnemyCore : MonoBehaviour
     public float getPiercingResistance()
     {
         return currentPiercingResistance;
+    }
+    
+    public float getCurrentHealth()
+    {
+        return currentHealth;
+    }
+    
+    public bool IsFlashingFromDamage()
+    {
+        return isFlashingFromDamage;
     }
 }
