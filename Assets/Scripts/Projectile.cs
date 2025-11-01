@@ -96,8 +96,9 @@ public class Projectile : MonoBehaviour
             }
             else 
             { 
-                AudioSource.PlayClipAtPoint(breakSound, transform.position);
-                Destroy(gameObject); //destroy after sound plays
+                AudioSource.PlayClipAtPoint(breakSound, transform.position); //play the sound where the bullet was.
+                                                                             //PlayOneShot would start it and it would instantly cut because the audio source was destroyed along with the bullet
+                Destroy(gameObject);
             }                
         }
         else if(other.CompareTag("Enemy")||other.gameObject.layer.Equals("Environment"))
