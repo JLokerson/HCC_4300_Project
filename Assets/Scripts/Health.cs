@@ -21,7 +21,10 @@ public class Health : MonoBehaviour
     public event Action OnDeath;
 
     private bool invulnerable;
-    
+
+    private AudioClip damageSound = null;
+    private AudioSource audioSource = null;
+
     // Public property to check invulnerability status
     public bool IsInvulnerable => invulnerable;
 
@@ -33,30 +36,30 @@ public class Health : MonoBehaviour
             currentHealth = maxHealth;
         }
         Debug.Log($"[Health] {gameObject.name} initialized with health: {currentHealth}/{maxHealth}");
+        audioSource = GetComponent<AudioSource>();
+        damageSound=GetComponent<CharacterCore>()?.damageSound;
     }
 
     public void TakeDamage(float amount)
     {
-        if (!canTakeDamage || invulnerable || amount <= 0f) 
+        if (!canTakeDamage || invulnerable || amount <= 0f)
         {
             Debug.Log($"[Health] {gameObject.name} - Damage blocked: canTakeDamage={canTakeDamage}, invulnerable={invulnerable}, amount={amount}");
             return;
         }
 
-        float previousHealth = currentHealth;
         currentHealth = Mathf.Max(0f, currentHealth - amount);
-        Debug.Log($"[Health] {gameObject.name} took {amount} damage. Health: {previousHealth} -> {currentHealth}");
         OnDamaged?.Invoke(amount);
 
         if (currentHealth <= 0f)
         {
-            Debug.Log($"[Health] {gameObject.name} health reached 0. Calling Die()");
             Die();
             return;
         }
 
         if (invulnSecondsAfterHit > 0f)
             StartCoroutine(TempInvuln(invulnSecondsAfterHit));
+        audioSource.PlayOneShot(damageSound);
     }
 
     public void Heal(float amount)
@@ -69,11 +72,12 @@ public class Health : MonoBehaviour
 
     void Die()
     {
-        if (hasDied) 
+        if (hasDied)// ensure single fire
         {
             Debug.Log($"[Health] {gameObject.name} - Die() called but already died");
             return; // ensure single fire
         }
+
         hasDied = true;
 
         Debug.Log($"[Health] {gameObject.name} - Die() executing. Invoking OnDeath event...");
@@ -81,7 +85,6 @@ public class Health : MonoBehaviour
 
         if (destroyOnDeath)
         {
-            Debug.Log($"[Health] {gameObject.name} - Destroying gameObject");
             Destroy(gameObject);  // okay to destroy after we invoke
         }
     }

@@ -11,7 +11,8 @@ public class PauseManager : MonoBehaviour
 {
     [Header("Pause Menu UI")]
     [SerializeField] private GameObject pauseMenuPanel;
-    
+    [SerializeField] private AudioClip pauseSound = null;
+
     [Header("Pause Menu Buttons")]
     [SerializeField] private Button resumeButton;
     [SerializeField] private Button mainMenuButton;
@@ -103,6 +104,8 @@ public class PauseManager : MonoBehaviour
     /// </summary>
     public void TogglePause()
     {
+        AudioSource.PlayClipAtPoint(pauseSound, Camera.main.transform.position);
+
         if (isPaused)
         {
             ResumeGame();
