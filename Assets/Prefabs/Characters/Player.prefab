@@ -209,7 +209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1323b9bf2ae74824381e9aa0b1993387, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
-  maxHealth: 100
+  baseMaxHealth: 100
   currentHealth: 0
   destroyOnDeath: 0
   canTakeDamage: 1
@@ -318,6 +318,8 @@ MonoBehaviour:
     baseValue: 5
   - statType: 7
     baseValue: 0.2
+  - statType: 10
+    baseValue: 100
 --- !u!114 &3436708249715995942
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -332,7 +334,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeManager
   statManager: {fileID: 8048753426995499325}
   availableUpgrades:
-  - {fileID: 11400000, guid: 92eb8813bed554e4eb645c87f40ebd66, type: 2}
+  - {fileID: 11400000, guid: dfe796a813beab148b772899b99765c7, type: 2}
 --- !u!82 &4220299369861878979
 AudioSource:
   m_ObjectHideFlags: 0

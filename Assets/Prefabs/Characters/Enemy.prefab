@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2198670637283613198}
   - component: {fileID: 60895599879014408}
   - component: {fileID: -7981016543557878239}
+  - component: {fileID: -4016442038570245013}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -215,6 +216,21 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-4016442038570245013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4922636760702341083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e1255046bcd0124096ab8259652e1cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StatManager
+  baseStats:
+  - statType: 10
+    baseValue: 20
 --- !u!1 &7863646918458961590
 GameObject:
   m_ObjectHideFlags: 0
