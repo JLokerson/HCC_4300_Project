@@ -2152,7 +2152,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1169364289465441483, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 34.85724
+      value: 29.67
       objectReference: {fileID: 0}
     - target: {fileID: 1169364289465441483, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2188,6 +2188,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1169364289465441483, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2198670637283613198, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2198670637283613198, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
+      propertyPath: TargetIsStationary
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4922636760702341083, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
@@ -2681,7 +2689,7 @@ MonoBehaviour:
   resumeButton: {fileID: 1461681192}
   mainMenuButton: {fileID: 1857562938}
   quitButton: {fileID: 1456731413}
-  mainMenuSceneName: {fileID: 0}
+  mainMenuSceneName: 
 --- !u!4 &1441976176
 Transform:
   m_ObjectHideFlags: 0
@@ -3918,7 +3926,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1169364289465441483, guid: 70271ab65f95a35438065a3a1a2c9413, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 24.83
+      value: 34.7
       objectReference: {fileID: 0}
     - target: {fileID: 1169364289465441483, guid: 70271ab65f95a35438065a3a1a2c9413, type: 3}
       propertyPath: m_LocalPosition.y
