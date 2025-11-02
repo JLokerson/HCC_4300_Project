@@ -2693,7 +2693,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PauseManager
   pauseMenuPanel: {fileID: 846511138}
-  pauseSound: {fileID: 0}
+  pauseSound: {fileID: 8300000, guid: bbdb69c736fe51442b1fc15b6453d352, type: 3}
   resumeButton: {fileID: 1461681192}
   mainMenuButton: {fileID: 1857562938}
   quitButton: {fileID: 1456731413}
