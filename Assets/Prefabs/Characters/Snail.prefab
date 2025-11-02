@@ -102,11 +102,38 @@ MonoBehaviour:
   maxPiercingResistance: 3
   immortal: 1
   stunDuration: 5
+  shellSprite: {fileID: 21300000, guid: b6a2a6d3956798f4f84769dc87064182, type: 3}
   footstepSound: {fileID: 8300000, guid: 562ff9c463bcf9b44920660e9ec7c192, type: 3}
   damageSound: {fileID: 8300000, guid: 81a47a57e719b7a43b37c740a87e5d85, type: 3}
   baseStepRate: 1
   minPitch: 0.9
   maxPitch: 1.2
+--- !u!114 &1234567890123456787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4922636760702341083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7969bedb69798947a2d1fd10e8cfc9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SnailDirectionController
+  velocityThreshold: 0.1
+--- !u!114 &1234567890123456786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4922636760702341083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7969bedb69798947a2d1fd10e8cfc9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SnailDirectionController
+  velocityThreshold: 0.1
 --- !u!114 &6583932323767441006
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -231,20 +258,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1234567890123456787
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4922636760702341083}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7969bedb69798947a2d1fd10e8cfc9e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SnailDirectionController
-  velocityThreshold: 0.1
-  debugMode: 1
 --- !u!1 &7863646918458961590
 GameObject:
   m_ObjectHideFlags: 0
@@ -278,43 +291,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1169364289465441483}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
-
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!95 &1234567890123456789
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7863646918458961590}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 7cace6e8be35d7e438525648fe530a16, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1234567890123456786
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4922636760702341083}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7969bedb69798947a2d1fd10e8cfc9e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SnailDirectionController
-  velocityThreshold: 0.1
-  debugMode: 1
 --- !u!212 &1111111111111111111
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -332,7 +308,11 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
-  m_SinglePassStereoMode: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -354,6 +334,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -368,3 +349,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1234567890123456789
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7863646918458961590}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7cace6e8be35d7e438525648fe530a16, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

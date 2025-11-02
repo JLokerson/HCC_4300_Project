@@ -864,14 +864,6 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 7462490430265079121, guid: 2d05ce5b510e68c428ae152f97aac112, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7462490430265079121, guid: 2d05ce5b510e68c428ae152f97aac112, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7462490430265079121, guid: 2d05ce5b510e68c428ae152f97aac112, type: 3}
       propertyPath: m_LocalPosition.x
       value: 22.92196
       objectReference: {fileID: 0}
@@ -2158,14 +2150,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1169364289465441483, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1169364289465441483, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 2.5
-      objectReference: {fileID: 0}
     - target: {fileID: 1169364289465441483, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
       propertyPath: m_LocalPosition.x
       value: 34.85724
@@ -3972,10 +3956,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2198670637283613198, guid: 70271ab65f95a35438065a3a1a2c9413, type: 3}
-      propertyPath: shellSprite
-      value: 
-      objectReference: {fileID: 21300000, guid: b6a2a6d3956798f4f84769dc87064182, type: 3}
     - target: {fileID: 4922636760702341083, guid: 70271ab65f95a35438065a3a1a2c9413, type: 3}
       propertyPath: m_Name
       value: Snail
