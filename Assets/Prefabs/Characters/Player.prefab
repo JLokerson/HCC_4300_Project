@@ -331,7 +331,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b9781611784f314b9ed22449be20399, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeManager
-  statManager: {fileID: 8048753426995499325}
+  statManager: {fileID: 0}
   availableUpgrades:
   - {fileID: 11400000, guid: 92eb8813bed554e4eb645c87f40ebd66, type: 2}
 --- !u!82 &4220299369861878979
