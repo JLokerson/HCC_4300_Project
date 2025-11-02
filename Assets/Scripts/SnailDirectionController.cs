@@ -11,7 +11,10 @@ public class SnailDirectionController : MonoBehaviour
     [Tooltip("Minimum velocity magnitude to trigger direction change")]
     public float velocityThreshold = 0.1f;
     
-
+    [Header("Shell Settings")]
+    private Sprite originalSprite;
+    private bool isInShellMode = false;
+    private Animator animator;
     
     private Vector3 lastPosition;
     private bool facingRight = true; // Assumes sprite sheet has snail facing right by default
@@ -24,6 +27,9 @@ public class SnailDirectionController : MonoBehaviour
         // SpriteRenderer is on child object named "Renderer"
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         
+        // Get animator component (also on child "Renderer" object)
+        animator = GetComponentInChildren<Animator>();
+        
         if (navMeshAgent == null)
         {
             Debug.LogError("SnailDirectionController: No NavMeshAgent found on " + gameObject.name);
@@ -34,11 +40,17 @@ public class SnailDirectionController : MonoBehaviour
             Debug.LogError("SnailDirectionController: No SpriteRenderer found in children of " + gameObject.name);
         }
         
+        if (animator == null)
+        {
+            Debug.LogError("SnailDirectionController: No Animator found in children of " + gameObject.name);
+        }
+        
         lastPosition = transform.position;
         
-        // Initialize sprite to face right (no flip)
+        // Store original sprite and initialize to face right (no flip)
         if (spriteRenderer != null)
         {
+            originalSprite = spriteRenderer.sprite;
             spriteRenderer.flipX = false;
             facingRight = true;
         }
@@ -53,6 +65,12 @@ public class SnailDirectionController : MonoBehaviour
         
         // Lock rotation to prevent NavMeshAgent from rotating the snail
         transform.rotation = Quaternion.identity;
+        
+        // Don't handle direction changes if in shell mode
+        if (isInShellMode)
+        {
+            return;
+        }
         
         // Check movement direction based on velocity
         Vector3 velocity = navMeshAgent.velocity;
@@ -97,5 +115,38 @@ public class SnailDirectionController : MonoBehaviour
         return facingRight;
     }
     
+    // Method to switch between normal and shell mode
+    public void SetShellMode(bool enterShellMode, Sprite shellSprite)
+    {
+        isInShellMode = enterShellMode;
+        
+        if (enterShellMode)
+        {
+            // Disable animator and set shell sprite
+            if (animator != null)
+            {
+                animator.enabled = false;
+            }
+            
+            if (spriteRenderer != null && shellSprite != null)
+            {
+                spriteRenderer.sprite = shellSprite;
+                // Don't flip the shell sprite - keep it facing the same direction
+            }
+        }
+        else
+        {
+            // Re-enable animator and restore original sprite
+            if (animator != null)
+            {
+                animator.enabled = true;
+            }
+            
+            if (spriteRenderer != null && originalSprite != null)
+            {
+                spriteRenderer.sprite = originalSprite;
+            }
+        }
+    }
 
 }

@@ -2697,7 +2697,7 @@ MonoBehaviour:
   resumeButton: {fileID: 1461681192}
   mainMenuButton: {fileID: 1857562938}
   quitButton: {fileID: 1456731413}
-  mainMenuSceneName: {fileID: 0}
+  mainMenuSceneName: MainMenu
 --- !u!4 &1441976176
 Transform:
   m_ObjectHideFlags: 0
@@ -3934,7 +3934,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1169364289465441483, guid: 70271ab65f95a35438065a3a1a2c9413, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 34.96
+      value: 24.83
       objectReference: {fileID: 0}
     - target: {fileID: 1169364289465441483, guid: 70271ab65f95a35438065a3a1a2c9413, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3972,6 +3972,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2198670637283613198, guid: 70271ab65f95a35438065a3a1a2c9413, type: 3}
+      propertyPath: shellSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b6a2a6d3956798f4f84769dc87064182, type: 3}
     - target: {fileID: 4922636760702341083, guid: 70271ab65f95a35438065a3a1a2c9413, type: 3}
       propertyPath: m_Name
       value: Snail

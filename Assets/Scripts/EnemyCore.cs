@@ -25,6 +25,11 @@ public class EnemyCore : MonoBehaviour
     [Tooltip("How long the enemy is frozen for if immortal and health reaches 0 (snail in shell)")]
     public float stunDuration = 5;
     
+    [Header("Shell Settings")]
+    [Tooltip("The sprite to display when the snail is in shell mode")]
+    public Sprite shellSprite;
+    private bool isInShell = false;
+    
     // Damage flash system
     private bool isFlashingFromDamage = false;
     private float damageFlashDuration = 0.15f; // How long to flash after taking damage
@@ -44,6 +49,7 @@ public class EnemyCore : MonoBehaviour
     public float maxPitch = 1.2f;
 
     private float footstepTimer = 0f;
+    private SnailDirectionController directionController;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -82,6 +88,9 @@ public class EnemyCore : MonoBehaviour
 
         // Set up audio source
         audioSource = GetComponent<AudioSource>();
+        
+        // Get reference to direction controller
+        directionController = GetComponent<SnailDirectionController>();
 
     }
 
@@ -173,10 +182,26 @@ public class EnemyCore : MonoBehaviour
     {
         Debug.Log("Snail enters shell");
         agent.isStopped = true;
+        isInShell = true;
+        
+        // Change to shell sprite
+        if (directionController != null)
+        {
+            directionController.SetShellMode(true, shellSprite);
+        }
+        
         yield return new WaitForSeconds(stunDuration);
+        
         Debug.Log("Snail exits shell");
         agent.isStopped = false;
         currentHealth = maxHealth;
+        isInShell = false;
+        
+        // Change back to normal sprite
+        if (directionController != null)
+        {
+            directionController.SetShellMode(false, null);
+        }
     }
 
     public float getPiercingResistance()
@@ -192,5 +217,10 @@ public class EnemyCore : MonoBehaviour
     public bool IsFlashingFromDamage()
     {
         return isFlashingFromDamage;
+    }
+    
+    public bool IsInShell()
+    {
+        return isInShell;
     }
 }
