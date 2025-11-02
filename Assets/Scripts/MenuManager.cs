@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEditor;
 
 /// <summary>
 /// Handles the main menu functionality including navigation between different menu screens
@@ -20,7 +21,7 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private Button backFromCreditsButton;
     
     [Header("Scene Management")]
-    [SerializeField] private string gameSceneName = "GameScene"; // The name of your main game scene
+    [SerializeField] private SceneAsset gameSceneName = null; // The name of your main game scene
     
     private void Start()
     {
@@ -84,7 +85,7 @@ public class MenuManager : MonoBehaviour
     public void StartGame()
     {
         Debug.Log("Starting game...");
-        SceneManager.LoadScene(gameSceneName);
+        LoadScene.LoadSelectedScene(gameSceneName);
     }
     
     /// <summary>

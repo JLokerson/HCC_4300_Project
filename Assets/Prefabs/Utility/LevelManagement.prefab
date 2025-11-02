@@ -67,6 +67,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  objectives: []
 --- !u!114 &1657035490536933422
 MonoBehaviour:
   m_ObjectHideFlags: 0
