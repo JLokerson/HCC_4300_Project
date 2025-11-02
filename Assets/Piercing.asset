@@ -10,32 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e596f13776bf89479702c726d4f7f86, type: 3}
-  m_Name: UpgradeData
+  m_Name: Piercing
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
   upgradeName: 
   description: 
   icon: {fileID: 0}
   statModifications:
-  - affectedStat: 0
-    modifierType: 100
-    valuePerStack: 10
-  - affectedStat: 1
-    modifierType: 100
-    valuePerStack: 10
-  - affectedStat: 2
-    modifierType: 100
-    valuePerStack: 5
-  - affectedStat: 3
-    modifierType: 100
-    valuePerStack: 1
-  - affectedStat: 4
-    modifierType: 100
-    valuePerStack: 10
   - affectedStat: 8
     modifierType: 100
     valuePerStack: 1
-  - affectedStat: 10
-    modifierType: 100
-    valuePerStack: 120
   maxStacks: 5
   isStackable: 1
