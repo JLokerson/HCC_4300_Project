@@ -310,7 +310,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StatManager
   baseStats:
   - statType: 0
-    baseValue: 6
+    baseValue: 5
   - statType: 2
     baseValue: 5
   - statType: 3
