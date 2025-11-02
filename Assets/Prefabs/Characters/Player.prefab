@@ -333,7 +333,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeManager
   statManager: {fileID: 0}
   availableUpgrades:
-  - {fileID: 11400000, guid: 92eb8813bed554e4eb645c87f40ebd66, type: 2}
+  - {fileID: 11400000, guid: 92b7a12f93107f742890eed0789ff3a2, type: 2}
 --- !u!82 &4220299369861878979
 AudioSource:
   m_ObjectHideFlags: 0

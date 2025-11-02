@@ -48,8 +48,9 @@ MonoBehaviour:
   player: {fileID: 1057559930409579937, guid: 2d05ce5b510e68c428ae152f97aac112, type: 3}
   snail: {fileID: 4922636760702341083, guid: 70271ab65f95a35438065a3a1a2c9413, type: 3}
   potentialObjectives:
-  - {fileID: 11400000, guid: 7256d171edace664e8b6995a813d3f37, type: 2}
   - {fileID: 11400000, guid: 7790a0eb6f6097042aff9dde68ee3346, type: 2}
+  - {fileID: 11400000, guid: 7256d171edace664e8b6995a813d3f37, type: 2}
+  - {fileID: 11400000, guid: 83e6507f47e89da4c9bee8807cde2ff1, type: 2}
   currentObjective: {fileID: 0}
   OnObjectiveCompleted:
     m_PersistentCalls:
