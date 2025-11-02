@@ -121,12 +121,12 @@ GameObject:
   - component: {fileID: 5200670122478001082}
   - component: {fileID: 7461484062620807114}
   - component: {fileID: 4767249336620690423}
-  - component: {fileID: 546820713215014781}
   - component: {fileID: 1234567890123456789}
   - component: {fileID: 1234567890123456788}
   - component: {fileID: 6066347027140311121}
   - component: {fileID: 1234567890123456785}
   - component: {fileID: 7867365433831447381}
+  - component: {fileID: 4220299369861878979}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -256,7 +256,6 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
-
 --- !u!114 &1234567890123456789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -315,7 +314,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e1255046bcd0124096ab8259652e1cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseStats: []
+  baseStats:
+  - statType: 0
+    baseValue: 5
+  - statType: 2
+    baseValue: 5
+  - statType: 3
+    baseValue: 2
+  - statType: 4
+    baseValue: 5
+  - statType: 7
+    baseValue: 0.2
+  - statType: 10
+    baseValue: 100
+  - statType: 1
+    baseValue: 0.5
+  - statType: 9
+    baseValue: 10
+  - statType: 8
+    baseValue: 2
+--- !u!114 &7867365433831447381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1057559930409579937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 630a88595a2ddf9419895c003b7bd6a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerDirectionController
+  velocityThreshold: 0.1
+  spriteScale: 0.2
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
+  flashSpeed: 10
 --- !u!82 &4220299369861878979
 AudioSource:
   m_ObjectHideFlags: 0
@@ -413,22 +446,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &7867365433831447381
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1057559930409579937}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 630a88595a2ddf9419895c003b7bd6a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerDirectionController
-  velocityThreshold: 0.1
-  spriteScale: 0.2
-  damageColor: {r: 1, g: 0, b: 0, a: 1}
-  flashSpeed: 10
 --- !u!1 &4952740697201863018
 GameObject:
   m_ObjectHideFlags: 0
