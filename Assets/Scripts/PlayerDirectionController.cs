@@ -11,8 +11,9 @@ public class PlayerDirectionController : MonoBehaviour
     [Tooltip("Minimum velocity magnitude to trigger direction change")]
     public float velocityThreshold = 0.1f;
     
-
-    
+    [Header("Sprite Settings")]
+    [Tooltip("Scale factor for the sprite (1.0 = original size, 0.5 = half size)")]
+    public float spriteScale = 0.2f;
     [Header("Damage Visual Effects")]
     [Tooltip("Color tint when player takes damage/is invulnerable")]
     public Color damageColor = Color.red;

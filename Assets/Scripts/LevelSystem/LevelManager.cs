@@ -25,12 +25,6 @@ public class LevelManager : MonoBehaviour
     // Add the new objective system as well
     [SerializeField]public List<Objective> objectives = new List<Objective>();
 
-    public static int CurrentLevel
-    {
-        get { return currentLevel; }
-        set { currentLevel = value; }
-    }
-
     [Serializable]
     public class Objective
     {
@@ -205,7 +199,6 @@ public class LevelManager : MonoBehaviour
                     GameObject enemySpawnNode = enemySpawnNodes[UnityEngine.Random.Range(0, enemySpawnNodes.Count)];
                     Vector3 EnemySpawnPositionWithOffset = enemySpawnNode.GetComponent<ValidSpawnTypes>().GetRandomSpawnPosition();
                     GameObject spawnedEnemy = Instantiate(obj.enemyPrefab, EnemySpawnPositionWithOffset, Quaternion.identity);
-                    obj.CurrentEnemies++;
                     obj.AddSpawnedEnemy(spawnedEnemy);
                 }
             }

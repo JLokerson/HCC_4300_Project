@@ -49,7 +49,7 @@ public class Health : MonoBehaviour
 
     public void TakeDamage(float amount)
     {
-        if (!canTakeDamage || invulnerable || amount <= 0f) 
+        if (!canTakeDamage || invulnerable || amount <= 0f)
         {
             Debug.Log($"[Health] {gameObject.name} - Damage blocked: canTakeDamage={canTakeDamage}, invulnerable={invulnerable}, amount={amount}");
             return;
@@ -82,7 +82,7 @@ public class Health : MonoBehaviour
 
     void Die()
     {
-        if (hasDied) 
+        if (hasDied) // ensure single fire
         {
             Debug.Log($"[Health] {gameObject.name} - Die() called but already died");
             return; // ensure single fire
