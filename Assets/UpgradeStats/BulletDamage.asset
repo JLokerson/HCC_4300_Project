@@ -20,4 +20,4 @@ MonoBehaviour:
     modifierType: 100
     valuePerStack: 5
   maxStacks: 5
-  isStackable: 1
+  isStackable: 0

@@ -18,6 +18,6 @@ MonoBehaviour:
   statModifications:
   - affectedStat: 0
     modifierType: 100
-    valuePerStack: 10
+    valuePerStack: 1.75
   maxStacks: 5
   isStackable: 1
