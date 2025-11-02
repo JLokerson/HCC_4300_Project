@@ -77,7 +77,7 @@ public class ShopManager : MonoBehaviour
             Time.timeScale = 1f;
             
             // Hide cursor and lock for gameplay
-            Cursor.lockState = CursorLockMode.Locked;
+            //Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
     }
