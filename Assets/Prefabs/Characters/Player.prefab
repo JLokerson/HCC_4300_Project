@@ -119,15 +119,11 @@ GameObject:
   - component: {fileID: 7462490430265079121}
   - component: {fileID: 2515586928962376998}
   - component: {fileID: 5200670122478001082}
-  - component: {fileID: 4940168975262450252}
-  - component: {fileID: 9078347015398650363}
   - component: {fileID: 7461484062620807114}
   - component: {fileID: 4767249336620690423}
-  - component: {fileID: 6066347027140311121}
-  - component: {fileID: 8048753426995499325}
-  - component: {fileID: 3436708249715995942}
-  - component: {fileID: 4220299369861878979}
-  - component: {fileID: 7867365433831447381}
+  - component: {fileID: 546820713215014781}
+  - component: {fileID: 1234567890123456789}
+  - component: {fileID: 9876543210987654321}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -193,42 +189,11 @@ CharacterController:
   serializedVersion: 3
   m_Height: 2
   m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
+  m_SlopeLimit: 30
+  m_StepOffset: 0.1
+  m_SkinWidth: 0.05
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &4940168975262450252
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1057559930409579937}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1323b9bf2ae74824381e9aa0b1993387, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Health
-  maxHealth: 100
-  currentHealth: 0
-  destroyOnDeath: 0
-  canTakeDamage: 1
-  invulnSecondsAfterHit: 0.15
---- !u!114 &9078347015398650363
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1057559930409579937}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a833501d76bcbd545a36611d8bd310c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
-  mainMenuSceneName: MainMenu
-  mainMenuBuildIndex: 0
 --- !u!114 &7461484062620807114
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -241,18 +206,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f6598eb7a2a9c045b481a95977d3350, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterCore
+  MovementSpeed: 5
   bulletPrefab: {fileID: 8235750292647877918, guid: a2d441e0be5d3bc43919b251a220d8e9, type: 3}
   reticle: {fileID: 176206666722097896}
   normalReticle: {fileID: 2100000, guid: 0c3bd44a93d091a498033667a9fc3663, type: 2}
   shotReticle: {fileID: 2100000, guid: 2cf54aee73f0bea4282491ba8be5676d, type: 2}
   reloadReticle: {fileID: 2100000, guid: 5e78a13e3c2637a488f16517fe0a2ec8, type: 2}
-  footstepSound: {fileID: 8300000, guid: 144693f44a6efb84ba1ab2f22b767f6c, type: 3}
-  damageSound: {fileID: 8300000, guid: 19e23c720fa95f44793d9db6bc06d96c, type: 3}
-  reloadStartSound: {fileID: 8300000, guid: 4f2c66d04c4ed8c42b458b4bb4b7ad05, type: 3}
-  reloadFinishSound: {fileID: 8300000, guid: a3c2edf87d94cdb49b319d57aaa0292e, type: 3}
-  baseStepRate: 1
-  minPitch: 0.9
-  maxPitch: 1.2
+  fireRate: 0.5
+  reloadTime: 2
+  MaxBulletCount: 5
+  bulletSpread: 0.275
 --- !u!114 &4767249336620690423
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -283,155 +246,7 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &6066347027140311121
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1057559930409579937}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a35db07b1e463e46b10f9b55a632bd3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GameTimer
-  health: {fileID: 0}
---- !u!114 &8048753426995499325
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1057559930409579937}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e1255046bcd0124096ab8259652e1cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::StatManager
-  baseStats:
-  - statType: 0
-    baseValue: 5
-  - statType: 2
-    baseValue: 5
-  - statType: 3
-    baseValue: 2
-  - statType: 4
-    baseValue: 5
-  - statType: 7
-    baseValue: 0.2
---- !u!114 &3436708249715995942
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1057559930409579937}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b9781611784f314b9ed22449be20399, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UpgradeManager
-  statManager: {fileID: 8048753426995499325}
-  availableUpgrades:
-  - {fileID: 11400000, guid: 92eb8813bed554e4eb645c87f40ebd66, type: 2}
---- !u!82 &4220299369861878979
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1057559930409579937}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 0.5
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 30
-  Pan2D: 0
-  rolloffMode: 1
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
---- !u!114 &7867365433831447381
+--- !u!114 &546820713215014781
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -447,6 +262,37 @@ MonoBehaviour:
   spriteScale: 0.2
   damageColor: {r: 1, g: 0, b: 0, a: 1}
   flashSpeed: 10
+--- !u!114 &1234567890123456789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1057559930409579937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1323b9bf2ae74824381e9aa0b1993387, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Health
+  maxHealth: 100
+  currentHealth: 100
+  destroyOnDeath: 0
+  canTakeDamage: 1
+  invulnSecondsAfterHit: 0.15
+--- !u!114 &9876543210987654321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1057559930409579937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a833501d76bcbd545a36611d8bd310c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
+  mainMenuSceneName: MainMenu
+  mainMenuBuildIndex: 0
 --- !u!1 &4952740697201863018
 GameObject:
   m_ObjectHideFlags: 0
@@ -530,7 +376,7 @@ MeshRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &8909759951540300498
 MonoBehaviour:
@@ -622,7 +468,7 @@ MonoBehaviour:
   m_isVolumetricText: 0
   _SortingLayer: 0
   _SortingLayerID: 0
-  _SortingOrder: 0
+  _SortingOrder: 2
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 1894904357774899811}
   m_maskType: 0
@@ -699,7 +545,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 117
+    m_Bits: 4294967295
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -772,8 +618,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 514894135006620514}
-  - component: {fileID: 3883268860703394383}
-  - component: {fileID: 416465345360610683}
+  - component: {fileID: 9112647859786919706}
+  - component: {fileID: 3379012676055837293}
   m_Layer: 0
   m_Name: Renderer
   m_TagString: Untagged
@@ -797,7 +643,7 @@ Transform:
   - {fileID: 8773037098642291106}
   m_Father: {fileID: 7462490430265079121}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!212 &3883268860703394383
+--- !u!212 &9112647859786919706
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -855,7 +701,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &416465345360610683
+--- !u!95 &3379012676055837293
 Animator:
   serializedVersion: 7
   m_ObjectHideFlags: 0

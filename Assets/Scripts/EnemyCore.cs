@@ -24,24 +24,11 @@ public class EnemyCore : MonoBehaviour
     public bool immortal = false;
     [Tooltip("How long the enemy is frozen for if immortal and health reaches 0 (snail in shell)")]
     public float stunDuration = 5;
-
-    [Header("Audio")]
-    [SerializeField]
-    private AudioClip footstepSound = null;
-
-    public AudioClip damageSound = null;
-    private AudioSource audioSource = null;
-
-    [Header("Footstep Settings")]
-    [Tooltip("How often footsteps play while moving")]
-    public float baseStepRate = 1f; // Time between steps at base speed
-    public float minPitch = 0.9f;
-    public float maxPitch = 1.2f;
-
-    private float footstepTimer = 0f;
-
-    //the level manager mainly used to track enemies
-    private LevelManager levelManager;
+    
+    // Damage flash system
+    private bool isFlashingFromDamage = false;
+    private float damageFlashDuration = 0.15f; // How long to flash after taking damage
+    private float damageFlashTimer = 0f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -77,12 +64,6 @@ public class EnemyCore : MonoBehaviour
         }
         currentHealth = maxHealth;
         currentPiercingResistance = maxPiercingResistance;
-        //increment current enemies
-        levelManager = GameObject.FindFirstObjectByType<LevelManager>();
-        levelManager.currentObjective.currentEnemies++;
-
-        // Set up audio source
-        audioSource = GetComponent<AudioSource>();
 
     }
 
@@ -111,43 +92,31 @@ public class EnemyCore : MonoBehaviour
                 else
                 {
                     Debug.LogWarning("Failed to calculate path for " + this.name + " to " + target.name);
-                }
+                }                
+            }
+        }
+        
+        // Handle damage flash timer
+        if (isFlashingFromDamage)
+        {
+            damageFlashTimer -= Time.deltaTime;
+            if (damageFlashTimer <= 0f)
+            {
+                isFlashingFromDamage = false;
             }
         }                  
-
-        // --- Footstep sound logic: runs every frame ---
-        if (footstepSound != null && audioSource != null && agent != null && agent.velocity.magnitude > 0.1f)
-        {
-            float stepInterval = baseStepRate / agent.speed;
-            footstepTimer += Time.deltaTime;
-
-            if (footstepTimer >= stepInterval)
-            {
-                audioSource.pitch = Mathf.Lerp(minPitch, maxPitch, (agent.speed - 1f) / 4f);
-                audioSource.PlayOneShot(footstepSound);
-                footstepTimer = 0f;
-            }
-        }
-        else
-        {
-            footstepTimer = 0f;
-            if (audioSource != null)
-                audioSource.pitch = 1f;
-        }
-        // --- End footstep sound logic ---
-    }
+    }   
 
     public void TakeDamage(float damageAmount)
     {
         currentHealth -= damageAmount;
-        audioSource.PlayOneShot(damageSound);
-        if (currentHealth <= 0f && !immortal)
+        
+        // Trigger damage flash effect
+        isFlashingFromDamage = true;
+        damageFlashTimer = damageFlashDuration;
+        
+        if(currentHealth <= 0f && !immortal)
         {
-            //decrement current enemies and increment enemies defeated, then check for objective completion
-            levelManager.currentObjective.currentEnemies--;
-            levelManager.currentObjective.enemiesDefeated++;
-            levelManager.checkForCompletion();
-
             Destroy(gameObject);
         }
         else if (currentHealth<=0f && immortal) //temporary snail test code
@@ -168,5 +137,15 @@ public class EnemyCore : MonoBehaviour
     public float getPiercingResistance()
     {
         return currentPiercingResistance;
+    }
+    
+    public float getCurrentHealth()
+    {
+        return currentHealth;
+    }
+    
+    public bool IsFlashingFromDamage()
+    {
+        return isFlashingFromDamage;
     }
 }

@@ -6,21 +6,21 @@ public class PlayerDirectionController : MonoBehaviour
     private CharacterController characterController;
     private SpriteRenderer spriteRenderer;
     private Animator animator;
-
+    
     [Header("Direction Settings")]
     [Tooltip("Minimum velocity magnitude to trigger direction change")]
     public float velocityThreshold = 0.1f;
-
+    
     [Header("Sprite Settings")]
     [Tooltip("Scale factor for the sprite (1.0 = original size, 0.5 = half size)")]
     public float spriteScale = 0.2f;
-
+    
     [Header("Damage Visual Effects")]
     [Tooltip("Color tint when player takes damage/is invulnerable")]
     public Color damageColor = Color.red;
     [Tooltip("How fast the damage color flashes (higher = faster)")]
     public float flashSpeed = 10f;
-
+    
     private Vector3 lastPosition;
     private bool facingRight = true; // Assumes sprite sheet has player facing right by default
     private bool isMoving = false;
@@ -28,12 +28,12 @@ public class PlayerDirectionController : MonoBehaviour
     private bool isInvulnerable = false;
     private Color originalColor;
     private Health healthComponent;
-
+    
     void Start()
     {
         // Get required components
         characterController = GetComponent<CharacterController>();
-
+        
         // SpriteRenderer and Animator are on child object named "Renderer"
         Transform rendererChild = transform.Find("Renderer");
         if (rendererChild != null)
@@ -41,46 +41,46 @@ public class PlayerDirectionController : MonoBehaviour
             spriteRenderer = rendererChild.GetComponent<SpriteRenderer>();
             animator = rendererChild.GetComponent<Animator>();
         }
-
+        
         if (characterController == null)
         {
             Debug.LogError("PlayerDirectionController: No CharacterController found on " + gameObject.name);
         }
-
+        
         if (spriteRenderer == null)
         {
             Debug.LogError("PlayerDirectionController: No SpriteRenderer found in Renderer child of " + gameObject.name);
         }
-
+        
         if (animator == null)
         {
             Debug.LogError("PlayerDirectionController: No Animator found in Renderer child of " + gameObject.name);
         }
-
+        
         // Get Health component for damage effects
         healthComponent = GetComponent<Health>();
         if (healthComponent == null)
         {
             Debug.LogWarning("PlayerDirectionController: No Health component found on " + gameObject.name);
         }
-
+        
         lastPosition = transform.position;
-
+        
         // Initialize sprite to face right (no flip) and set scale
         if (spriteRenderer != null)
         {
             spriteRenderer.flipX = false;
             facingRight = true;
-
+            
             // Store original color
             originalColor = spriteRenderer.color;
-
+            
             // Scale only the sprite by creating a wrapper transform for sprite-only scaling
             // First, check if we need to restructure the hierarchy
             ApplySpriteScaling();
         }
     }
-
+    
     void OnEnable()
     {
         if (healthComponent != null)
@@ -88,7 +88,7 @@ public class PlayerDirectionController : MonoBehaviour
             healthComponent.OnDamaged += OnPlayerDamaged;
         }
     }
-
+    
     void OnDisable()
     {
         if (healthComponent != null)
@@ -96,23 +96,23 @@ public class PlayerDirectionController : MonoBehaviour
             healthComponent.OnDamaged -= OnPlayerDamaged;
         }
     }
-
+    
     void Update()
     {
-        if (characterController == null || spriteRenderer == null || animator == null)
+        if (characterController == null || spriteRenderer == null || animator == null) 
         {
             return;
         }
-
+        
         // Calculate movement based on position change (since CharacterController doesn't have velocity like NavMeshAgent)
         Vector3 currentPosition = transform.position;
         Vector3 deltaPosition = currentPosition - lastPosition;
         Vector3 velocity = deltaPosition / Time.deltaTime;
-
+        
         // Check if player is moving
         bool wasMoving = isMoving;
         isMoving = velocity.magnitude > velocityThreshold;
-
+        
         // Handle direction flipping based on horizontal movement
         if (isMoving)
         {
@@ -130,17 +130,17 @@ public class PlayerDirectionController : MonoBehaviour
                 facingRight = false;
             }
         }
-
+        
         // Update animator parameters
         animator.SetBool("IsMoving", isMoving);
         animator.SetBool("IsShooting", isShooting);
-
+        
         // Handle damage visual effects
         HandleDamageEffects();
-
+        
         lastPosition = currentPosition;
     }
-
+    
     // Public method to set shooting state (call this from CharacterCore when shooting)
     public void SetShooting(bool shooting)
     {
@@ -150,7 +150,7 @@ public class PlayerDirectionController : MonoBehaviour
             animator.SetBool("IsShooting", isShooting);
         }
     }
-
+    
     // Public method to manually set direction (useful for other scripts)
     public void SetFacingDirection(bool shouldFaceRight)
     {
@@ -160,38 +160,38 @@ public class PlayerDirectionController : MonoBehaviour
             facingRight = shouldFaceRight;
         }
     }
-
+    
     // Get current facing direction
     public bool IsFacingRight()
     {
         return facingRight;
     }
-
+    
     // Get current movement state
     public bool IsMoving()
     {
         return isMoving;
     }
-
+    
     // Get current shooting state
     public bool IsShooting()
     {
         return isShooting;
     }
-
+    
     // Handle damage visual effects
     private void HandleDamageEffects()
     {
         if (spriteRenderer == null || healthComponent == null) return;
-
+        
         // Check if player is currently invulnerable
         bool currentlyInvulnerable = healthComponent.IsInvulnerable;
-
+        
         if (currentlyInvulnerable != isInvulnerable)
         {
             isInvulnerable = currentlyInvulnerable;
         }
-
+        
         if (isInvulnerable)
         {
             // Flash between red and original color
@@ -204,32 +204,32 @@ public class PlayerDirectionController : MonoBehaviour
             spriteRenderer.color = originalColor;
         }
     }
-
+    
     // Called when player takes damage
     private void OnPlayerDamaged(float damageAmount)
     {
         // The visual effect will be handled by HandleDamageEffects() checking invulnerability
         Debug.Log($"PlayerDirectionController: Player took {damageAmount} damage");
     }
-
+    
     // Apply scaling only to the sprite, not affecting reticle
     private void ApplySpriteScaling()
     {
         if (spriteRenderer == null) return;
-
+        
         Transform rendererTransform = spriteRenderer.transform;
-
+        
         // Check if the reticle is a child of the renderer transform
         Transform reticleTransform = rendererTransform.Find("reticle");
-
+        
         if (reticleTransform != null)
         {
             // Store the reticle's original scale before we modify the parent
             Vector3 originalReticleScale = reticleTransform.localScale;
-
+            
             // Scale the renderer transform (affects sprite)
             rendererTransform.localScale = new Vector3(spriteScale, spriteScale, 1f);
-
+            
             // Counter-scale the reticle to maintain its original effective size
             // We need to multiply by the inverse of our sprite scale to cancel it out
             float counterScale = 1f / spriteScale;
@@ -238,7 +238,7 @@ public class PlayerDirectionController : MonoBehaviour
                 originalReticleScale.y * counterScale,
                 originalReticleScale.z
             );
-
+            
             Debug.Log($"Applied sprite scaling: {spriteScale}, reticle counter-scale: {counterScale}, final reticle scale: {reticleTransform.localScale}");
         }
         else

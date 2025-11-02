@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/Prefabs/Characters/PlayerIdle.anim.meta
 guid: 5f97f4b4771dce94a93d0a783a5ff3d1
-========
-guid: 7790a0eb6f6097042aff9dde68ee3346
->>>>>>>> Justin:Assets/Scripts/LevelSystem/Objectives/Kill10Enemies.asset.meta
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 0
