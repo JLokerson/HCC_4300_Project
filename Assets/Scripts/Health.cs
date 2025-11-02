@@ -25,16 +25,28 @@ public class Health : MonoBehaviour
     private AudioClip damageSound = null;
     private AudioSource audioSource = null;
 
+    // Public property to check invulnerability status
+    public bool IsInvulnerable => invulnerable;
+
     void Awake()
     {
-        currentHealth = Mathf.Max(1f, maxHealth);
+        // Initialize health if it's not set or if it's 0
+        if (currentHealth <= 0f)
+        {
+            currentHealth = maxHealth;
+        }
+        Debug.Log($"[Health] {gameObject.name} initialized with health: {currentHealth}/{maxHealth}");
         audioSource = GetComponent<AudioSource>();
         damageSound=GetComponent<CharacterCore>()?.damageSound;
     }
 
     public void TakeDamage(float amount)
     {
-        if (!canTakeDamage || invulnerable || amount <= 0f) return;
+        if (!canTakeDamage || invulnerable || amount <= 0f)
+        {
+            Debug.Log($"[Health] {gameObject.name} - Damage blocked: canTakeDamage={canTakeDamage}, invulnerable={invulnerable}, amount={amount}");
+            return;
+        }
 
         currentHealth = Mathf.Max(0f, currentHealth - amount);
         OnDamaged?.Invoke(amount);
@@ -60,9 +72,15 @@ public class Health : MonoBehaviour
 
     void Die()
     {
-        if (hasDied) return; // ensure single fire
+        if (hasDied)// ensure single fire
+        {
+            Debug.Log($"[Health] {gameObject.name} - Die() called but already died");
+            return; // ensure single fire
+        }
+
         hasDied = true;
 
+        Debug.Log($"[Health] {gameObject.name} - Die() executing. Invoking OnDeath event...");
         OnDeath?.Invoke();
 
         if (destroyOnDeath)
