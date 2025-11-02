@@ -171,6 +171,9 @@ public class CharacterCore : MonoBehaviour
             GameObject bulletObj = Instantiate(bulletPrefab, transform.position, transform.rotation); //create bullet at player
             Projectile bullet = bulletObj.GetComponent<Projectile>();
             
+            // Initialize bullet with this character's StatManager
+            bullet.Initialize(statManager);
+            
             // Get bullet spread from StatManager
             float currentBulletSpread = statManager != null ? statManager.GetStatValue(StatType.BulletSpread) : 0.2f;
             bullet.SetTarget(reticle.transform.position, currentBulletSpread);

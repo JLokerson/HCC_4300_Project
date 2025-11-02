@@ -320,6 +320,12 @@ MonoBehaviour:
     baseValue: 0.2
   - statType: 10
     baseValue: 100
+  - statType: 1
+    baseValue: 0.5
+  - statType: 9
+    baseValue: 10
+  - statType: 8
+    baseValue: 2
 --- !u!114 &3436708249715995942
 MonoBehaviour:
   m_ObjectHideFlags: 0
