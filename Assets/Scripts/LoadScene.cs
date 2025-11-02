@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class LoadScene : MonoBehaviour
 {
 
-    public void LoadSelectedScene(string sceneName)
+    public static void LoadSelectedScene(string sceneName)
     {
         if (!string.IsNullOrEmpty(sceneName))
         {
@@ -16,7 +16,7 @@ public class LoadScene : MonoBehaviour
             Debug.LogError("No scene name provided");
         }        
     }
-    public void LoadSelectedScene(SceneAsset sceneName)
+    public static void LoadSelectedScene(SceneAsset sceneName)
     {
         if (sceneName != null)
         {

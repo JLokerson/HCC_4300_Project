@@ -1252,4 +1252,4 @@ MonoBehaviour:
   resumeButton: {fileID: 8650675135121481912}
   mainMenuButton: {fileID: 6776183022757812304}
   quitButton: {fileID: 152541055795092099}
-  mainMenuSceneName: MainMenu
+  mainMenuSceneName: {fileID: 102900000, guid: 8407faa904ecc57468f6321b3039f2f1, type: 3}
