@@ -18,30 +18,24 @@ MonoBehaviour:
   statModifications:
   - affectedStat: 0
     modifierType: 100
-    valuePerStack: 0
+    valuePerStack: 10
   - affectedStat: 1
     modifierType: 100
-    valuePerStack: 0
+    valuePerStack: 10
   - affectedStat: 2
     modifierType: 100
-    valuePerStack: 0
+    valuePerStack: 5
   - affectedStat: 3
     modifierType: 100
-    valuePerStack: 0
-  - affectedStat: 3
-    modifierType: 100
-    valuePerStack: 0
+    valuePerStack: 1
   - affectedStat: 4
     modifierType: 100
-    valuePerStack: 0
+    valuePerStack: 10
   - affectedStat: 8
     modifierType: 100
-    valuePerStack: 0
-  - affectedStat: 8
-    modifierType: 100
-    valuePerStack: 0
+    valuePerStack: 1
   - affectedStat: 10
     modifierType: 100
-    valuePerStack: 0
+    valuePerStack: 120
   maxStacks: 5
   isStackable: 1
