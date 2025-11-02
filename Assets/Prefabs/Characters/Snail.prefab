@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 2786431755928837448}
   - component: {fileID: 6119618577821762530}
   - component: {fileID: 2198670637283613198}
-  - component: {fileID: 9876543210987654321}
+  - component: {fileID: 1234567890123456787}
+  - component: {fileID: 1234567890123456786}
   - component: {fileID: 6583932323767441006}
   - component: {fileID: 8432226331197715340}
   - component: {fileID: 7516441157871801099}
@@ -230,7 +231,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &9876543210987654321
+--- !u!114 &1234567890123456787
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -300,7 +301,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &9876543210987654321
+--- !u!114 &1234567890123456786
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

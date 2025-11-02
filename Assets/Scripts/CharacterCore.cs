@@ -59,6 +59,7 @@ public class CharacterCore : MonoBehaviour
     public float maxPitch = 1.2f;
 
     private float footstepTimer = 0f;
+    private float currentSpeed = 0f;
 
     private void Start()
     {
@@ -108,6 +109,9 @@ public class CharacterCore : MonoBehaviour
         Vector2 moveValue= moveAction.ReadValue<Vector2>(); 
         Vector3 move = new Vector3(moveValue.x, 0, moveValue.y); //now we convert it to a Vector3 for 3D movement. the 0 is since we don't want to move up or down
         controller.Move(move * Time.deltaTime * MovementSpeed); //this is the actual movement
+
+        // Calculate current speed for audio and other systems
+        currentSpeed = move.magnitude * MovementSpeed;
 
         // Footstep sound logic
         if (move.magnitude > 0.1f && audioSource != null && footstepSound != null)

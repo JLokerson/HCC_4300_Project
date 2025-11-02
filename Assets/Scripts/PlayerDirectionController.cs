@@ -11,9 +11,7 @@ public class PlayerDirectionController : MonoBehaviour
     [Tooltip("Minimum velocity magnitude to trigger direction change")]
     public float velocityThreshold = 0.1f;
     
-    [Header("Sprite Settings")]
-    [Tooltip("Scale factor for the sprite (1.0 = original size, 0.5 = half size)")]
-    public float spriteScale = 0.2f;
+
     
     [Header("Damage Visual Effects")]
     [Tooltip("Color tint when player takes damage/is invulnerable")]
@@ -66,7 +64,7 @@ public class PlayerDirectionController : MonoBehaviour
         
         lastPosition = transform.position;
         
-        // Initialize sprite to face right (no flip) and set scale
+        // Initialize sprite to face right (no flip)
         if (spriteRenderer != null)
         {
             spriteRenderer.flipX = false;
@@ -74,10 +72,6 @@ public class PlayerDirectionController : MonoBehaviour
             
             // Store original color
             originalColor = spriteRenderer.color;
-            
-            // Scale only the sprite by creating a wrapper transform for sprite-only scaling
-            // First, check if we need to restructure the hierarchy
-            ApplySpriteScaling();
         }
     }
     
@@ -210,42 +204,5 @@ public class PlayerDirectionController : MonoBehaviour
     {
         // The visual effect will be handled by HandleDamageEffects() checking invulnerability
         Debug.Log($"PlayerDirectionController: Player took {damageAmount} damage");
-    }
-    
-    // Apply scaling only to the sprite, not affecting reticle
-    private void ApplySpriteScaling()
-    {
-        if (spriteRenderer == null) return;
-        
-        Transform rendererTransform = spriteRenderer.transform;
-        
-        // Check if the reticle is a child of the renderer transform
-        Transform reticleTransform = rendererTransform.Find("reticle");
-        
-        if (reticleTransform != null)
-        {
-            // Store the reticle's original scale before we modify the parent
-            Vector3 originalReticleScale = reticleTransform.localScale;
-            
-            // Scale the renderer transform (affects sprite)
-            rendererTransform.localScale = new Vector3(spriteScale, spriteScale, 1f);
-            
-            // Counter-scale the reticle to maintain its original effective size
-            // We need to multiply by the inverse of our sprite scale to cancel it out
-            float counterScale = 1f / spriteScale;
-            reticleTransform.localScale = new Vector3(
-                originalReticleScale.x * counterScale,
-                originalReticleScale.y * counterScale,
-                originalReticleScale.z
-            );
-            
-            Debug.Log($"Applied sprite scaling: {spriteScale}, reticle counter-scale: {counterScale}, final reticle scale: {reticleTransform.localScale}");
-        }
-        else
-        {
-            // If no reticle child, just scale normally
-            rendererTransform.localScale = new Vector3(spriteScale, spriteScale, 1f);
-            Debug.Log($"No reticle found, applied sprite scaling: {spriteScale}");
-        }
     }
 }

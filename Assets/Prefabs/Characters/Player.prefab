@@ -28,7 +28,7 @@ RectTransform:
   m_GameObject: {fileID: 176206666722097896}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 4, y: 4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7150033949093607080}
@@ -123,10 +123,9 @@ GameObject:
   - component: {fileID: 4767249336620690423}
   - component: {fileID: 546820713215014781}
   - component: {fileID: 1234567890123456789}
-  - component: {fileID: 9876543210987654321}
+  - component: {fileID: 1234567890123456788}
   - component: {fileID: 6066347027140311121}
-  - component: {fileID: 8048753426995499325}
-  - component: {fileID: 3436708249715995942}
+  - component: {fileID: 1234567890123456785}
   - component: {fileID: 4220299369861878979}
   m_Layer: 0
   m_Name: Player
@@ -290,7 +289,7 @@ MonoBehaviour:
   destroyOnDeath: 0
   canTakeDamage: 1
   invulnSecondsAfterHit: 0.15
---- !u!114 &9876543210987654321
+--- !u!114 &1234567890123456788
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -304,6 +303,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
   mainMenuSceneName: MainMenu
   mainMenuBuildIndex: 0
+--- !u!114 &1234567890123456785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1057559930409579937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e1255046bcd0124096ab8259652e1cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &6066347027140311121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -313,10 +324,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1057559930409579937}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a833501d76bcbd545a36611d8bd310c0, type: 3}
+  m_Script: {fileID: 11500000, guid: 6b9781611784f314b9ed22449be20399, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeManager
-  statManager: {fileID: 8048753426995499325}
+  statManager: {fileID: 1234567890123456785}
   availableUpgrades:
   - {fileID: 11400000, guid: 92eb8813bed554e4eb645c87f40ebd66, type: 2}
 --- !u!82 &4220299369861878979
@@ -760,7 +771,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.70710677, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8773037098642291106}
