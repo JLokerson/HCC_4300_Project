@@ -164,6 +164,9 @@ public class CharacterCore : MonoBehaviour
         {
             GameObject bulletObj=Instantiate(bulletPrefab, transform.position, transform.rotation); //create bullet at player
             Projectile bullet=bulletObj.GetComponent<Projectile>();
+            
+            // Initialize bullet with this character's StatManager
+            bullet.Initialize(statManager);
             bullet.SetTarget(reticle.transform.position, bulletSpread);
 
             if(ammoCounter!=null)//update ammo counter display if it exists

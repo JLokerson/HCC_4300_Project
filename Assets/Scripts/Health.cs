@@ -5,7 +5,8 @@ using System.Collections;
 public class Health : MonoBehaviour
 {
     [Header("Health")]
-    public float maxHealth = 100f;
+    [Tooltip("Base max health (used if no StatManager present)")]
+    public float baseMaxHealth = 100f;
     public float currentHealth;
     public bool destroyOnDeath = false;
 
@@ -27,24 +28,78 @@ public class Health : MonoBehaviour
 
     private AudioClip damageSound = null;
     private AudioSource audioSource = null;
+    
+    // Reference to stat manager
+    private StatManager statManager;
+    
+    // Property to get current max health from stat manager
+    public float maxHealth
+    {
+        get
+        {
+            if (statManager != null)
+                return statManager.GetStatValue(StatType.MaxHealth);
+            return baseMaxHealth;
+        }
+    }
 
     void Awake()
     {
         // Initialize health if it's not set or if it's 0
         if (currentHealth <= 0f)
         {
-            currentHealth = Mathf.Max(1f, maxHealth);
+            // Try to get StatManager from this GameObject
+        statManager = GetComponent<StatManager>();
         }
         
         // Initialize audio components
-        audioSource = GetComponent<AudioSource>();
-        var characterCore = GetComponent<CharacterCore>();
-        if (characterCore != null)
-        {
-            damageSound = characterCore.damageSound;
-        }
         
-        Debug.Log($"[Health] {gameObject.name} initialized with health: {currentHealth}/{maxHealth}");
+        audioSource = GetComponent<AudioSource>();
+        damageSound = GetComponent<CharacterCore>()?.damageSound;
+    }
+    
+    void Start()
+    {
+        // Initialize health AFTER StatManager has set up its stats in Awake()
+        if (currentHealth <= 0)
+        {
+            currentHealth = maxHealth;
+        }
+    }
+    
+    void OnEnable()
+    {
+        // Subscribe to stat changes if manager exists
+        if (statManager != null)
+        {
+            statManager.OnStatChanged += HandleStatChanged;
+        }
+    }
+    
+    void OnDisable()
+    {
+        if (statManager != null)
+        {
+            statManager.OnStatChanged -= HandleStatChanged;
+        }
+    }
+    
+    private void HandleStatChanged(StatType statType, float newValue)
+    {
+        // When max health increases, you have options:
+        if (statType == StatType.MaxHealth)
+        {
+            // Option 1: Keep current health as-is (player still damaged)
+            currentHealth = Mathf.Min(newValue, currentHealth);
+            
+            // Option 2: Scale health proportionally (uncomment if preferred)
+            // float oldValue = maxHealth; // would need to cache the old value
+            // float healthPercent = oldValue > 0 ? currentHealth / oldValue : 1f;
+            // currentHealth = newValue * healthPercent;
+            
+            // Option 3: Fully heal on max health upgrade (uncomment if preferred)
+            // currentHealth = newValue;
+        }
     }
 
     public void TakeDamage(float amount)
@@ -69,7 +124,9 @@ public class Health : MonoBehaviour
 
         if (invulnSecondsAfterHit > 0f)
             StartCoroutine(TempInvuln(invulnSecondsAfterHit));
-        audioSource.PlayOneShot(damageSound);
+        
+        if (audioSource != null && damageSound != null)
+            audioSource.PlayOneShot(damageSound);
     }
 
     public void Heal(float amount)
