@@ -40,6 +40,9 @@ public class EnemyCore : MonoBehaviour
 
     private float footstepTimer = 0f;
 
+    //the level manager mainly used to track enemies
+    private LevelManager levelManager;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -74,6 +77,9 @@ public class EnemyCore : MonoBehaviour
         }
         currentHealth = maxHealth;
         currentPiercingResistance = maxPiercingResistance;
+        //increment current enemies
+        levelManager = GameObject.FindFirstObjectByType<LevelManager>();
+        levelManager.currentObjective.currentEnemies++;
 
         // Set up audio source
         audioSource = GetComponent<AudioSource>();
@@ -137,6 +143,11 @@ public class EnemyCore : MonoBehaviour
         audioSource.PlayOneShot(damageSound);
         if (currentHealth <= 0f && !immortal)
         {
+            //decrement current enemies and increment enemies defeated, then check for objective completion
+            levelManager.currentObjective.currentEnemies--;
+            levelManager.currentObjective.enemiesDefeated++;
+            levelManager.checkForCompletion();
+
             Destroy(gameObject);
         }
         else if (currentHealth<=0f && immortal) //temporary snail test code
