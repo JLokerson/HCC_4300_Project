@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-using UnityEditor;
 
 /// <summary>
 /// Handles the pause menu functionality during gameplay
@@ -19,7 +18,7 @@ public class PauseManager : MonoBehaviour
     [SerializeField] private Button quitButton;
     
     [Header("Scene Management")]
-    [SerializeField] private SceneAsset mainMenuSceneName = null;
+    [SerializeField] private string mainMenuSceneName = "MainMenu";
     
     private bool isPaused = false;
     private InputAction pauseAction;
@@ -158,7 +157,7 @@ public class PauseManager : MonoBehaviour
     {
         Time.timeScale = 1f; // Make sure time scale is reset
         Debug.Log("Returning to main menu...");
-        SceneManager.LoadScene(mainMenuSceneName.name);
+        SceneManager.LoadScene(mainMenuSceneName);
     }
     
     /// <summary>

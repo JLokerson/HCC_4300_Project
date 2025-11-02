@@ -5843,7 +5843,7 @@ MonoBehaviour:
   resumeButton: {fileID: 1461681192}
   mainMenuButton: {fileID: 1857562938}
   quitButton: {fileID: 1456731413}
-  mainMenuSceneName: {fileID: 102900000, guid: 8407faa904ecc57468f6321b3039f2f1, type: 3}
+  mainMenuSceneName: MainMenu
 --- !u!4 &1441976176
 Transform:
   m_ObjectHideFlags: 0

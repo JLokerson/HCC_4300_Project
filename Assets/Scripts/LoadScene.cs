@@ -1,19 +1,18 @@
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LoadScene : MonoBehaviour
 {
 
-    public void LoadSelectedScene(SceneAsset scene)
+    public void LoadSelectedScene(string sceneName)
     {
-        if (scene!=null)
+        if (!string.IsNullOrEmpty(sceneName))
         {
-            SceneManager.LoadScene(scene.name);
+            SceneManager.LoadScene(sceneName);
         }
         else
         {
-            Debug.LogError("No scene to load");
+            Debug.LogError("No scene name provided");
         }        
     }
 }
