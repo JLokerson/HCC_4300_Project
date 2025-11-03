@@ -12,7 +12,7 @@ public class ShopManager : MonoBehaviour
     [Header("Shop UI References")]
     public GameObject shopMenuPanel;
     public Button closeButton;
-    public Text shopTitle;
+    //public Text shopTitle;
     
     [Header("Upgrade Display")]
     [Tooltip("Container where upgrade items will be spawned")]
@@ -70,10 +70,10 @@ public class ShopManager : MonoBehaviour
             closeButton.onClick.AddListener(CloseShop);
         }
         
-        if (shopTitle != null)
+        /*if (shopTitle != null)
         {
             shopTitle.text = shopName;
-        }
+        }*/
         
         // Auto-find UpgradeManager on player
         if (upgradeManager == null)
