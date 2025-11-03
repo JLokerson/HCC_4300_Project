@@ -323,7 +323,7 @@ MonoBehaviour:
   - statType: 10
     baseValue: 100
   - statType: 1
-    baseValue: 0.5
+    baseValue: 2
   - statType: 9
     baseValue: 10
   - statType: 8
