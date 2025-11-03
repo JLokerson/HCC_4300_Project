@@ -209,16 +209,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f6598eb7a2a9c045b481a95977d3350, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterCore
-  MovementSpeed: 5
   bulletPrefab: {fileID: 8235750292647877918, guid: a2d441e0be5d3bc43919b251a220d8e9, type: 3}
   reticle: {fileID: 176206666722097896}
   normalReticle: {fileID: 2100000, guid: 0c3bd44a93d091a498033667a9fc3663, type: 2}
   shotReticle: {fileID: 2100000, guid: 2cf54aee73f0bea4282491ba8be5676d, type: 2}
   reloadReticle: {fileID: 2100000, guid: 5e78a13e3c2637a488f16517fe0a2ec8, type: 2}
-  fireRate: 0.5
-  reloadTime: 2
-  MaxBulletCount: 5
-  bulletSpread: 0.275
   footstepSound: {fileID: 8300000, guid: 144693f44a6efb84ba1ab2f22b767f6c, type: 3}
   damageSound: {fileID: 8300000, guid: 19e23c720fa95f44793d9db6bc06d96c, type: 3}
   reloadStartSound: {fileID: 8300000, guid: 4f2c66d04c4ed8c42b458b4bb4b7ad05, type: 3}
@@ -268,7 +263,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1323b9bf2ae74824381e9aa0b1993387, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
-  maxHealth: 100
+  baseMaxHealth: 100
   currentHealth: 100
   destroyOnDeath: 0
   canTakeDamage: 1
@@ -332,7 +327,7 @@ MonoBehaviour:
   - statType: 9
     baseValue: 10
   - statType: 8
-    baseValue: 2
+    baseValue: 10
 --- !u!114 &7867365433831447381
 MonoBehaviour:
   m_ObjectHideFlags: 0

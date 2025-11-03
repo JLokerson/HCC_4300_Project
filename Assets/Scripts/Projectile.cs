@@ -8,11 +8,11 @@ public class Projectile : MonoBehaviour
     [Tooltip("How long the bullet can exist before automatically destroying itself\n(Like if it somehow gets out of bounds it won't fly forever)")]
     public float lifetime = 3f; // How long the bullet exists before being destroyed
 
-    public float maxDamage = 1f;
+    public float baseDamage = 1f;
     private float currentDamage;
 
     [Tooltip("How many enemies/objects the bullet can pierce through before being destroyed\nNote: enemies have a piercing resistance stat")]
-    public float maxPiercing = 0f;
+    public float basePiercing = 0f;
     private float currentPiercing;
 
     [Tooltip("How many times bullet can bounce off surfaces after it has no piercing left")]
@@ -33,10 +33,17 @@ public class Projectile : MonoBehaviour
 
     private Vector3 moveDirection = Vector3.zero;
        
+    // Reference to the shooter's stat manager (passed in when bullet is created)
+    private StatManager shooterStatManager;
 
-    public void SetTarget(Vector3 position,float spread=0) //this is called in CharacterCore when the bullet is fired. default spread is 0 if none is specified
+    public void Initialize(StatManager statManager)
     {
-        // Calculate direction at the moment of firing
+        shooterStatManager = statManager;
+    }
+
+    public void SetTarget(Vector3 position, float spread = 0) //this is called in CharacterCore when the bullet is fired. default spread is 0 if none is specified
+    {
+        // Calculate direction at the moment of firing 
         Vector3 target = new Vector3(position.x, transform.position.y, position.z);
         moveDirection = (target - transform.position).normalized;
 
@@ -53,11 +60,28 @@ public class Projectile : MonoBehaviour
     void Start()
     {
         Destroy(gameObject, lifetime); // Destroy the bullet after its lifetime expires
-        currentDamage = maxDamage;
-        currentPiercing = maxPiercing;
+        
+        // Get damage from shooter's StatManager if available, otherwise use base damage
+        if (shooterStatManager != null)
+        {
+            currentDamage = shooterStatManager.GetStatValue(StatType.BulletDamage);
+            currentPiercing = shooterStatManager.GetStatValue(StatType.BulletPiercing);
+            speed = shooterStatManager.GetStatValue(StatType.BulletSpeed);
+        }
+        else
+        {
+            currentDamage = baseDamage;
+            currentPiercing = basePiercing;
+            Debug.LogWarning("Projectile has no StatManager reference. Using base values.");
+        }
+
         currentBounces = 0;
         audioSource = GetComponent<AudioSource>();
-        audioSource.PlayOneShot(spawnSound);
+        
+        if (audioSource != null && spawnSound != null)
+            audioSource.PlayOneShot(spawnSound);
+            
+        Debug.Log($"[Projectile] Initialized with Damage: {currentDamage}, Piercing: {currentPiercing}, Speed: {speed}");
     }
 
     void Update()
@@ -70,52 +94,71 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Player")||other.CompareTag("Bullet"))
+        if(other.CompareTag("Player") || other.CompareTag("Bullet"))
         {
             // Ignore collisions with the player
             return;
         }
+        
+        bool hitSomething = false;
+        
         if (other.CompareTag("Enemy"))
         {
-            EnemyCore enemy= other.GetComponent<EnemyCore>();                        
-            enemy?.TakeDamage(currentDamage);
-            currentPiercing = currentPiercing - enemy.getPiercingResistance();
-
-        }
-        if(other.gameObject.layer.Equals(LayerMask.NameToLayer("Environment")))
-        {
-            currentPiercing = currentPiercing - 5;
-            
-        }
-
-        if (currentPiercing < 0)//if the bullet has gone through all that it can, it bounces if it can and if not, destroy it
-        {
-            if (currentBounces < maxBounces)
+            EnemyCore enemy = other.GetComponent<EnemyCore>();
+            if (enemy != null)
             {
-                BounceBullet();
+                enemy.TakeDamage(currentDamage);
+                float piercingResistance = enemy.getPiercingResistance();
+                currentPiercing -= piercingResistance;
+                Debug.Log($"[Projectile] Hit enemy. Piercing: {currentPiercing + piercingResistance} -> {currentPiercing}");
+                hitSomething = true;
             }
-            else 
-            { 
-                AudioSource.PlayClipAtPoint(breakSound, transform.position); //play the sound where the bullet was.
-                                                                             //PlayOneShot would start it and it would instantly cut because the audio source was destroyed along with the bullet
-                Destroy(gameObject);
-            }                
         }
-        else if(other.CompareTag("Enemy")||other.gameObject.layer.Equals("Environment"))
+        else if(other.gameObject.layer == LayerMask.NameToLayer("Environment"))
         {
-            audioSource.PlayOneShot(pierceSound);
+            currentPiercing -= 5;
+            Debug.Log($"[Projectile] Hit environment. Piercing: {currentPiercing + 5} -> {currentPiercing}");
+            hitSomething = true;
+        }
+
+        // Only check piercing/bouncing if we actually hit something
+        if (hitSomething)
+        {
+            if (currentPiercing < 0) // Out of piercing
+            {
+                if (currentBounces < maxBounces)
+                {
+                    BounceBullet(other);
+                }
+                else 
+                { 
+                    if (breakSound != null)
+                        AudioSource.PlayClipAtPoint(breakSound, transform.position);
+                    Destroy(gameObject);
+                }                
+            }
+            else // Still has piercing
+            {
+                if (audioSource != null && pierceSound != null)
+                    audioSource.PlayOneShot(pierceSound);
+            }
         }
     }
 
-    private void BounceBullet()
+    private void BounceBullet(Collider hitCollider)
     {
-        // Reflect the moveDirection vector off the surface normal
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, moveDirection, out hit))
+        // Calculate normal from the collision point
+        Vector3 collisionPoint = hitCollider.ClosestPoint(transform.position);
+        Vector3 normal = (transform.position - collisionPoint).normalized;
+        
+        if (normal != Vector3.zero)
         {
-            moveDirection = Vector3.Reflect(moveDirection, hit.normal);
+            moveDirection = Vector3.Reflect(moveDirection, normal);
             currentBounces++;
-            audioSource.PlayOneShot(bounceSound);
+            Debug.Log($"[Projectile] Bounced! Count: {currentBounces}/{maxBounces}");
+            
+            if (audioSource != null && bounceSound != null)
+                audioSource.PlayOneShot(bounceSound);
         }
     }
 }
