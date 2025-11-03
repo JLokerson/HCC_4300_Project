@@ -1779,6 +1779,10 @@ PrefabInstance:
       propertyPath: TargetIsStationary
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2786431755928837448, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4922636760702341083, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
       propertyPath: m_Name
       value: Enemy

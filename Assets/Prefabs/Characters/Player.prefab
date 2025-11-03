@@ -107,7 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5bd3b5a076b6eb4cb43e9a426e696bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  fixedY: 1
+  fixedY: 2
 --- !u!1 &1057559930409579937
 GameObject:
   m_ObjectHideFlags: 0
@@ -296,7 +296,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeManager
   statManager: {fileID: 1234567890123456785}
   availableUpgrades:
-  - {fileID: 11400000, guid: 92eb8813bed554e4eb645c87f40ebd66, type: 2}
+  - {fileID: 0}
 --- !u!114 &1234567890123456785
 MonoBehaviour:
   m_ObjectHideFlags: 0
