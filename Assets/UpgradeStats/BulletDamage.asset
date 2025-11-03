@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e596f13776bf89479702c726d4f7f86, type: 3}
   m_Name: BulletDamage
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
-  upgradeName: 
-  description: 
-  icon: {fileID: 21300000, guid: ca16d3b791b743047bea71c30b51f464, type: 3}
+  upgradeName: Damage
+  description: Increased Damage By 0.5
+  icon: {fileID: 21300000, guid: b6f8e05642515f04597c9bfe99952308, type: 3}
   statModifications:
   - affectedStat: 1
     modifierType: 100
-    valuePerStack: 5
+    valuePerStack: 0.5
   maxStacks: 5
   isStackable: 0

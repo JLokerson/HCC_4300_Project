@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e596f13776bf89479702c726d4f7f86, type: 3}
   m_Name: MoveSpeed
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
-  upgradeName: 
-  description: 
-  icon: {fileID: 0}
+  upgradeName: Move Speed
+  description: Increases Move Speed by 1.75
+  icon: {fileID: 21300000, guid: d1aa06a442530cd49b7347d8b6456031, type: 3}
   statModifications:
   - affectedStat: 0
     modifierType: 100

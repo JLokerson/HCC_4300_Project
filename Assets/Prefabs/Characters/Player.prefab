@@ -298,7 +298,10 @@ MonoBehaviour:
   availableUpgrades:
   - {fileID: 11400000, guid: 1f8fd471acbd0344994b8e3b665758c4, type: 2}
   - {fileID: 11400000, guid: 92b7a12f93107f742890eed0789ff3a2, type: 2}
-  - {fileID: 11400000, guid: 6b5cd8dd07932e74c893ca5765a1d031, type: 2}
+  - {fileID: 11400000, guid: 1f8fd471acbd0344994b8e3b665758c4, type: 2}
+  - {fileID: 11400000, guid: 92b7a12f93107f742890eed0789ff3a2, type: 2}
+  - {fileID: 11400000, guid: 102a33414fa864e498c959cafc2a83a2, type: 2}
+  - {fileID: 11400000, guid: 73e51cf65083e47439718a93763b7b80, type: 2}
 --- !u!114 &1234567890123456785
 MonoBehaviour:
   m_ObjectHideFlags: 0

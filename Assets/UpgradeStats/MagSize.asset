@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e596f13776bf89479702c726d4f7f86, type: 3}
   m_Name: MagSize
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
-  upgradeName: 
-  description: 
+  upgradeName: Mag Size
+  description: Increases Mag Size by 2
   icon: {fileID: 21300000, guid: ca16d3b791b743047bea71c30b51f464, type: 3}
   statModifications:
   - affectedStat: 4
