@@ -12,7 +12,7 @@ public class ShopManager : MonoBehaviour
     [Header("Shop UI References")]
     public GameObject shopMenuPanel;
     public Button closeButton;
-    //public Text shopTitle;
+    public Text shopTitle;
     
     [Header("Upgrade Display")]
     [Tooltip("Container where upgrade items will be spawned")]
@@ -60,39 +60,89 @@ public class ShopManager : MonoBehaviour
     
     void Start()
     {
+        Debug.Log("=== ShopManager Start() ===");
+        
         if (shopMenuPanel != null)
         {
             shopMenuPanel.SetActive(false);
+            Debug.Log("Shop panel initialized (hidden)");
+        }
+        else
+        {
+            Debug.LogError("Shop Menu Panel is not assigned in Inspector!");
         }
         
         if (closeButton != null)
         {
             closeButton.onClick.AddListener(CloseShop);
+            Debug.Log("Close button listener added");
+        }
+        else
+        {
+            Debug.LogWarning("Close Button is not assigned in Inspector");
         }
         
-        /*if (shopTitle != null)
+        if (shopTitle != null)
         {
             shopTitle.text = shopName;
-        }*/
+            Debug.Log($"Shop title set to: {shopName}");
+        }
         
         // Auto-find UpgradeManager on player
         if (upgradeManager == null)
         {
+            Debug.Log("UpgradeManager not assigned, searching for Player...");
             GameObject player = GameObject.FindWithTag("Player");
             if (player != null)
             {
+                Debug.Log($"Found player: {player.name}");
                 upgradeManager = player.GetComponent<UpgradeManager>();
+                
+                if (upgradeManager != null)
+                {
+                    Debug.Log("Found UpgradeManager on player!");
+                }
+                else
+                {
+                    Debug.LogError("Player found but has no UpgradeManager component!");
+                }
             }
-            
-            if (upgradeManager == null)
+            else
             {
-                Debug.LogWarning("ShopManager: No UpgradeManager found on player!");
+                Debug.LogError("No GameObject with tag 'Player' found in scene!");
             }
         }
+        else
+        {
+            Debug.Log("UpgradeManager already assigned in Inspector");
+        }
+        
+        // Validate all critical references
+        if (upgradeContainer == null)
+        {
+            Debug.LogError("Upgrade Container is not assigned in Inspector!");
+        }
+        else
+        {
+            Debug.Log("Upgrade Container assigned");
+        }
+        
+        if (upgradeItemPrefab == null)
+        {
+            Debug.LogError("Upgrade Item Prefab is not assigned in Inspector!");
+        }
+        else
+        {
+            Debug.Log($"Upgrade Item Prefab assigned: {upgradeItemPrefab.name}");
+        }
+        
+        Debug.Log("=== ShopManager Start() complete ===");
     }
     
     public void OpenShop()
     {
+        Debug.Log("=== OpenShop called ===");
+        
         if (!isShopOpen)
         {
             isShopOpen = true;
@@ -100,6 +150,11 @@ public class ShopManager : MonoBehaviour
             if (shopMenuPanel != null)
             {
                 shopMenuPanel.SetActive(true);
+                Debug.Log("Shop panel activated");
+            }
+            else
+            {
+                Debug.LogError("Shop Menu Panel is NULL!");
             }
             
             if (audioSource != null && openShopSound != null)
@@ -107,11 +162,18 @@ public class ShopManager : MonoBehaviour
                 audioSource.PlayOneShot(openShopSound);
             }
             
+            Debug.Log("About to call RefreshUpgradeDisplay()");
             RefreshUpgradeDisplay();
             
             Time.timeScale = 0f;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
+            
+            Debug.Log("Shop opened successfully");
+        }
+        else
+        {
+            Debug.Log("Shop already open, ignoring OpenShop call");
         }
     }
     
@@ -160,29 +222,56 @@ public class ShopManager : MonoBehaviour
     /// </summary>
     public void RefreshUpgradeDisplay()
     {
-        if (upgradeManager == null || upgradeContainer == null || upgradeItemPrefab == null)
+        Debug.Log("=== RefreshUpgradeDisplay called ===");
+        
+        if (upgradeManager == null)
         {
-            Debug.LogWarning("ShopManager: Missing references - cannot display upgrades");
+            Debug.LogError("UpgradeManager is NULL! Cannot display upgrades.");
             return;
         }
         
+        if (upgradeContainer == null)
+        {
+            Debug.LogError("Upgrade Container is NULL! Cannot display upgrades.");
+            return;
+        }
+        
+        if (upgradeItemPrefab == null)
+        {
+            Debug.LogError("Upgrade Item Prefab is NULL! Cannot display upgrades.");
+            return;
+        }
+        
+        Debug.Log("All references valid, proceeding...");
+        
         ClearUpgradeDisplay();
         
+        Debug.Log($"Getting {numberOfUpgradeOptions} random upgrades from UpgradeManager...");
         List<UpgradeData> availableUpgrades = upgradeManager.GetRandomAvailableUpgrades(numberOfUpgradeOptions);
+        
+        Debug.Log($"Received {availableUpgrades.Count} upgrades from UpgradeManager");
         
         if (availableUpgrades.Count == 0)
         {
-            Debug.Log("ShopManager: No available upgrades");
+            Debug.LogWarning("No available upgrades returned from UpgradeManager!");
             return;
         }
         
         // Create UI for each upgrade
         foreach (UpgradeData upgrade in availableUpgrades)
         {
+            Debug.Log($"Creating UI for upgrade: {upgrade.upgradeName}");
+            
             GameObject itemObj = Instantiate(upgradeItemPrefab, upgradeContainer);
+            Debug.Log($"Instantiated prefab, setting up...");
+            
             SetupUpgradeItem(itemObj, upgrade);
             currentUpgradeItems.Add(itemObj);
+            
+            Debug.Log($"Upgrade item created for: {upgrade.upgradeName}");
         }
+        
+        Debug.Log($"=== RefreshUpgradeDisplay complete: {currentUpgradeItems.Count} items created ===");
     }
     
     /// <summary>
@@ -190,30 +279,59 @@ public class ShopManager : MonoBehaviour
     /// </summary>
     private void SetupUpgradeItem(GameObject itemObj, UpgradeData upgrade)
     {
-        // Find UI components by name (standard naming in prefab)
-        Image iconImage = itemObj.transform.Find("Icon")?.GetComponent<Image>();
-        Text nameText = itemObj.transform.Find("NameText")?.GetComponent<Text>();
-        Text descriptionText = itemObj.transform.Find("DescriptionText")?.GetComponent<Text>();
-        Text stackText = itemObj.transform.Find("StackCountText")?.GetComponent<Text>();
-        Button button = itemObj.transform.Find("PurchaseButton")?.GetComponent<Button>();
+        Debug.Log($"=== SetupUpgradeItem called for: {upgrade.upgradeName} ===");
+        
+        // Find UI components by name (searches recursively through all children)
+        Debug.Log("Searching for Icon component...");
+        Image iconImage = FindChildComponent<Image>(itemObj.transform, "Icon");
+        
+        Debug.Log("Searching for NameText component...");
+        Text nameText = FindChildComponent<Text>(itemObj.transform, "NameText");
+        
+        Debug.Log("Searching for DescriptionText component...");
+        Text descriptionText = FindChildComponent<Text>(itemObj.transform, "DescriptionText");
+        
+        Debug.Log("Searching for StackCountText component...");
+        Text stackText = FindChildComponent<Text>(itemObj.transform, "StackCountText");
+        
+        Debug.Log("Searching for PurchaseButton component...");
+        Button button = FindChildComponent<Button>(itemObj.transform, "PurchaseButton");
         Text buttonText = button?.GetComponentInChildren<Text>();
         
         // Set icon from UpgradeData
         if (iconImage != null && upgrade.icon != null)
         {
             iconImage.sprite = upgrade.icon;
+            Debug.Log($"Set icon for {upgrade.upgradeName}");
+        }
+        else if (iconImage == null)
+        {
+            Debug.LogWarning($"Could not find 'Icon' Image component in prefab for {upgrade.upgradeName}");
+        }
+        else if (upgrade.icon == null)
+        {
+            Debug.LogWarning($"Upgrade {upgrade.upgradeName} has no icon assigned in UpgradeData!");
         }
         
         // Set name from UpgradeData
         if (nameText != null)
         {
             nameText.text = upgrade.upgradeName;
+            Debug.Log($"Set name: {upgrade.upgradeName}");
+        }
+        else
+        {
+            Debug.LogWarning($"Could not find 'NameText' Text component in prefab");
         }
         
         // Set description from UpgradeData
         if (descriptionText != null)
         {
             descriptionText.text = upgrade.description;
+        }
+        else
+        {
+            Debug.LogWarning($"Could not find 'DescriptionText' Text component in prefab");
         }
         
         // Set stack count
@@ -307,5 +425,37 @@ public class ShopManager : MonoBehaviour
     void OnDestroy()
     {
         ClearUpgradeDisplay();
+    }
+    
+    /// <summary>
+    /// Helper method to find a component by name recursively through all children
+    /// </summary>
+    private T FindChildComponent<T>(Transform parent, string name) where T : Component
+    {
+        // Check direct children first
+        Transform child = parent.Find(name);
+        if (child != null)
+        {
+            T component = child.GetComponent<T>();
+            if (component != null)
+            {
+                Debug.Log($"Found '{name}' as direct child with component {typeof(T).Name}");
+                return component;
+            }
+        }
+        
+        // Search recursively through all descendants
+        foreach (Transform t in parent)
+        {
+            T found = FindChildComponent<T>(t, name);
+            if (found != null)
+            {
+                Debug.Log($"Found '{name}' in descendant: {t.name} with component {typeof(T).Name}");
+                return found;
+            }
+        }
+        
+        Debug.LogWarning($"Could not find child named '{name}' with component {typeof(T).Name} under {parent.name}");
+        return null;
     }
 }

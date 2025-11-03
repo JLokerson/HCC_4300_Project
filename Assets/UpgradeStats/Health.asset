@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e596f13776bf89479702c726d4f7f86, type: 3}
   m_Name: Health
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
-  upgradeName: 
-  description: 
-  icon: {fileID: 0}
+  upgradeName: Health
+  description: Upgrades Health By 20
+  icon: {fileID: 21300000, guid: ca16d3b791b743047bea71c30b51f464, type: 3}
   statModifications:
   - affectedStat: 10
     modifierType: 100
