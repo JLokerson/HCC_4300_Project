@@ -8,7 +8,7 @@ public class Projectile : MonoBehaviour
     [Tooltip("How long the bullet can exist before automatically destroying itself\n(Like if it somehow gets out of bounds it won't fly forever)")]
     public float lifetime = 3f; // How long the bullet exists before being destroyed
 
-    public float maxDamage = 1f;
+    public float baseDamage = 1f;
     private float currentDamage;
 
     [Tooltip("How many enemies/objects the bullet can pierce through before being destroyed\nNote: enemies have a piercing resistance stat")]
@@ -33,8 +33,15 @@ public class Projectile : MonoBehaviour
 
     private Vector3 moveDirection = Vector3.zero;
        
+    // Reference to the shooter's stat manager (passed in when bullet is created)
+    private StatManager shooterStatManager;
 
-    public void SetTarget(Vector3 position,float spread=0) //this is called in CharacterCore when the bullet is fired. default spread is 0 if none is specified
+    public void Initialize(StatManager statManager)
+    {
+        shooterStatManager = statManager;
+    }
+
+    public void SetTarget(Vector3 position, float spread = 0) //this is called in CharacterCore when the bullet is fired. default spread is 0 if none is specified
     {
         // Calculate direction at the moment of firing
         Vector3 target = new Vector3(position.x, transform.position.y, position.z);
@@ -53,11 +60,25 @@ public class Projectile : MonoBehaviour
     void Start()
     {
         Destroy(gameObject, lifetime); // Destroy the bullet after its lifetime expires
-        currentDamage = maxDamage;
-        currentPiercing = maxPiercing;
+        
+        // Get damage from shooter's StatManager if available, otherwise use base damage
+        if (shooterStatManager != null)
+        {
+            currentDamage = shooterStatManager.GetStatValue(StatType.BulletDamage);
+        }
+        else
+        {
+            currentDamage = baseDamage;
+            Debug.LogWarning("Projectile has no StatManager reference. Using base damage.");
+        }
+
+        currentPiercing = shooterStatManager != null ? shooterStatManager.GetStatValue(StatType.BulletPiercing) : currentPiercing;
         currentBounces = 0;
+        speed = shooterStatManager != null ? shooterStatManager.GetStatValue(StatType.BulletSpeed) : speed;
         audioSource = GetComponent<AudioSource>();
-        audioSource.PlayOneShot(spawnSound);
+        
+        if (audioSource != null && spawnSound != null)
+            audioSource.PlayOneShot(spawnSound);
     }
 
     void Update()
@@ -77,7 +98,7 @@ public class Projectile : MonoBehaviour
         }
         if (other.CompareTag("Enemy"))
         {
-            EnemyCore enemy= other.GetComponent<EnemyCore>();                        
+            EnemyCore enemy = other.GetComponent<EnemyCore>();                        
             enemy?.TakeDamage(currentDamage);
             currentPiercing = currentPiercing - enemy.getPiercingResistance();
 

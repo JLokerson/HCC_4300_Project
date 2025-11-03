@@ -2,12 +2,16 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(CharacterController))]
 public class CharacterCore : MonoBehaviour
 {
-    [Tooltip("Used to modify the speed the player moves")]
-    public float MovementSpeed = 5;
+    //upgrade system integration
+    [Header("Stat System")]
+    private StatManager statManager;
+    private UpgradeManager upgradeManager;
+
     private InputAction moveAction;
     private CharacterController controller;
 
@@ -18,18 +22,9 @@ public class CharacterCore : MonoBehaviour
     private Projectile bulletProperties=null;
     [Tooltip("The reticle object to aim with")]
     public GameObject reticle;
-    [Tooltip("The time between shots")]
     public Material normalReticle = null;
     public Material shotReticle = null;
     public Material reloadReticle = null;
-    [Tooltip("The time between shots")]
-    public float fireRate = 0.5f;
-    public float reloadTime = 2f;
-    public int MaxBulletCount = 5;
-
-    [Tooltip("The spread of the bullets when fired, between 0 and 1. 0 means no spread")]
-    [Range(0, 1)]
-    public float bulletSpread = .2f;
 
     private InputAction shootAction;
     private InputAction reloadAction;
@@ -63,19 +58,32 @@ public class CharacterCore : MonoBehaviour
 
     private void Start()
     {
+        // Get StatManager and set up base stats
+        statManager = GetComponent<StatManager>();
+        upgradeManager = GetComponent<UpgradeManager>();
+
+        if (statManager == null)
+        {
+            Debug.LogError("StatManager component not found on " + gameObject.name);
+        }
+        
         moveAction = InputSystem.actions.FindAction("Move"); //binds the "Move" actions from the Input Actions Asset
         controller = GetComponent<CharacterController>();
 
         shootAction = InputSystem.actions.FindAction("Attack"); //binds the "Attack" actions from the Input Actions Asset
         reticleRenderer = reticle.GetComponent<Renderer>();
 
-        reloadAction = InputSystem.actions.FindAction("Reload");
-        CurrentBulletCount = MaxBulletCount;
+        reloadAction = InputSystem.actions.FindAction("Reload"); //binds the "Reload" actions from the Input Actions Asset
+        
+        // Get max bullet count from StatManager
+        CurrentBulletCount = Mathf.RoundToInt(statManager != null ? statManager.GetStatValue(StatType.MagazineSize) : 5);
+
 
         try
         {
             ammoCounter = GameObject.Find("AmmoCounter").GetComponent<TextMeshPro>();
-            ammoCounter.text = CurrentBulletCount.ToString() + " / " + MaxBulletCount.ToString();
+            int maxBullets = Mathf.RoundToInt(statManager != null ? statManager.GetStatValue(StatType.MagazineSize) : 5);
+            ammoCounter.text = CurrentBulletCount.ToString() + " / " + maxBullets.ToString();
         }
         catch
         {
@@ -108,10 +116,12 @@ public class CharacterCore : MonoBehaviour
         //(movement along an axis. 0 is none, -1 is one direction, and 1 is the other)
         Vector2 moveValue= moveAction.ReadValue<Vector2>(); 
         Vector3 move = new Vector3(moveValue.x, 0, moveValue.y); //now we convert it to a Vector3 for 3D movement. the 0 is since we don't want to move up or down
-        controller.Move(move * Time.deltaTime * MovementSpeed); //this is the actual movement
 
-        // Calculate current speed for audio and other systems
-        currentSpeed = move.magnitude * MovementSpeed;
+        //Read the current speed from the stat manager
+        float currentSpeed = statManager != null ? statManager.GetStatValue(StatType.MoveSpeed) : 5f;
+
+        //Use currentSpeed to account for upgrades/modifiers
+        controller.Move(move * Time.deltaTime * currentSpeed); //this is the actual movement
 
         // Footstep sound logic
         if (move.magnitude > 0.1f && audioSource != null && footstepSound != null)
@@ -146,6 +156,16 @@ public class CharacterCore : MonoBehaviour
             
         }
         
+        // Press U to get upgrade for testing 
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            if (upgradeManager != null)
+            {
+                upgradeManager.AcquireUpgrade(upgradeManager.GetRandomAvailableUpgrades(1)[0]);
+                Debug.Log("Upgrade acquired!");
+            }
+        }
+        
     }
 
     private System.Collections.IEnumerator Shoot() //system.collections.ienumerator lets us use yield return to wait
@@ -162,20 +182,32 @@ public class CharacterCore : MonoBehaviour
 
         if (bulletPrefab != null)
         {
-            GameObject bulletObj=Instantiate(bulletPrefab, transform.position, transform.rotation); //create bullet at player
-            Projectile bullet=bulletObj.GetComponent<Projectile>();
-            bullet.SetTarget(reticle.transform.position, bulletSpread);
+            GameObject bulletObj = Instantiate(bulletPrefab, transform.position, transform.rotation); //create bullet at player
+            Projectile bullet = bulletObj.GetComponent<Projectile>();
+            
+            // Initialize bullet with this character's StatManager
+            bullet.Initialize(statManager);
+            
+            // Get bullet spread from StatManager
+            float currentBulletSpread = statManager != null ? statManager.GetStatValue(StatType.BulletSpread) : 0.2f;
+            bullet.SetTarget(reticle.transform.position, currentBulletSpread);
 
-            if(ammoCounter!=null)//update ammo counter display if it exists
+            if (ammoCounter != null)//update ammo counter display if it exists
             {
-                ammoCounter.text = CurrentBulletCount.ToString() + " / " + MaxBulletCount.ToString();
+                int maxBullets = Mathf.RoundToInt(statManager != null ? statManager.GetStatValue(StatType.MagazineSize) : 5);
+                ammoCounter.text = CurrentBulletCount.ToString() + " / " + maxBullets.ToString();
             }
         }
         else
         {
             Debug.LogWarning("Bullet Prefab is not assigned.");
         }
-        yield return new WaitForSeconds(fireRate); //this is what actually waits for fire rate time
+
+        //read the current attack speed from the stat manager if it exists, otherwise use the default fireRate
+        float currentAttackSpeed = statManager != null ? statManager.GetStatValue(StatType.AttackSpeed) : 5f;
+        float timeBetweenShots = 1f / currentAttackSpeed; // Convert attacks-per-second back to seconds-between-attacks
+        
+        yield return new WaitForSeconds(timeBetweenShots); //this is what actually waits for fire rate time
         isShooting = false;
         
         // Notify direction controller about shooting state
@@ -198,14 +230,17 @@ public class CharacterCore : MonoBehaviour
         {
             ammoCounter.text = "Reloading...";
         }
+        //read the current reload speed from the stat manager
+        float currentReloadSpeed = statManager != null ? statManager.GetStatValue(StatType.ReloadSpeed) : 2f;
+        yield return new WaitForSeconds(currentReloadSpeed); //this is what actually waits for reload time
 
-        yield return new WaitForSeconds(reloadTime); //this is what actually waits for reload time
-
-        CurrentBulletCount = MaxBulletCount;
+        // Get max bullet count from StatManager
+        CurrentBulletCount = Mathf.RoundToInt(statManager != null ? statManager.GetStatValue(StatType.MagazineSize) : 5);
         reticleRenderer.material = normalReticle;
         if (ammoCounter != null)//update ammo counter display if it exists
         {
-            ammoCounter.text = CurrentBulletCount.ToString() + " / " + MaxBulletCount.ToString();
+            int maxBullets = Mathf.RoundToInt(statManager != null ? statManager.GetStatValue(StatType.MagazineSize) : 5);
+            ammoCounter.text = CurrentBulletCount.ToString() + " / " + maxBullets.ToString();
         }
         audioSource.PlayOneShot(reloadFinishSound);
         isReloading = false;
