@@ -91,7 +91,7 @@ public class EnemyCore : MonoBehaviour
         
         // Debug initial setup
         Debug.Log($"[{gameObject.name}] Initialized - Health: {currentHealth}/{maxHealth}, Immortal: {immortal}, Stun Duration: {stunDuration}s");
-        
+
         //increment current enemies
         levelManager = GameObject.FindFirstObjectByType<LevelManager>();
         levelManager.currentObjective.currentEnemies++;
