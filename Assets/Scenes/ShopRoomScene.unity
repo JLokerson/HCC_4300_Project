@@ -784,7 +784,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4952740697201863018, guid: 2d05ce5b510e68c428ae152f97aac112, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 2d05ce5b510e68c428ae152f97aac112, type: 3}
 --- !u!1 &505813012
 GameObject:
@@ -2157,10 +2160,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PauseManager
   pauseMenuPanel: {fileID: 846511138}
+  pauseSound: {fileID: 8300000, guid: 9f0155270045d7e4c8b460f66c7e2dd7, type: 3}
   resumeButton: {fileID: 1461681192}
   mainMenuButton: {fileID: 1857562938}
   quitButton: {fileID: 1456731413}
-  mainMenuSceneName: MainMenu
+  mainMenuSceneName: {fileID: 0}
 --- !u!4 &1441976176
 Transform:
   m_ObjectHideFlags: 0

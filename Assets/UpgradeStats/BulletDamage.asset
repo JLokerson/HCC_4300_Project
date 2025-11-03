@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e596f13776bf89479702c726d4f7f86, type: 3}
-  m_Name: New Upgrade
+  m_Name: BulletDamage
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
   upgradeName: 
   description: 
   icon: {fileID: 0}
   statModifications:
-  - affectedStat: 0
-    modifierType: 0
-    valuePerStack: 0
+  - affectedStat: 1
+    modifierType: 100
+    valuePerStack: 5
   maxStacks: 5
-  isStackable: 1
+  isStackable: 0

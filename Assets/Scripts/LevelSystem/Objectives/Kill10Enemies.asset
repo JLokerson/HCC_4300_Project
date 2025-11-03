@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d7393746d6472647ba2d406ad7de94f, type: 3}
+  m_Name: Kill10Enemies
+  m_EditorClassIdentifier: Assembly-CSharp::LevelObjectiveDefinition
+  isCompleted: 0
+  enemyPrefab: {fileID: 4922636760702341083, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
+  maxEnemies: 10
+  enemiesToKill: 10
+  spawnRate: 1
+  spawnsPerWave: 10
+  enemiesDefeated: 0
+  currentEnemies: 0
