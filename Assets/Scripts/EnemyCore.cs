@@ -27,7 +27,7 @@ public class EnemyCore : MonoBehaviour
     
     [Header("Shell Settings")]
     [Tooltip("The sprite to display when the snail is in shell mode")]
-    public Sprite shellSprite;
+    [SerializeField] public Sprite shellSprite;
     private bool isInShell = false;
     
     // Damage flash system
@@ -88,6 +88,10 @@ public class EnemyCore : MonoBehaviour
         }
         currentHealth = maxHealth;
         currentPiercingResistance = maxPiercingResistance;
+        
+        // Debug initial setup
+        Debug.Log($"[{gameObject.name}] Initialized - Health: {currentHealth}/{maxHealth}, Immortal: {immortal}, Stun Duration: {stunDuration}s");
+        
         //increment current enemies
         levelManager = GameObject.FindFirstObjectByType<LevelManager>();
         levelManager.currentObjective.currentEnemies++;
@@ -95,8 +99,44 @@ public class EnemyCore : MonoBehaviour
         // Set up audio source
         audioSource = GetComponent<AudioSource>();
         
-        // Get reference to direction controller
+        // Get reference to direction controller with multiple attempts
         directionController = GetComponent<SnailDirectionController>();
+        
+        // If not found, try a more thorough search
+        if (directionController == null)
+        {
+            Debug.LogWarning($"[{gameObject.name}] SnailDirectionController not found with GetComponent, searching all components...");
+            Component[] components = GetComponents<Component>();
+            foreach (Component comp in components)
+            {
+                Debug.Log($"  - {comp.GetType().Name} (Full: {comp.GetType().FullName})");
+                if (comp is SnailDirectionController)
+                {
+                    directionController = comp as SnailDirectionController;
+                    Debug.Log($"[{gameObject.name}] Found SnailDirectionController via component search!");
+                    break;
+                }
+            }
+        }
+        
+        // Debug component setup
+        if (directionController == null)
+        {
+            Debug.LogError($"[{gameObject.name}] No SnailDirectionController found after thorough search!");
+            Debug.LogError("Shell mode will not work without SnailDirectionController!");
+        }
+        else
+        {
+            Debug.Log($"[{gameObject.name}] SnailDirectionController found successfully!");
+        }
+        if (shellSprite == null)
+        {
+            Debug.LogWarning($"[{gameObject.name}] No shell sprite assigned!");
+        }
+        else
+        {
+            Debug.Log($"[{gameObject.name}] Shell sprite assigned: {shellSprite.name}");
+        }
 
     }
 
@@ -165,6 +205,9 @@ public class EnemyCore : MonoBehaviour
     {
         currentHealth -= damageAmount;
         
+        // Debug health information
+        Debug.Log($"[{gameObject.name}] Took {damageAmount} damage. Current health: {currentHealth}/{maxHealth}");
+        
         // Trigger damage flash effect
         isFlashingFromDamage = true;
         damageFlashTimer = damageFlashDuration;
@@ -177,6 +220,7 @@ public class EnemyCore : MonoBehaviour
         
         if(currentHealth <= 0f && !immortal)
         {
+            Debug.Log($"[{gameObject.name}] Died from damage. Health: {currentHealth}");
             //decrement current enemies and increment enemies defeated, then check for objective completion
             levelManager.currentObjective.currentEnemies--;
             levelManager.currentObjective.enemiesDefeated++;
@@ -184,26 +228,42 @@ public class EnemyCore : MonoBehaviour
 
             Destroy(gameObject);
         }
-        else if (currentHealth<=0f && immortal) //temporary snail test code
+        else if (currentHealth <= 0f && immortal && !isInShell) // Only enter shell if not already in shell
         {
+            Debug.Log($"[{gameObject.name}] Health reached 0, entering shell mode. Immortal: {immortal}");
             StartCoroutine(StunEnemy());
         }
     }
     private System.Collections.IEnumerator StunEnemy()
     {
-        Debug.Log("Snail enters shell");
+        Debug.Log($"[{gameObject.name}] Snail enters shell - Health: {currentHealth}, Agent stopped: true");
         agent.isStopped = true;
         isInShell = true;
         
         // Change to shell sprite
-        if (directionController != null)
+        if (directionController != null && shellSprite != null)
         {
+            Debug.Log($"[{gameObject.name}] Setting shell mode ON with sprite: {shellSprite.name} (should be snail shell sprite)");
             directionController.SetShellMode(true, shellSprite);
         }
+        else if (shellSprite != null)
+        {
+            // Fallback: directly manipulate sprite and animator without SnailDirectionController
+            Debug.LogWarning($"[{gameObject.name}] DirectionController is null, using fallback shell mode");
+            ApplyShellModeDirectly(true);
+        }
+        else
+        {
+            if (directionController == null)
+                Debug.LogError($"[{gameObject.name}] Cannot set shell mode - directionController is null!");
+            if (shellSprite == null)
+                Debug.LogError($"[{gameObject.name}] Cannot set shell mode - shellSprite is null! Make sure 'snail_shell_v1' is assigned in the inspector!");
+        }
         
+        Debug.Log($"[{gameObject.name}] Waiting {stunDuration} seconds in shell...");
         yield return new WaitForSeconds(stunDuration);
         
-        Debug.Log("Snail exits shell");
+        Debug.Log($"[{gameObject.name}] Snail exits shell - Restoring health to {maxHealth}");
         agent.isStopped = false;
         currentHealth = maxHealth;
         isInShell = false;
@@ -211,7 +271,13 @@ public class EnemyCore : MonoBehaviour
         // Change back to normal sprite
         if (directionController != null)
         {
+            Debug.Log($"[{gameObject.name}] Setting shell mode OFF");
             directionController.SetShellMode(false, null);
+        }
+        else
+        {
+            Debug.LogWarning($"[{gameObject.name}] DirectionController is null, using fallback to exit shell mode");
+            ApplyShellModeDirectly(false);
         }
     }
 
@@ -233,5 +299,139 @@ public class EnemyCore : MonoBehaviour
     public bool IsInShell()
     {
         return isInShell;
+    }
+    
+    // Debug method to log current health status
+    [System.Diagnostics.Conditional("UNITY_EDITOR")]
+    public void DebugHealthStatus()
+    {
+        Debug.Log($"[{gameObject.name}] Health Status - Current: {currentHealth}/{maxHealth}, Immortal: {immortal}, In Shell: {isInShell}");
+    }
+    
+    // Method to force shell mode for testing (only available in editor)
+    [System.Diagnostics.Conditional("UNITY_EDITOR")]
+    public void DebugForceShellMode()
+    {
+        if (immortal && !isInShell)
+        {
+            currentHealth = 0;
+            Debug.Log($"[{gameObject.name}] Debug: Forcing shell mode");
+            StartCoroutine(StunEnemy());
+        }
+    }
+    
+    // Method to validate shell sprite assignment
+    [System.Diagnostics.Conditional("UNITY_EDITOR")]
+    public void ValidateShellSprite()
+    {
+        if (shellSprite == null)
+        {
+            Debug.LogError($"[{gameObject.name}] Shell sprite is not assigned! Please assign 'snail_shell_v1' sprite in the inspector.");
+        }
+        else if (!shellSprite.name.Contains("shell"))
+        {
+            Debug.LogWarning($"[{gameObject.name}] Current shell sprite '{shellSprite.name}' may not be the correct shell sprite. Expected something containing 'shell'.");
+        }
+        else
+        {
+            Debug.Log($"[{gameObject.name}] Shell sprite validation passed: {shellSprite.name}");
+        }
+        
+        // Also check what's currently displayed
+        if (directionController != null)
+        {
+            SpriteRenderer renderer = GetComponentInChildren<SpriteRenderer>();
+            if (renderer != null)
+            {
+                Debug.Log($"[{gameObject.name}] Currently displayed sprite: {(renderer.sprite != null ? renderer.sprite.name : "NULL")}");
+            }
+        }
+    }
+    
+    // Debug method to manually test shell mode
+    [System.Diagnostics.Conditional("UNITY_EDITOR")]
+    public void DebugTestShellMode()
+    {
+        Debug.Log($"[{gameObject.name}] Testing shell mode manually...");
+        if (directionController != null && shellSprite != null)
+        {
+            SpriteRenderer renderer = GetComponentInChildren<SpriteRenderer>();
+            if (renderer != null)
+            {
+                Debug.Log($"[{gameObject.name}] Before shell mode - Current sprite: {(renderer.sprite != null ? renderer.sprite.name : "NULL")}");
+                directionController.SetShellMode(true, shellSprite);
+                Debug.Log($"[{gameObject.name}] After shell mode - Current sprite: {(renderer.sprite != null ? renderer.sprite.name : "NULL")}");
+            }
+        }
+        else
+        {
+            if (directionController == null)
+                Debug.LogError($"[{gameObject.name}] Cannot test shell mode - directionController is null!");
+            if (shellSprite == null)
+                Debug.LogError($"[{gameObject.name}] Cannot test shell mode - shellSprite is null!");
+        }
+    }
+    
+    // Method to fix missing SnailDirectionController component
+    [System.Diagnostics.Conditional("UNITY_EDITOR")]
+    public void FixMissingDirectionController()
+    {
+        if (directionController == null)
+        {
+            Debug.Log($"[{gameObject.name}] Adding missing SnailDirectionController component...");
+            directionController = gameObject.AddComponent<SnailDirectionController>();
+            Debug.Log($"[{gameObject.name}] SnailDirectionController component added successfully!");
+        }
+        else
+        {
+            Debug.Log($"[{gameObject.name}] SnailDirectionController component already exists.");
+        }
+    }
+    
+    // Fallback method to apply shell mode directly without SnailDirectionController
+    private void ApplyShellModeDirectly(bool enterShellMode)
+    {
+        Debug.Log($"[{gameObject.name}] Applying shell mode directly (fallback method): {enterShellMode}");
+        
+        // Find the sprite renderer in child objects
+        SpriteRenderer spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        Animator animator = GetComponentInChildren<Animator>();
+        
+        if (spriteRenderer == null)
+        {
+            Debug.LogError($"[{gameObject.name}] Cannot apply shell mode - no SpriteRenderer found in children!");
+            return;
+        }
+        
+        if (enterShellMode)
+        {
+            // Disable animator
+            if (animator != null)
+            {
+                animator.enabled = false;
+                Debug.Log($"[{gameObject.name}] Animator disabled for shell mode (fallback)");
+            }
+            
+            // Set shell sprite
+            if (shellSprite != null)
+            {
+                Sprite previousSprite = spriteRenderer.sprite;
+                spriteRenderer.sprite = shellSprite;
+                Debug.Log($"[{gameObject.name}] Shell sprite applied (fallback): {previousSprite?.name} -> {shellSprite.name}");
+            }
+        }
+        else
+        {
+            // Re-enable animator
+            if (animator != null)
+            {
+                animator.enabled = true;
+                Debug.Log($"[{gameObject.name}] Animator re-enabled after shell mode (fallback)");
+            }
+            
+            // Note: We can't restore the original sprite without storing it, 
+            // but the animator should handle sprite switching when re-enabled
+            Debug.Log($"[{gameObject.name}] Shell mode exited (fallback) - animator will handle sprite restoration");
+        }
     }
 }

@@ -13,8 +13,6 @@ GameObject:
   - component: {fileID: 6119618577821762530}
   - component: {fileID: 2198670637283613198}
   - component: {fileID: 1234567890123456787}
-  - component: {fileID: 1234567890123456786}
-  - component: {fileID: 6583932323767441006}
   - component: {fileID: 8432226331197715340}
   - component: {fileID: 7516441157871801099}
   m_Layer: 0
@@ -121,32 +119,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SnailDirectionController
   velocityThreshold: 0.1
---- !u!114 &1234567890123456786
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4922636760702341083}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7969bedb69798947a2d1fd10e8cfc9e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SnailDirectionController
-  velocityThreshold: 0.1
---- !u!114 &6583932323767441006
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4922636760702341083}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7969bedb69798947a2d1fd10e8cfc9e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SnailDirectionController
-  velocityThreshold: 0.1
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
+  flashSpeed: 10
 --- !u!114 &8432226331197715340
 MonoBehaviour:
   m_ObjectHideFlags: 0
