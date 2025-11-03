@@ -162,13 +162,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   speed: 10
   lifetime: 3
-  maxDamage: 1
-  maxPiercing: 0
+  baseDamage: 1
+  basePiercing: 0
   maxBounces: 0
   bounceSound: {fileID: 8300000, guid: 7a73efc6cf6e4e44e8267e60d02e2b4b, type: 3}
   breakSound: {fileID: 8300000, guid: 9f0155270045d7e4c8b460f66c7e2dd7, type: 3}
   spawnSound: {fileID: 8300000, guid: d1fa0f83642194642ae77981c3e84eda, type: 3}
   pierceSound: {fileID: 8300000, guid: 8516f03408f5e15489713c5f1724b067, type: 3}
+  Graphic: {fileID: 3702276506321589560}
+  spriteFacesPositiveX: 1
 --- !u!54 &-906243588928539179
 Rigidbody:
   m_ObjectHideFlags: 0
