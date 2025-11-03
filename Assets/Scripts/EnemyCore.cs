@@ -94,7 +94,11 @@ public class EnemyCore : MonoBehaviour
 
         //increment current enemies
         levelManager = GameObject.FindFirstObjectByType<LevelManager>();
-        levelManager.currentObjective.currentEnemies++;
+        if(levelManager!=null)
+        {
+            levelManager.currentObjective.currentEnemies++;
+        }
+        
 
         // Set up audio source
         audioSource = GetComponent<AudioSource>();
@@ -222,9 +226,12 @@ public class EnemyCore : MonoBehaviour
         {
             Debug.Log($"[{gameObject.name}] Died from damage. Health: {currentHealth}");
             //decrement current enemies and increment enemies defeated, then check for objective completion
-            levelManager.currentObjective.currentEnemies--;
-            levelManager.currentObjective.enemiesDefeated++;
-            levelManager.checkForCompletion();
+            if (levelManager != null) 
+            { 
+                levelManager.currentObjective.currentEnemies--;
+                levelManager.currentObjective.enemiesDefeated++;
+                levelManager.checkForCompletion();
+            }                
 
             Destroy(gameObject);
         }

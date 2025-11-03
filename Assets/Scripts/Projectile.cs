@@ -5,63 +5,59 @@ using UnityEngine.AI;
 public class Projectile : MonoBehaviour
 {
     public float speed = 10f;
-    [Tooltip("How long the bullet can exist before automatically destroying itself\n(Like if it somehow gets out of bounds it won't fly forever)")]
-    public float lifetime = 3f; // How long the bullet exists before being destroyed
+    public float lifetime = 3f;
 
     public float baseDamage = 1f;
     private float currentDamage;
 
-    [Tooltip("How many enemies/objects the bullet can pierce through before being destroyed\nNote: enemies have a piercing resistance stat")]
     public float basePiercing = 0f;
     private float currentPiercing;
 
-    [Tooltip("How many times bullet can bounce off surfaces after it has no piercing left")]
     public int maxBounces = 0;
     private int currentBounces;
 
     [Header("Audio")]
-    [SerializeField]
-    private AudioClip bounceSound = null;
-    [SerializeField]
-    private AudioClip breakSound = null;
-    [SerializeField]
-    private AudioClip spawnSound = null;
-    [SerializeField]
-    private AudioClip pierceSound = null;
-
+    [SerializeField] private AudioClip bounceSound = null;
+    [SerializeField] private AudioClip breakSound = null;
+    [SerializeField] private AudioClip spawnSound = null;
+    [SerializeField] private AudioClip pierceSound = null;
     private AudioSource audioSource = null;
 
+    // NEW: assign this to the visual child (SpriteRenderer/Mesh/Quad)
+    [Header("Visual")]
+    [Tooltip("Child transform that renders the bullet sprite/mesh.")]
+    public Transform Graphic;
+
+    // If your sprite points along +X in its source image, leave this true.
+    // If it points along +Z, set this to false and we’ll use LookRotation instead.
+    [SerializeField] private bool spriteFacesPositiveX = true;
+
     private Vector3 moveDirection = Vector3.zero;
-       
-    // Reference to the shooter's stat manager (passed in when bullet is created)
+
     private StatManager shooterStatManager;
 
-    public void Initialize(StatManager statManager)
-    {
-        shooterStatManager = statManager;
-    }
+    public void Initialize(StatManager statManager) { shooterStatManager = statManager; }
 
-    public void SetTarget(Vector3 position, float spread = 0) //this is called in CharacterCore when the bullet is fired. default spread is 0 if none is specified
+    public void SetTarget(Vector3 position, float spread = 0)
     {
-        // Calculate direction at the moment of firing 
+        // Direction on XZ plane
         Vector3 target = new Vector3(position.x, transform.position.y, position.z);
         moveDirection = (target - transform.position).normalized;
 
-        // Apply spread
-        if (spread > 0)
+        // Apply optional spread
+        if (spread > 0f)
         {
-            float xSpread = Random.Range(-spread, spread);
-            float zSpread = Random.Range(-spread, spread);
-            moveDirection += new Vector3(xSpread, 0, zSpread);
+            moveDirection += new Vector3(Random.Range(-spread, spread), 0f, Random.Range(-spread, spread));
             moveDirection.Normalize();
         }
+
+        OrientGraphic();   // NEW: face where we’ll travel
     }
 
     void Start()
     {
-        Destroy(gameObject, lifetime); // Destroy the bullet after its lifetime expires
-        
-        // Get damage from shooter's StatManager if available, otherwise use base damage
+        Destroy(gameObject, lifetime);
+
         if (shooterStatManager != null)
         {
             currentDamage = shooterStatManager.GetStatValue(StatType.BulletDamage);
@@ -77,88 +73,100 @@ public class Projectile : MonoBehaviour
 
         currentBounces = 0;
         audioSource = GetComponent<AudioSource>();
-        
-        if (audioSource != null && spawnSound != null)
-            audioSource.PlayOneShot(spawnSound);
-            
-        Debug.Log($"[Projectile] Initialized with Damage: {currentDamage}, Piercing: {currentPiercing}, Speed: {speed}");
+        if (audioSource != null && spawnSound != null) audioSource.PlayOneShot(spawnSound);
+
+        // If fired by spawning with a preset moveDirection, make sure we’re oriented.
+        OrientGraphic();
     }
 
     void Update()
     {
-        if (moveDirection != Vector3.zero) //move in direction if it has a direction
+        if (moveDirection != Vector3.zero)
         {
             transform.position += moveDirection * speed * Time.deltaTime;
+            // If moveDirection can change during flight (e.g., homing), keep the visual aligned:
+            // OrientGraphic();
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Player") || other.CompareTag("Bullet"))
-        {
-            // Ignore collisions with the player
-            return;
-        }
-        
+        if (other.CompareTag("Player") || other.CompareTag("Bullet")) return;
+
         bool hitSomething = false;
-        
+
         if (other.CompareTag("Enemy"))
         {
             EnemyCore enemy = other.GetComponent<EnemyCore>();
             if (enemy != null)
             {
                 enemy.TakeDamage(currentDamage);
-                float piercingResistance = enemy.getPiercingResistance();
-                currentPiercing -= piercingResistance;
-                Debug.Log($"[Projectile] Hit enemy. Piercing: {currentPiercing + piercingResistance} -> {currentPiercing}");
+                float pr = enemy.getPiercingResistance();
+                currentPiercing -= pr;
                 hitSomething = true;
             }
         }
-        else if(other.gameObject.layer == LayerMask.NameToLayer("Environment"))
+        else if (other.gameObject.layer == LayerMask.NameToLayer("Environment"))
         {
             currentPiercing -= 5;
-            Debug.Log($"[Projectile] Hit environment. Piercing: {currentPiercing + 5} -> {currentPiercing}");
             hitSomething = true;
         }
 
-        // Only check piercing/bouncing if we actually hit something
         if (hitSomething)
         {
-            if (currentPiercing < 0) // Out of piercing
+            if (currentPiercing < 0)
             {
                 if (currentBounces < maxBounces)
                 {
                     BounceBullet(other);
                 }
-                else 
-                { 
-                    if (breakSound != null)
-                        AudioSource.PlayClipAtPoint(breakSound, transform.position);
+                else
+                {
+                    if (breakSound != null) AudioSource.PlayClipAtPoint(breakSound, transform.position);
                     Destroy(gameObject);
-                }                
+                }
             }
-            else // Still has piercing
+            else
             {
-                if (audioSource != null && pierceSound != null)
-                    audioSource.PlayOneShot(pierceSound);
+                if (audioSource != null && pierceSound != null) audioSource.PlayOneShot(pierceSound);
             }
         }
     }
 
     private void BounceBullet(Collider hitCollider)
     {
-        // Calculate normal from the collision point
         Vector3 collisionPoint = hitCollider.ClosestPoint(transform.position);
         Vector3 normal = (transform.position - collisionPoint).normalized;
-        
+
         if (normal != Vector3.zero)
         {
             moveDirection = Vector3.Reflect(moveDirection, normal);
             currentBounces++;
-            Debug.Log($"[Projectile] Bounced! Count: {currentBounces}/{maxBounces}");
-            
-            if (audioSource != null && bounceSound != null)
-                audioSource.PlayOneShot(bounceSound);
+
+            // NEW: re-orient visual after changing direction
+            OrientGraphic();
+
+            if (audioSource != null && bounceSound != null) audioSource.PlayOneShot(bounceSound);
+        }
+    }
+
+    // NEW: rotate the visual so its “right” (or “forward”) matches moveDirection on XZ.
+    private void OrientGraphic()
+    {
+        if (Graphic == null || moveDirection == Vector3.zero) return;
+
+        Vector3 flatDir = new Vector3(moveDirection.x, 0f, moveDirection.z);
+        if (flatDir.sqrMagnitude < 0.0001f) return;
+
+        if (spriteFacesPositiveX)
+        {
+            // Make the sprite’s +X (its nose) point at our direction
+            Graphic.rotation = Quaternion.FromToRotation(Vector3.right, flatDir);
+        }
+        else
+        {
+            // If the model faces +Z by default, use LookRotation
+            Graphic.rotation = Quaternion.LookRotation(flatDir, Vector3.up);
         }
     }
 }
