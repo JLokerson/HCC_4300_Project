@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 426277430637374939}
   - component: {fileID: 6127632535870289016}
   - component: {fileID: -6338554807331077224}
+  - component: {fileID: -7280657168603816594}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -249,6 +250,21 @@ MonoBehaviour:
   baseStats:
   - statType: 10
     baseValue: 3
+--- !u!114 &-7280657168603816594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4922636760702341083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7969bedb69798947a2d1fd10e8cfc9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SnailDirectionController
+  velocityThreshold: 0.1
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
+  flashSpeed: 10
 --- !u!1 &7863646918458961590
 GameObject:
   m_ObjectHideFlags: 0
