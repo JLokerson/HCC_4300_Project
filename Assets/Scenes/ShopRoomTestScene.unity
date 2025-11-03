@@ -943,7 +943,14 @@ MonoBehaviour:
   shopMenuPanel: {fileID: 2142698791}
   closeButton: {fileID: 279049010}
   shopTitle: {fileID: 0}
+  upgradeContainer: {fileID: 624510136}
+  upgradeItemPrefab: {fileID: 8813375350576057619, guid: ff42fb309f0b81a4a8f4d199ab1e08be, type: 3}
+  numberOfUpgradeOptions: 3
+  upgradeManager: {fileID: 1656422979}
   shopName: Shop
+  purchaseSound: {fileID: 0}
+  openShopSound: {fileID: 0}
+  closeShopSound: {fileID: 0}
 --- !u!4 &556613739
 Transform:
   m_ObjectHideFlags: 0
@@ -2735,6 +2742,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1620159094}
   m_CullTransparentMesh: 1
+--- !u!114 &1656422979 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6066347027140311121, guid: 2d05ce5b510e68c428ae152f97aac112, type: 3}
+  m_PrefabInstance: {fileID: 479807066}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b9781611784f314b9ed22449be20399, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UpgradeManager
 --- !u!4 &1708364052 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5841762371737845248, guid: d057651f3223bfd4ab7737cde399f53a, type: 3}
@@ -2823,7 +2841,7 @@ GameObject:
   - component: {fileID: 2142698794}
   - component: {fileID: 2142698793}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: ShopMenuPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
