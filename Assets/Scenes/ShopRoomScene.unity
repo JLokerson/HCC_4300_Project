@@ -131,6 +131,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PauseSystem
       objectReference: {fileID: 0}
+    - target: {fileID: 5719608783481255011, guid: bb8b8ddf9cdbac044b4dfbe26dbe26cc, type: 3}
+      propertyPath: mainMenuSceneNameString
+      value: MainMenu
+      objectReference: {fileID: 0}
     - target: {fileID: 8444507390281161102, guid: bb8b8ddf9cdbac044b4dfbe26dbe26cc, type: 3}
       propertyPath: m_LocalPosition.x
       value: -14.19639
@@ -943,7 +947,14 @@ MonoBehaviour:
   shopMenuPanel: {fileID: 2142698791}
   closeButton: {fileID: 279049010}
   shopTitle: {fileID: 0}
+  upgradeContainer: {fileID: 0}
+  upgradeItemPrefab: {fileID: 0}
+  numberOfUpgradeOptions: 3
+  upgradeManager: {fileID: 0}
   shopName: Shop
+  purchaseSound: {fileID: 0}
+  openShopSound: {fileID: 0}
+  closeShopSound: {fileID: 0}
 --- !u!4 &556613739
 Transform:
   m_ObjectHideFlags: 0

@@ -7708,6 +7708,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PauseSystem
       objectReference: {fileID: 0}
+    - target: {fileID: 5719608783481255011, guid: bb8b8ddf9cdbac044b4dfbe26dbe26cc, type: 3}
+      propertyPath: mainMenuSceneNameString
+      value: MainMenu
+      objectReference: {fileID: 0}
     - target: {fileID: 8444507390281161102, guid: bb8b8ddf9cdbac044b4dfbe26dbe26cc, type: 3}
       propertyPath: m_LocalPosition.x
       value: 395.5

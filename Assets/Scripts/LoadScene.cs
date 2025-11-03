@@ -1,4 +1,6 @@
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -16,6 +18,8 @@ public class LoadScene : MonoBehaviour
             Debug.LogError("No scene name provided");
         }        
     }
+    
+#if UNITY_EDITOR
     public static void LoadSelectedScene(SceneAsset sceneName)
     {
         if (sceneName != null)
@@ -26,6 +30,6 @@ public class LoadScene : MonoBehaviour
         {
             Debug.LogError("No scene asset provided");
         }
-
     }
+#endif
 }

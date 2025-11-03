@@ -131,6 +131,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PauseSystem
       objectReference: {fileID: 0}
+    - target: {fileID: 5719608783481255011, guid: bb8b8ddf9cdbac044b4dfbe26dbe26cc, type: 3}
+      propertyPath: mainMenuSceneNameString
+      value: MainMenu
+      objectReference: {fileID: 0}
     - target: {fileID: 8444507390281161102, guid: bb8b8ddf9cdbac044b4dfbe26dbe26cc, type: 3}
       propertyPath: m_LocalPosition.x
       value: -14.19639
@@ -1291,8 +1295,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2.1763725, y: 1, z: 2.088541}
-  m_Center: {x: 0.0002632141, y: 0, z: -0.05844593}
+  m_Size: {x: 23.018747, y: 26.226421, z: 2.088541}
+  m_Center: {x: -0.27938205, y: 1.0049994, z: -0.05844593}
 --- !u!4 &686469909
 Transform:
   m_ObjectHideFlags: 0
