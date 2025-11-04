@@ -1355,8 +1355,7 @@ MonoBehaviour:
   creditsButton: {fileID: 1924656966}
   quitButton: {fileID: 1915392658}
   backFromCreditsButton: {fileID: 107825664}
-  gameSceneName: {fileID: 102900000, guid: bb1d43cb2c99b3247b2040344aee57e3, type: 3}
-  gameSceneNameString: DemoScene
+  gameSceneName: DemoScene
 --- !u!4 &1312190600
 Transform:
   m_ObjectHideFlags: 0

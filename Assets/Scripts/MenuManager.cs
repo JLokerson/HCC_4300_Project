@@ -23,10 +23,7 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private Button backFromCreditsButton;
     
     [Header("Scene Management")]
-#if UNITY_EDITOR
-    [SerializeField] private SceneAsset gameSceneName = null; // The name of your main game scene
-#endif
-    [SerializeField] private string gameSceneNameString = ""; // Fallback for builds
+    [SerializeField] private string gameSceneName = null; // The name of your main game scene
     
     private void Start()
     {
@@ -83,25 +80,21 @@ public class MenuManager : MonoBehaviour
         if (creditsPanel != null)
             creditsPanel.SetActive(true);
     }
-    
+
     /// <summary>
     /// Start the game by loading the main game scene
     /// </summary>
     public void StartGame()
     {
         Debug.Log("Starting game...");
-#if UNITY_EDITOR
         if (gameSceneName != null)
         {
             LoadScene.LoadSelectedScene(gameSceneName);
         }
         else
         {
-            LoadScene.LoadSelectedScene(gameSceneNameString);
+            Debug.LogError("Game scene name is not set!");
         }
-#else
-        LoadScene.LoadSelectedScene(gameSceneNameString);
-#endif
     }
     
     /// <summary>

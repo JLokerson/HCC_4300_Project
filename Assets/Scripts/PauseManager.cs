@@ -21,10 +21,8 @@ public class PauseManager : MonoBehaviour
     [SerializeField] private Button quitButton;
     
     [Header("Scene Management")]
-#if UNITY_EDITOR
-    [SerializeField] private SceneAsset mainMenuSceneName = null;
-#endif
-    [SerializeField] private string mainMenuSceneNameString = ""; // Fallback for builds
+
+    [SerializeField] private string mainMenuSceneName = null;
 
     private bool isPaused = false;
     private InputAction pauseAction;
@@ -163,18 +161,15 @@ public class PauseManager : MonoBehaviour
     {
         Time.timeScale = 1f; // Make sure time scale is reset
         Debug.Log("Returning to main menu...");
-#if UNITY_EDITOR
+
         if (mainMenuSceneName != null)
         {
             LoadScene.LoadSelectedScene(mainMenuSceneName);
         }
         else
         {
-            LoadScene.LoadSelectedScene(mainMenuSceneNameString);
+            Debug.LogError("Main menu scene name is not set!");
         }
-#else
-        LoadScene.LoadSelectedScene(mainMenuSceneNameString);
-#endif
     }
     
     /// <summary>
