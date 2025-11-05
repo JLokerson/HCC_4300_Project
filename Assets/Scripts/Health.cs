@@ -134,9 +134,11 @@ public class Health : MonoBehaviour
 
         if (invulnSecondsAfterHit > 0f)
             StartCoroutine(TempInvuln(invulnSecondsAfterHit));
-        
+
         if (audioSource != null && damageSound != null)
             audioSource.PlayOneShot(damageSound);
+
+        
     }
 
     public void Heal(float amount)

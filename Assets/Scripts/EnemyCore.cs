@@ -53,6 +53,7 @@ public class EnemyCore : MonoBehaviour
 
     //the level manager mainly used to track enemies
     private LevelManager levelManager;
+    private SlimeSplit slimeSplitComponent;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -221,17 +222,23 @@ public class EnemyCore : MonoBehaviour
         {
             audioSource.PlayOneShot(damageSound);
         }
-        
-        if(currentHealth <= 0f && !immortal)
+
+        if (currentHealth <= 0f && !immortal)
         {
             Debug.Log($"[{gameObject.name}] Died from damage. Health: {currentHealth}");
             //decrement current enemies and increment enemies defeated, then check for objective completion
-            if (levelManager != null) 
-            { 
+            if (levelManager != null)
+            {
                 levelManager.currentObjective.currentEnemies--;
                 levelManager.currentObjective.enemiesDefeated++;
                 levelManager.checkForCompletion();
-            }                
+            }
+
+            if(slimeSplitComponent!=null)
+            {
+                slimeSplitComponent.SplitNow();
+                Debug.Log($"[{gameObject.name}] Called SplitNow on SlimeSplit component before destruction.");
+            }
 
             Destroy(gameObject);
         }
@@ -239,6 +246,21 @@ public class EnemyCore : MonoBehaviour
         {
             Debug.Log($"[{gameObject.name}] Health reached 0, entering shell mode. Immortal: {immortal}");
             StartCoroutine(StunEnemy());
+        }
+        
+        if( slimeSplitComponent == null )
+        {
+            slimeSplitComponent = GetComponent<SlimeSplit>();
+
+            if (slimeSplitComponent != null)
+            {
+                slimeSplitComponent.ForceSplitIfEligible();
+                Debug.Log($"[{gameObject.name}] Called ForceSplitIfEligible on SlimeSplit component.");
+            }
+            else
+            {
+                Debug.Log($"[Health] {gameObject.name} - No SlimeSplit component found.");
+            }
         }
     }
     private System.Collections.IEnumerator StunEnemy()
