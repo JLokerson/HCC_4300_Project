@@ -52,18 +52,11 @@ public class SlimeSplit : MonoBehaviour
         if (healthGetter != null)
         {
             lastKnownHealth = healthGetter();
-<<<<<<< Updated upstream
-            if (!hasSplit && nextStagePrefab != null && lastKnownHealth <= 0f)
-            {
-                if (debugLogs) Debug.Log($"[SlimeSplit] {name}: Health <= 0 in Update -> splitting (fallback).");
-                SplitNowInternal();
-=======
             Debug.Log($"[SlimeSplit] {name}: Update - hasSplit={hasSplit}, health={lastKnownHealth}, hasPrefab={nextStagePrefab != null}"); // ADD THIS
             if (!hasSplit && nextStagePrefab != null && lastKnownHealth <= 0f)
             {
                 if (debugLogs) Debug.Log($"[SlimeSplit] {name}: Health <= 0 in Update -> splitting (fallback).");
                 SplitNow();
->>>>>>> Stashed changes
             }
         }
     }
@@ -83,34 +76,21 @@ public class SlimeSplit : MonoBehaviour
     /// </summary>
     public void ForceSplitIfEligible()
     {
-<<<<<<< Updated upstream
-=======
         Debug.Log($"[SlimeSplit] {name}: ForceSplitIfEligible called - isQuitting={isQuitting}, hasSplit={hasSplit}, hasPrefab={nextStagePrefab != null}, health={healthGetter?.Invoke() ?? -999}"); // ADD THIS
->>>>>>> Stashed changes
         if (isQuitting || hasSplit) return;
         if (nextStagePrefab == null) return;               // final stage -> no split
         if (healthGetter != null && healthGetter() > 0f) return; // not dead -> ignore
         if (debugLogs) Debug.Log($"[SlimeSplit] {name}: ForceSplitIfEligible -> splitting now.");
-<<<<<<< Updated upstream
-        SplitNowInternal();
-    }
-
-    private void SplitNowInternal()
-=======
         SplitNow();
     }
 
     public void SplitNow()
->>>>>>> Stashed changes
     {
         if (hasSplit) return;
         hasSplit = true;
 
-<<<<<<< Updated upstream
-=======
         Debug.Log($"[SlimeSplit] SPAWNING {splitCount} children from {nextStagePrefab?.name ?? "NULL PREFAB"}"); // ADD THIS
 
->>>>>>> Stashed changes
         Vector3 origin = transform.position;
 
         for (int i = 0; i < Mathf.Max(0, splitCount); i++)
