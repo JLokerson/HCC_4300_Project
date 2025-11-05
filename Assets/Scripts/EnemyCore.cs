@@ -104,10 +104,22 @@ public class EnemyCore : MonoBehaviour
         // Set up audio source
         audioSource = GetComponent<AudioSource>();
         
-        // Get reference to direction controller with multiple attempts
+        // Get reference to direction controller (try both snail and slime controllers)
         directionController = GetComponent<SnailDirectionController>();
         
-        // If not found, try a more thorough search
+        // If SnailDirectionController not found, try SlimeDirectionController
+        if (directionController == null)
+        {
+            var slimeController = GetComponent<SlimeDirectionController>();
+            if (slimeController != null)
+            {
+                Debug.Log($"[{gameObject.name}] Found SlimeDirectionController instead of SnailDirectionController");
+                // SlimeDirectionController doesn't have shell mode, so we'll handle this differently
+                directionController = null; // We don't use shell mode for slimes
+            }
+        }
+        
+        // If not found, try a more thorough search for SnailDirectionController only
         if (directionController == null)
         {
             Debug.LogWarning($"[{gameObject.name}] SnailDirectionController not found with GetComponent, searching all components...");
@@ -127,18 +139,27 @@ public class EnemyCore : MonoBehaviour
         // Debug component setup
         if (directionController == null)
         {
-            Debug.LogError($"[{gameObject.name}] No SnailDirectionController found after thorough search!");
-            Debug.LogError("Shell mode will not work without SnailDirectionController!");
+            // Check if this is a slime (which doesn't need shell mode)
+            if (GetComponent<SlimeDirectionController>() != null)
+            {
+                Debug.Log($"[{gameObject.name}] This is a slime - shell mode not applicable");
+            }
+            else
+            {
+                Debug.LogError($"[{gameObject.name}] No SnailDirectionController found after thorough search!");
+                Debug.LogError("Shell mode will not work without SnailDirectionController!");
+            }
         }
         else
         {
             Debug.Log($"[{gameObject.name}] SnailDirectionController found successfully!");
         }
-        if (shellSprite == null)
+        
+        if (shellSprite == null && immortal)
         {
-            Debug.LogWarning($"[{gameObject.name}] No shell sprite assigned!");
+            Debug.LogWarning($"[{gameObject.name}] No shell sprite assigned but enemy is immortal!");
         }
-        else
+        else if (shellSprite != null)
         {
             Debug.Log($"[{gameObject.name}] Shell sprite assigned: {shellSprite.name}");
         }
@@ -265,45 +286,42 @@ public class EnemyCore : MonoBehaviour
     }
     private System.Collections.IEnumerator StunEnemy()
     {
-        Debug.Log($"[{gameObject.name}] Snail enters shell - Health: {currentHealth}, Agent stopped: true");
+        Debug.Log($"[{gameObject.name}] Enemy enters stun mode - Health: {currentHealth}, Agent stopped: true");
         agent.isStopped = true;
         isInShell = true;
         
-        // Change to shell sprite
+        // Only use shell mode if this enemy has a SnailDirectionController
         if (directionController != null && shellSprite != null)
         {
-            Debug.Log($"[{gameObject.name}] Setting shell mode ON with sprite: {shellSprite.name} (should be snail shell sprite)");
+            Debug.Log($"[{gameObject.name}] Setting shell mode ON with sprite: {shellSprite.name}");
             directionController.SetShellMode(true, shellSprite);
         }
-        else if (shellSprite != null)
+        else if (shellSprite != null && GetComponent<SlimeDirectionController>() == null)
         {
-            // Fallback: directly manipulate sprite and animator without SnailDirectionController
+            // Fallback for enemies without proper direction controller
             Debug.LogWarning($"[{gameObject.name}] DirectionController is null, using fallback shell mode");
             ApplyShellModeDirectly(true);
         }
         else
         {
-            if (directionController == null)
-                Debug.LogError($"[{gameObject.name}] Cannot set shell mode - directionController is null!");
-            if (shellSprite == null)
-                Debug.LogError($"[{gameObject.name}] Cannot set shell mode - shellSprite is null! Make sure 'snail_shell_v1' is assigned in the inspector!");
+            Debug.Log($"[{gameObject.name}] This enemy type doesn't use shell mode (likely a slime)");
         }
         
-        Debug.Log($"[{gameObject.name}] Waiting {stunDuration} seconds in shell...");
+        Debug.Log($"[{gameObject.name}] Waiting {stunDuration} seconds in stun mode...");
         yield return new WaitForSeconds(stunDuration);
         
-        Debug.Log($"[{gameObject.name}] Snail exits shell - Restoring health to {maxHealth}");
+        Debug.Log($"[{gameObject.name}] Enemy exits stun mode - Restoring health to {maxHealth}");
         agent.isStopped = false;
         currentHealth = maxHealth;
         isInShell = false;
         
-        // Change back to normal sprite
+        // Exit shell mode if applicable
         if (directionController != null)
         {
             Debug.Log($"[{gameObject.name}] Setting shell mode OFF");
             directionController.SetShellMode(false, null);
         }
-        else
+        else if (GetComponent<SlimeDirectionController>() == null)
         {
             Debug.LogWarning($"[{gameObject.name}] DirectionController is null, using fallback to exit shell mode");
             ApplyShellModeDirectly(false);

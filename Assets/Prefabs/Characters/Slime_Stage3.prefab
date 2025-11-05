@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2371091277802602583, guid: fb50fc1d107fff74f9528d869dfd4f13, type: 3}
       propertyPath: m_Name
-      value: BaseSlime
+      value: Slime_Stage3
       objectReference: {fileID: 0}
     - target: {fileID: 3615602637116390587, guid: fb50fc1d107fff74f9528d869dfd4f13, type: 3}
       propertyPath: m_LocalPosition.x
@@ -55,5 +55,31 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2371091277802602583, guid: fb50fc1d107fff74f9528d869dfd4f13, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -1455951492163984319}
   m_SourcePrefab: {fileID: 100100000, guid: fb50fc1d107fff74f9528d869dfd4f13, type: 3}
+--- !u!1 &586375282703352879 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2371091277802602583, guid: fb50fc1d107fff74f9528d869dfd4f13, type: 3}
+  m_PrefabInstance: {fileID: 2937745270117090424}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &-1455951492163984319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 586375282703352879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72e8e6fd66f1f7e4a9c46b3379d72f2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SlimeSplit
+  nextStagePrefab: {fileID: 0}
+  splitCount: 2
+  spawnRadius: 0.6
+  yOffset: 0
+  navmeshSampleMaxDistance: 0.75
+  debugLogs: 0

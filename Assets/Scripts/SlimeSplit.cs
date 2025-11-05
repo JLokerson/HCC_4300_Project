@@ -21,6 +21,16 @@ public class SlimeSplit : MonoBehaviour
     [Tooltip("Max distance for sampling nearest NavMesh point around the intended spawn position.")]
     public float navmeshSampleMaxDistance = 0.75f;
 
+    [Header("Scale Settings")]
+    [Tooltip("Enable scaling for spawned children")]
+    public bool enableScaling = true;
+    
+    [Tooltip("Scale factor for spawned children (0.5 = half size, 0.75 = three-quarters size)")]
+    public float childScaleFactor = 0.75f;
+    
+    [Tooltip("If true, children inherit the current object's scale and apply the scale factor on top")]
+    public bool inheritParentScale = true;
+
     [Header("Debug")]
     public bool debugLogs = false;
 
@@ -92,6 +102,8 @@ public class SlimeSplit : MonoBehaviour
         Debug.Log($"[SlimeSplit] SPAWNING {splitCount} children from {nextStagePrefab?.name ?? "NULL PREFAB"}"); // ADD THIS
 
         Vector3 origin = transform.position;
+        Vector3 parentScale = inheritParentScale ? transform.localScale : Vector3.one;
+        Vector3 childScale = enableScaling ? (parentScale * childScaleFactor) : parentScale;
 
         for (int i = 0; i < Mathf.Max(0, splitCount); i++)
         {
@@ -105,6 +117,9 @@ public class SlimeSplit : MonoBehaviour
                 spawnPos = hit.position + Vector3.up * yOffset;
 
             GameObject child = Instantiate(nextStagePrefab, spawnPos, Quaternion.identity);
+            
+            // Apply scaling to the child (only if scaling is enabled)
+            child.transform.localScale = childScale;
 
             // Tiny outward nudge for NavMeshAgents so they don't overlap
             var agent = child.GetComponent<NavMeshAgent>();
@@ -116,6 +131,12 @@ public class SlimeSplit : MonoBehaviour
                 else outward = outward.normalized * 0.05f;
 
                 agent.Warp(child.transform.position + outward);
+                
+                // Adjust NavMeshAgent radius based on scale to prevent overlapping (only if scaling is enabled)
+                if (enableScaling)
+                {
+                    agent.radius *= childScaleFactor;
+                }
             }
         }
     }
