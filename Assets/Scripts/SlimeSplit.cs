@@ -86,7 +86,7 @@ public class SlimeSplit : MonoBehaviour
     /// </summary>
     public void ForceSplitIfEligible()
     {
-        Debug.Log($"[SlimeSplit] {name}: ForceSplitIfEligible called - isQuitting={isQuitting}, hasSplit={hasSplit}, hasPrefab={nextStagePrefab != null}, health={healthGetter?.Invoke() ?? -999}"); // ADD THIS
+        if (debugLogs) Debug.Log($"[SlimeSplit] {name}: ForceSplitIfEligible called - isQuitting={isQuitting}, hasSplit={hasSplit}, hasPrefab={nextStagePrefab != null}, health={healthGetter?.Invoke() ?? -999}"); // ADD THIS
         if (isQuitting || hasSplit) return;
         if (nextStagePrefab == null) return;               // final stage -> no split
         if (healthGetter != null && healthGetter() > 0f) return; // not dead -> ignore
@@ -99,7 +99,7 @@ public class SlimeSplit : MonoBehaviour
         if (hasSplit) return;
         hasSplit = true;
 
-        Debug.Log($"[SlimeSplit] SPAWNING {splitCount} children from {nextStagePrefab?.name ?? "NULL PREFAB"}"); // ADD THIS
+        if (debugLogs) Debug.Log($"[SlimeSplit] SPAWNING {splitCount} children from {nextStagePrefab?.name ?? "NULL PREFAB"}"); // ADD THIS
 
         Vector3 origin = transform.position;
         Vector3 parentScale = inheritParentScale ? transform.localScale : Vector3.one;

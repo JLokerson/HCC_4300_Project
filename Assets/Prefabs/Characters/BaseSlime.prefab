@@ -178,7 +178,7 @@ MonoBehaviour:
   enableScaling: 0
   childScaleFactor: 0.75
   inheritParentScale: 1
-  debugLogs: 1
+  debugLogs: 0
 --- !u!1 &8118758323513168187
 GameObject:
   m_ObjectHideFlags: 0

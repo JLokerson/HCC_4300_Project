@@ -178,11 +178,29 @@ public class LevelManager : MonoBehaviour
                 //check if current enemies is less than max enemies
                 if (currentObjective.currentEnemies < currentObjective.maxEnemies)
                 {
-                    //spawn enemy
-                    GameObject enemySpawnNode = enemySpawnNodes[UnityEngine.Random.Range(0, enemySpawnNodes.Count)];
-                    Vector3 EnemySpawnPositionWithOffset = enemySpawnNode.GetComponent<ValidSpawnTypes>().GetRandomSpawnPosition();
-                    int index = UnityEngine.Random.Range(0, currentObjective.enemyPrefab.Count);
-                    GameObject spawnedEnemy = Instantiate(currentObjective.enemyPrefab[index], EnemySpawnPositionWithOffset, Quaternion.identity);
+                    bool nearPlayer = true;
+                    while (nearPlayer)
+                    {
+                        //check if spawn node is near player
+                        GameObject enemySpawnNode = enemySpawnNodes[UnityEngine.Random.Range(0, enemySpawnNodes.Count)];
+                        Vector3 EnemySpawnPositionWithOffset = enemySpawnNode.GetComponent<ValidSpawnTypes>().GetRandomSpawnPosition();
+                        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+                        if (playerObj != null)
+                        {
+                            float distanceToPlayer = Vector3.Distance(EnemySpawnPositionWithOffset, playerObj.transform.position);
+                            if (distanceToPlayer > 5f) //distance check player
+                            {
+                                //spawn enemy
+                                int index = UnityEngine.Random.Range(0, currentObjective.enemyPrefab.Count);
+                                GameObject spawnedEnemy = Instantiate(currentObjective.enemyPrefab[index], EnemySpawnPositionWithOffset, Quaternion.identity);
+                                nearPlayer = false;
+                            }
+                            else {                                 
+                                Debug.Log("Spawned enemy too close to player, retrying...");
+                            }
+                        }
+
+                    }                    
                 }
             }
             yield return new WaitForSeconds(currentObjective.spawnRate);
