@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class PlayerHealth : MonoBehaviour
 {
     private Health health;
-    [SerializeField] private string mainMenuSceneName = "MainMenu"; // change if your title has a different name
+    [SerializeField] private string mainMenuSceneName = "MainMenu"; // fallback option
     [SerializeField] private int mainMenuBuildIndex = 0;            // fallback by build index
 
     void Awake()
@@ -34,69 +34,19 @@ public class PlayerHealth : MonoBehaviour
 
     void HandleDeath()
     {
-        Debug.Log("[PlayerHealth] Player died. Loading title screen...");
+        Debug.Log("[PlayerHealth] Player died. Triggering Game Over...");
 
         // unlock cursor so menus work
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
-        // Use GameManager if present; otherwise try by scene name; finally by build index
-        if (TryLoadViaGameManager()) return;
-        if (TryLoadByName(mainMenuSceneName)) return;
+        // Save the final score before triggering game over
+        // You might want to get this from a ScoreManager or similar
+        PlayerPrefs.SetInt("FinalScore", 0); // Replace with actual score
 
-        Debug.LogWarning($"[PlayerHealth] Could not load '{mainMenuSceneName}'. Falling back to build index {mainMenuBuildIndex}.");
-        SceneManager.LoadScene(mainMenuBuildIndex);
-    }
-
-    bool TryLoadViaGameManager()
-    {
-        // Safe call: only if an instance is alive
-        var gmType = System.Type.GetType("GameManager");
-        // If you have a GameManager Singleton with static Instance, use it:
-        // Replace the below reflection block with: if (GameManager.Instance != null) { GameManager.Instance.SetGameState(GameManager.GameState.GameOver); GameManager.Instance.LoadMainMenu(); return true; }
-        // Using reflection here avoids compile errors if your GameManager script name/namespace changes.
-        try
-        {
-            var prop = gmType?.GetProperty("Instance");
-            var inst = prop?.GetValue(null, null);
-            if (inst != null)
-            {
-                var setState = gmType.GetMethod("SetGameState");
-                var loadMain = gmType.GetMethod("LoadMainMenu");
-                var enumType = gmType.GetNestedType("GameState");
-                var gameOverValue = System.Enum.Parse(enumType, "GameOver");
-
-                setState?.Invoke(inst, new object[] { gameOverValue });
-                loadMain?.Invoke(inst, null);
-                return true;
-            }
-        }
-        catch { /* ignore and fall through */ }
-        return false;
-    }
-
-    bool TryLoadByName(string sceneName)
-    {
-        if (string.IsNullOrEmpty(sceneName)) 
-        {
-            Debug.LogWarning($"[PlayerHealth] Scene name is null or empty");
-            return false;
-        }
-
-        // verify it exists in build settings before trying
-        for (int i = 0; i < SceneManager.sceneCountInBuildSettings; i++)
-        {
-            string path = SceneUtility.GetScenePathByBuildIndex(i);
-            string name = System.IO.Path.GetFileNameWithoutExtension(path);
-            Debug.Log($"[PlayerHealth] Checking build index {i}: {name} (looking for {sceneName})");
-            if (name == sceneName)
-            {
-                Debug.Log($"[PlayerHealth] Found scene '{sceneName}' at build index {i}. Loading...");
-                SceneManager.LoadScene(sceneName);
-                return true;
-            }
-        }
-        Debug.LogWarning($"[PlayerHealth] Scene '{sceneName}' not found in build settings");
-        return false;
+        // Try to use GameOverManager first
+        GameOverManager.TriggerGameOver();
+        
+        // Note: The old scene loading code is removed since GameOverManager handles everything
     }
 }
