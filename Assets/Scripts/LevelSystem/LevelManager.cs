@@ -85,7 +85,7 @@ public class LevelManager : MonoBehaviour
         }
         else if (objectives == null || objectives.Count == 0)
         {
-            Debug.LogError("No level objectives defined in LevelManager.");
+            Debug.LogError("No level objectives defined in LevelManager in scene " + gameObject.scene.name);
         }
 
         //get all spawn nodes in scene
@@ -120,7 +120,11 @@ public class LevelManager : MonoBehaviour
         {
             GameObject playerSpawnNode=playerSpawnNodes[UnityEngine.Random.Range(0,playerSpawnNodes.Count)];
             Vector3 spawnPositionWithOffset=playerSpawnNode.GetComponent<ValidSpawnTypes>().GetRandomSpawnPosition();
-            Instantiate(player,spawnPositionWithOffset,Quaternion.identity);
+            if (player != null)
+            {
+                Instantiate(player,spawnPositionWithOffset,Quaternion.identity);
+            }
+            
         }
         else
         {
@@ -131,7 +135,11 @@ public class LevelManager : MonoBehaviour
         {
             GameObject snailSpawnNode=snailSpawnNodes[UnityEngine.Random.Range(0,snailSpawnNodes.Count)];
             Vector3 spawnPositionWithOffset=snailSpawnNode.GetComponent<ValidSpawnTypes>().GetRandomSpawnPosition();
-            Instantiate(snail,spawnPositionWithOffset,Quaternion.identity);
+            if (snail != null)
+            {
+                Instantiate(snail,spawnPositionWithOffset,Quaternion.identity);
+            }
+            
         }
         else
         {
