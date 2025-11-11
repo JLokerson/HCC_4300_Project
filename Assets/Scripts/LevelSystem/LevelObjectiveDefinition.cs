@@ -8,7 +8,7 @@ public class LevelObjectiveDefinition : ScriptableObject
     [Tooltip("True when objective complete")]
     public bool isCompleted;
 
-    public List<GameObject> enemyPrefab = new List<GameObject>();
+    public List<EnemySpawnWeights> enemyWeights = new List<EnemySpawnWeights>();
     [Tooltip("Maximum number of enemies allowed to be active at once")]
     public int maxEnemies;
     [Tooltip("Number of enemies that must be killed to complete the objective")]
@@ -22,4 +22,12 @@ public class LevelObjectiveDefinition : ScriptableObject
     public int enemiesDefeated;
     [HideInInspector]
     public int currentEnemies;
+}
+
+[Serializable]
+public class EnemySpawnWeights
+{
+    public GameObject enemyPrefab;
+    [Min(0)]
+    public int weight=0;
 }

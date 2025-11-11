@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using static LevelManager;
 
@@ -191,8 +192,7 @@ public class LevelManager : MonoBehaviour
                             if (distanceToPlayer > 5f) //distance check player
                             {
                                 //spawn enemy
-                                int index = UnityEngine.Random.Range(0, currentObjective.enemyPrefab.Count);
-                                GameObject spawnedEnemy = Instantiate(currentObjective.enemyPrefab[index], EnemySpawnPositionWithOffset, Quaternion.identity);
+                                GameObject spawnedEnemy = Instantiate(selectWeightedEnemy(), EnemySpawnPositionWithOffset, Quaternion.identity);
                                 nearPlayer = false;
                             }
                             else {                                 
@@ -243,5 +243,61 @@ public class LevelManager : MonoBehaviour
             Debug.Log("Level Objective Completed!");
             OnObjectiveCompleted.Invoke();            
         }
+    }
+
+    public GameObject selectWeightedEnemy()
+    {
+        if (currentObjective == null || currentObjective.enemyWeights == null || currentObjective.enemyWeights.Count == 0)
+        {
+            Debug.LogWarning("selectWeightedEnemy: no enemyWeights available on currentObjective.");
+            return null;
+        }
+
+        // Compute total of non-negative weights and collect valid entries
+        int totalWeight = 0;
+        var validEntries = new List<EnemySpawnWeights>();
+        foreach (var enemy in currentObjective.enemyWeights)
+        {
+            if (enemy == null || enemy.enemyPrefab == null)
+                continue;
+            int weight = Math.Max(0, enemy.weight);
+            if (weight > 0)
+            {
+                totalWeight += weight;
+                validEntries.Add(enemy);
+            }
+            else
+            {
+                // keep zero-weight entries too in case all weights are zero
+                validEntries.Add(enemy);
+            }
+        }
+
+        if (validEntries.Count == 0)
+        {
+            Debug.LogWarning("selectWeightedEnemy: no valid enemy prefabs found in enemyWeights.");
+            return null;
+        }
+
+        // If totalWeight is zero (all weights were 0), pick uniformly
+        if (totalWeight <= 0)
+        {
+            return validEntries[UnityEngine.Random.Range(0, validEntries.Count)].enemyPrefab;
+        }
+
+        int randomNumber = UnityEngine.Random.Range(0, totalWeight);
+        int cumulativeWeight = 0;
+        foreach (var enemy in currentObjective.enemyWeights)
+        {
+            if (enemy == null || enemy.enemyPrefab == null)
+                continue;
+            int weight = Math.Max(0, enemy.weight);
+            cumulativeWeight += weight;
+            if (randomNumber < cumulativeWeight)
+                return enemy.enemyPrefab;
+        }
+
+        // Fallback: return last valid prefab
+        return validEntries.Last().enemyPrefab;
     }
 }
