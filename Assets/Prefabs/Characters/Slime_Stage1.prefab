@@ -92,7 +92,7 @@ MonoBehaviour:
   enableScaling: 1
   childScaleFactor: 0.75
   inheritParentScale: 1
-  debugLogs: 1
+  debugLogs: 0
 --- !u!95 &1234567890123456791
 Animator:
   serializedVersion: 7

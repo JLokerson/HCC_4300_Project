@@ -62,7 +62,7 @@ public class SlimeSplit : MonoBehaviour
         if (healthGetter != null)
         {
             lastKnownHealth = healthGetter();
-            Debug.Log($"[SlimeSplit] {name}: Update - hasSplit={hasSplit}, health={lastKnownHealth}, hasPrefab={nextStagePrefab != null}"); // ADD THIS
+            if (debugLogs) Debug.Log($"[SlimeSplit] {name}: Update - hasSplit={hasSplit}, health={lastKnownHealth}, hasPrefab={nextStagePrefab != null}"); // ADD THIS
             if (!hasSplit && nextStagePrefab != null && lastKnownHealth <= 0f)
             {
                 if (debugLogs) Debug.Log($"[SlimeSplit] {name}: Health <= 0 in Update -> splitting (fallback).");
