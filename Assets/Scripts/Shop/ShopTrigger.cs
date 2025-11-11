@@ -10,7 +10,8 @@ public class ShopTrigger : MonoBehaviour
     [Header("Interaction UI")]
     public GameObject interactionPrompt;
     public Text promptText;
-    
+    public Event onInteract = new Event();
+
     [Header("Shop Settings")]
     public string promptMessage = "Press E to open shop";
     
@@ -37,7 +38,7 @@ public class ShopTrigger : MonoBehaviour
         // Check for interaction input when player is in range
         if (playerInRange && Input.GetKeyDown(interactionKey))
         {
-            OpenShop();
+            onInteract.Invoke();
         }
     }
     
@@ -100,7 +101,7 @@ public class ShopTrigger : MonoBehaviour
         }
     }
     
-    void OpenShop()
+    public void OpenShop()
     {
         // Only open shop if ShopManager exists and shop is not already open
         if (ShopManager.Instance != null && !ShopManager.Instance.IsShopOpen())
