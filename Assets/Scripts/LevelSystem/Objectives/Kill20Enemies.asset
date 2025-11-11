@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: Kill20Enemies
   m_EditorClassIdentifier: Assembly-CSharp::LevelObjectiveDefinition
   isCompleted: 0
-  enemyPrefab: {fileID: 4922636760702341083, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
+  enemyPrefab:
+  - {fileID: 4922636760702341083, guid: bea311291e3f1634d9f731182d7c99df, type: 3}
+  - {fileID: 8046610568769061297, guid: 6b026bb0c710f924b9ace5743f3d2fef, type: 3}
   maxEnemies: 20
   enemiesToKill: 20
   spawnRate: 10
