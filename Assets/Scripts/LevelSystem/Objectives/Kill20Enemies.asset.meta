@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/Scripts/LevelSystem/Objectives/Kill20Enemies.asset.meta
 guid: 7256d171edace664e8b6995a813d3f37
-========
-guid: 6b5cd8dd07932e74c893ca5765a1d031
->>>>>>>> origin/luca-X:Assets/Health.asset.meta
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 11400000

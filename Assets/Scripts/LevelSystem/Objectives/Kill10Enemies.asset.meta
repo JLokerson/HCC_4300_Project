@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/Scripts/LevelSystem/Objectives/Kill10Enemies.asset.meta
 guid: 7790a0eb6f6097042aff9dde68ee3346
-========
-guid: a8550797de038584a8d64d8eb8bd058b
->>>>>>>> origin/luca-X:Assets/BulletDamage.asset.meta
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 11400000
