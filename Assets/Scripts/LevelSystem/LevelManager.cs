@@ -181,7 +181,8 @@ public class LevelManager : MonoBehaviour
                     //spawn enemy
                     GameObject enemySpawnNode = enemySpawnNodes[UnityEngine.Random.Range(0, enemySpawnNodes.Count)];
                     Vector3 EnemySpawnPositionWithOffset = enemySpawnNode.GetComponent<ValidSpawnTypes>().GetRandomSpawnPosition();
-                    GameObject spawnedEnemy = Instantiate(currentObjective.enemyPrefab, EnemySpawnPositionWithOffset, Quaternion.identity);
+                    int index = UnityEngine.Random.Range(0, currentObjective.enemyPrefab.Count);
+                    GameObject spawnedEnemy = Instantiate(currentObjective.enemyPrefab[index], EnemySpawnPositionWithOffset, Quaternion.identity);
                 }
             }
             yield return new WaitForSeconds(currentObjective.spawnRate);
