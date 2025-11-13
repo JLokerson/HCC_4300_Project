@@ -99,6 +99,10 @@ public class PauseManager : MonoBehaviour
     /// </summary>
     private void OnPausePressed(InputAction.CallbackContext context)
     {
+        // Don't allow pausing during intro
+        if (IntroManager.IsIntroPlaying)
+            return;
+            
         TogglePause();
     }
     
@@ -107,6 +111,10 @@ public class PauseManager : MonoBehaviour
     /// </summary>
     public void TogglePause()
     {
+        // Don't allow pausing during intro
+        if (IntroManager.IsIntroPlaying)
+            return;
+
         AudioSource.PlayClipAtPoint(pauseSound, Camera.main.transform.position);
 
         if (isPaused)

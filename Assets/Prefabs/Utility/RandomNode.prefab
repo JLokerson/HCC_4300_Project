@@ -103,5 +103,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ValidSpawnTypes
   canSpawnPlayer: 1
-  canSpawnSnail: 1
-  canSpawnEnemy: 1
+  canSpawnSnail: 0
+  canSpawnEnemy: 0
+  spawnRadius: 5
