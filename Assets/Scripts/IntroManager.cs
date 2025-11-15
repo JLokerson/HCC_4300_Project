@@ -10,6 +10,9 @@ public class IntroManager : MonoBehaviour
     [Header("Cutscene Canvases")]
     public Canvas[] cutsceneCanvases;
     
+    [Header("Skip Button")]
+    public Button skipButton;
+    
     [Header("Timing Settings")]
     public float fadeInDuration = 1.5f;
     public float canvasDisplayTime = 3f;
@@ -34,6 +37,9 @@ public class IntroManager : MonoBehaviour
             pauseManager.enabled = false;
         }
         
+        // Setup skip button
+        SetupSkipButton();
+        
         // Pause the game world during intro
         Time.timeScale = 0f;
         
@@ -41,6 +47,29 @@ public class IntroManager : MonoBehaviour
         StartIntroSequence();
     }
     
+    void SetupSkipButton()
+    {
+        if (skipButton != null)
+        {
+            skipButton.onClick.AddListener(SkipIntro);
+            skipButton.gameObject.SetActive(true);
+            
+            // Ensure the button's canvas is configured properly
+            Canvas buttonCanvas = skipButton.GetComponentInParent<Canvas>();
+            if (buttonCanvas != null)
+            {
+                buttonCanvas.sortingOrder = 1000; // Very high to appear above everything
+                buttonCanvas.gameObject.SetActive(true);
+            }
+            
+            Debug.Log("Skip button setup complete - should be visible");
+        }
+        else
+        {
+            Debug.LogWarning("Skip button is not assigned in IntroManager!");
+        }
+    }
+
     void SetupCutsceneCanvases()
     {
         if (cutsceneCanvases == null || cutsceneCanvases.Length == 0) 
@@ -136,6 +165,12 @@ public class IntroManager : MonoBehaviour
     void StartGameWorld()
     {
         IsIntroPlaying = false;
+        
+        // Hide skip button
+        if (skipButton != null)
+        {
+            skipButton.gameObject.SetActive(false);
+        }
         
         // Re-enable PauseManager
         if (pauseManager != null)
