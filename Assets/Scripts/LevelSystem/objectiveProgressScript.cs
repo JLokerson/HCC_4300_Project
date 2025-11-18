@@ -18,6 +18,6 @@ public class objectiveProgressScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        text.text="Enemies killed: " + levelManager.currentObjective.enemiesDefeated + "/" + levelManager.currentObjective.enemiesToKill;
+        text.text="Current level: " + LevelManager.currentLevel + " Enemies killed: " + levelManager.currentObjective.enemiesDefeated + "/" + levelManager.currentObjective.enemiesToKill;
     }
 }
