@@ -172,7 +172,7 @@ public class PauseManager : MonoBehaviour
 
         if (mainMenuSceneName != null)
         {
-            LoadScene.LoadSelectedScene(mainMenuSceneName);
+            SceneManager.LoadSelectedScene(mainMenuSceneName);
         }
         else
         {

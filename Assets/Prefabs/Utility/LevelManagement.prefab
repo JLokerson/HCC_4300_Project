@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee2d4ccb63211b64d8d6366e511c997e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelManager
-  player: {fileID: 1057559930409579937, guid: 2d05ce5b510e68c428ae152f97aac112, type: 3}
+  playerPrefab: {fileID: 1057559930409579937, guid: 2d05ce5b510e68c428ae152f97aac112, type: 3}
   snail: {fileID: 4922636760702341083, guid: 70271ab65f95a35438065a3a1a2c9413, type: 3}
   potentialObjectives:
   - {fileID: 11400000, guid: 7790a0eb6f6097042aff9dde68ee3346, type: 2}
@@ -56,8 +56,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1657035490536933422}
-        m_TargetAssemblyTypeName: LoadScene, Assembly-CSharp
-        m_MethodName: LoadSelectedScene
+        m_TargetAssemblyTypeName: SceneManager, Assembly-CSharp
+        m_MethodName: LoadSelectedSceneAdditive
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -67,7 +67,20 @@ MonoBehaviour:
           m_StringArgument: ShopRoomTestScene
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1657035490536933422}
+        m_TargetAssemblyTypeName: SceneManager, Assembly-CSharp
+        m_MethodName: UnloadSelectedScene
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: DemoScene
+          m_BoolArgument: 0
+        m_CallState: 2
   objectives: []
+  SetThisSceneAsActive: 1
 --- !u!114 &1657035490536933422
 MonoBehaviour:
   m_ObjectHideFlags: 0

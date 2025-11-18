@@ -330,6 +330,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 633441716}
     m_Modifications:
+    - target: {fileID: 2477610539012374154, guid: 55972f8f60241c142bbadcfecc2eb5d3, type: 3}
+      propertyPath: canSpawnEnemy
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2477610539012374154, guid: 55972f8f60241c142bbadcfecc2eb5d3, type: 3}
+      propertyPath: canSpawnSnail
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2739026429592623149, guid: 55972f8f60241c142bbadcfecc2eb5d3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 36.533493
@@ -590,6 +598,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 633441716}
     m_Modifications:
+    - target: {fileID: 2477610539012374154, guid: 55972f8f60241c142bbadcfecc2eb5d3, type: 3}
+      propertyPath: canSpawnEnemy
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2477610539012374154, guid: 55972f8f60241c142bbadcfecc2eb5d3, type: 3}
+      propertyPath: canSpawnSnail
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2739026429592623149, guid: 55972f8f60241c142bbadcfecc2eb5d3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 41.72443
@@ -1241,6 +1257,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 633441716}
     m_Modifications:
+    - target: {fileID: 2477610539012374154, guid: 55972f8f60241c142bbadcfecc2eb5d3, type: 3}
+      propertyPath: canSpawnEnemy
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2477610539012374154, guid: 55972f8f60241c142bbadcfecc2eb5d3, type: 3}
+      propertyPath: canSpawnSnail
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2739026429592623149, guid: 55972f8f60241c142bbadcfecc2eb5d3, type: 3}
       propertyPath: m_LocalPosition.x
       value: -12.651152
@@ -1303,6 +1327,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 633441716}
     m_Modifications:
+    - target: {fileID: 2477610539012374154, guid: 55972f8f60241c142bbadcfecc2eb5d3, type: 3}
+      propertyPath: canSpawnEnemy
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2477610539012374154, guid: 55972f8f60241c142bbadcfecc2eb5d3, type: 3}
+      propertyPath: canSpawnSnail
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2739026429592623149, guid: 55972f8f60241c142bbadcfecc2eb5d3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 9.323081
@@ -1757,6 +1789,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 633441716}
     m_Modifications:
+    - target: {fileID: 2477610539012374154, guid: 55972f8f60241c142bbadcfecc2eb5d3, type: 3}
+      propertyPath: canSpawnEnemy
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2477610539012374154, guid: 55972f8f60241c142bbadcfecc2eb5d3, type: 3}
+      propertyPath: canSpawnSnail
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2739026429592623149, guid: 55972f8f60241c142bbadcfecc2eb5d3, type: 3}
       propertyPath: m_LocalPosition.x
       value: -12.15569
@@ -1819,6 +1859,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 633441716}
     m_Modifications:
+    - target: {fileID: 2477610539012374154, guid: 55972f8f60241c142bbadcfecc2eb5d3, type: 3}
+      propertyPath: canSpawnEnemy
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2477610539012374154, guid: 55972f8f60241c142bbadcfecc2eb5d3, type: 3}
+      propertyPath: canSpawnSnail
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2739026429592623149, guid: 55972f8f60241c142bbadcfecc2eb5d3, type: 3}
       propertyPath: m_LocalPosition.x
       value: -15.889553
@@ -2789,6 +2837,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 633441716}
     m_Modifications:
+    - target: {fileID: 2477610539012374154, guid: 55972f8f60241c142bbadcfecc2eb5d3, type: 3}
+      propertyPath: canSpawnEnemy
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2477610539012374154, guid: 55972f8f60241c142bbadcfecc2eb5d3, type: 3}
+      propertyPath: canSpawnSnail
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2739026429592623149, guid: 55972f8f60241c142bbadcfecc2eb5d3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 22.200228
@@ -3049,6 +3105,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 633441716}
     m_Modifications:
+    - target: {fileID: 2477610539012374154, guid: 55972f8f60241c142bbadcfecc2eb5d3, type: 3}
+      propertyPath: canSpawnEnemy
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2477610539012374154, guid: 55972f8f60241c142bbadcfecc2eb5d3, type: 3}
+      propertyPath: canSpawnSnail
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2739026429592623149, guid: 55972f8f60241c142bbadcfecc2eb5d3, type: 3}
       propertyPath: m_LocalPosition.x
       value: -45.493336
@@ -3243,6 +3307,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 633441716}
     m_Modifications:
+    - target: {fileID: 2477610539012374154, guid: 55972f8f60241c142bbadcfecc2eb5d3, type: 3}
+      propertyPath: canSpawnEnemy
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2477610539012374154, guid: 55972f8f60241c142bbadcfecc2eb5d3, type: 3}
+      propertyPath: canSpawnSnail
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2739026429592623149, guid: 55972f8f60241c142bbadcfecc2eb5d3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 35.273693
@@ -3371,6 +3443,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 633441716}
     m_Modifications:
+    - target: {fileID: 2477610539012374154, guid: 55972f8f60241c142bbadcfecc2eb5d3, type: 3}
+      propertyPath: canSpawnEnemy
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2477610539012374154, guid: 55972f8f60241c142bbadcfecc2eb5d3, type: 3}
+      propertyPath: canSpawnSnail
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2739026429592623149, guid: 55972f8f60241c142bbadcfecc2eb5d3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 41.926304
@@ -3565,6 +3645,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 633441716}
     m_Modifications:
+    - target: {fileID: 2477610539012374154, guid: 55972f8f60241c142bbadcfecc2eb5d3, type: 3}
+      propertyPath: canSpawnEnemy
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2477610539012374154, guid: 55972f8f60241c142bbadcfecc2eb5d3, type: 3}
+      propertyPath: canSpawnSnail
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2739026429592623149, guid: 55972f8f60241c142bbadcfecc2eb5d3, type: 3}
       propertyPath: m_LocalPosition.x
       value: -13.023525
@@ -3759,6 +3847,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 633441716}
     m_Modifications:
+    - target: {fileID: 2477610539012374154, guid: 55972f8f60241c142bbadcfecc2eb5d3, type: 3}
+      propertyPath: canSpawnEnemy
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2477610539012374154, guid: 55972f8f60241c142bbadcfecc2eb5d3, type: 3}
+      propertyPath: canSpawnSnail
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2739026429592623149, guid: 55972f8f60241c142bbadcfecc2eb5d3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 22.331205
@@ -6480,6 +6576,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 633441716}
     m_Modifications:
+    - target: {fileID: 2477610539012374154, guid: 55972f8f60241c142bbadcfecc2eb5d3, type: 3}
+      propertyPath: canSpawnEnemy
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2477610539012374154, guid: 55972f8f60241c142bbadcfecc2eb5d3, type: 3}
+      propertyPath: canSpawnSnail
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2739026429592623149, guid: 55972f8f60241c142bbadcfecc2eb5d3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 16.543135
@@ -7197,6 +7301,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 633441716}
     m_Modifications:
+    - target: {fileID: 2477610539012374154, guid: 55972f8f60241c142bbadcfecc2eb5d3, type: 3}
+      propertyPath: canSpawnEnemy
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2477610539012374154, guid: 55972f8f60241c142bbadcfecc2eb5d3, type: 3}
+      propertyPath: canSpawnSnail
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2739026429592623149, guid: 55972f8f60241c142bbadcfecc2eb5d3, type: 3}
       propertyPath: m_LocalPosition.x
       value: -38.97014
@@ -7325,6 +7437,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 633441716}
     m_Modifications:
+    - target: {fileID: 2477610539012374154, guid: 55972f8f60241c142bbadcfecc2eb5d3, type: 3}
+      propertyPath: canSpawnEnemy
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2477610539012374154, guid: 55972f8f60241c142bbadcfecc2eb5d3, type: 3}
+      propertyPath: canSpawnSnail
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2739026429592623149, guid: 55972f8f60241c142bbadcfecc2eb5d3, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.036062
@@ -7585,6 +7705,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 633441716}
     m_Modifications:
+    - target: {fileID: 2477610539012374154, guid: 55972f8f60241c142bbadcfecc2eb5d3, type: 3}
+      propertyPath: canSpawnEnemy
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2477610539012374154, guid: 55972f8f60241c142bbadcfecc2eb5d3, type: 3}
+      propertyPath: canSpawnSnail
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2739026429592623149, guid: 55972f8f60241c142bbadcfecc2eb5d3, type: 3}
       propertyPath: m_LocalPosition.x
       value: -37.456944

@@ -45,7 +45,7 @@ public class PlayerHealth : MonoBehaviour
         if (TryLoadByName(mainMenuSceneName)) return;
 
         Debug.LogWarning($"[PlayerHealth] Could not load '{mainMenuSceneName}'. Falling back to build index {mainMenuBuildIndex}.");
-        SceneManager.LoadScene(mainMenuBuildIndex);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(mainMenuBuildIndex);
     }
 
     bool TryLoadViaGameManager()
@@ -84,7 +84,7 @@ public class PlayerHealth : MonoBehaviour
         }
 
         // verify it exists in build settings before trying
-        for (int i = 0; i < SceneManager.sceneCountInBuildSettings; i++)
+        for (int i = 0; i < UnityEngine.SceneManagement.SceneManager.sceneCountInBuildSettings; i++)
         {
             string path = SceneUtility.GetScenePathByBuildIndex(i);
             string name = System.IO.Path.GetFileNameWithoutExtension(path);
@@ -92,7 +92,7 @@ public class PlayerHealth : MonoBehaviour
             if (name == sceneName)
             {
                 Debug.Log($"[PlayerHealth] Found scene '{sceneName}' at build index {i}. Loading...");
-                SceneManager.LoadScene(sceneName);
+                UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
                 return true;
             }
         }

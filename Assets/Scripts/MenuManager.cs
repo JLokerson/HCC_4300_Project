@@ -24,7 +24,9 @@ public class MenuManager : MonoBehaviour
     
     [Header("Scene Management")]
     [SerializeField] private string gameSceneName = null; // The name of your main game scene
-    
+
+    public Event OnStartClicked = new Event();
+
     private void Start()
     {
         InitializeMenu();
@@ -89,7 +91,7 @@ public class MenuManager : MonoBehaviour
         Debug.Log("Starting game...");
         if (gameSceneName != null)
         {
-            LoadScene.LoadSelectedScene(gameSceneName);
+            OnStartClicked.Invoke();
         }
         else
         {
