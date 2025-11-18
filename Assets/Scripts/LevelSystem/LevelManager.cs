@@ -90,9 +90,17 @@ public class LevelManager : MonoBehaviour
         }
         else
         {
-            GameObject.Instantiate(playerPrefab);
-            Debug.Log("Player not found, instantiating new player");
-            player = playerPrefab;
+            if (playerPrefab != null)
+            {
+                GameObject instantiatedPlayer = GameObject.Instantiate(playerPrefab);
+                instantiatedPlayer.name = "Player";
+                player = instantiatedPlayer;
+                Debug.Log("Player not found, instantiating new player");
+            }
+            else
+            {
+                Debug.LogWarning("Player not found and no playerPrefab assigned.");
+            }
         }
 
         //set active scene to this scene if SetThisSceneAsActive is true
@@ -104,7 +112,7 @@ public class LevelManager : MonoBehaviour
         //assign a random objective for the level from the list (old system)
         if (potentialObjectives!=null && potentialObjectives.Count>0)
         {
-            currentObjective=potentialObjectives[UnityEngine.Random.Range(0,potentialObjectives.Count)];
+            currentObjective=Instantiate(potentialObjectives[UnityEngine.Random.Range(0,potentialObjectives.Count)]); //instantiate makes it a copy of the original
             Debug.Log("Assigned Level Objective: "+currentObjective.name);
         }
         else if (objectives == null || objectives.Count == 0)
