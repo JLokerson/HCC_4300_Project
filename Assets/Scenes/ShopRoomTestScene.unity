@@ -1924,6 +1924,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8987f853966e1274a9cf64e698efaa92, type: 3}
+--- !u!114 &791828513 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7729507188110105273, guid: 8987f853966e1274a9cf64e698efaa92, type: 3}
+  m_PrefabInstance: {fileID: 791828512}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee2d4ccb63211b64d8d6366e511c997e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LevelManager
 --- !u!1001 &793901341
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2103,9 +2114,33 @@ MonoBehaviour:
   onInteract:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 791828513}
+        m_TargetAssemblyTypeName: LevelManager, Assembly-CSharp
+        m_MethodName: increaseLevelCount
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: DemoScene
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 674263445}
-        m_TargetAssemblyTypeName: LoadScene, Assembly-CSharp
-        m_MethodName: LoadSelectedScene
+        m_TargetAssemblyTypeName: SceneManager, Assembly-CSharp
+        m_MethodName: setActiveScene
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: ShopRoomTestScene
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 674263445}
+        m_TargetAssemblyTypeName: SceneManager, Assembly-CSharp
+        m_MethodName: LoadSelectedSceneAdditive
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2113,6 +2148,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: DemoScene
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 674263445}
+        m_TargetAssemblyTypeName: SceneManager, Assembly-CSharp
+        m_MethodName: UnloadSelectedScene
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: ShopRoomTestScene
           m_BoolArgument: 0
         m_CallState: 2
   promptMessage: Press E to exit shop

@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void UpdateGameStateFromScene()
     {
-        string currentSceneName = SceneManager.GetActiveScene().name;
+        string currentSceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
         
         if (currentSceneName == mainMenuSceneName)
             SetGameState(GameState.MainMenu);
@@ -155,7 +155,7 @@ public class GameManager : MonoBehaviour
     public void LoadScene(string sceneName)
     {
         Debug.Log($"Loading scene: {sceneName}");
-        SceneManager.LoadScene(sceneName);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
     }
     
     /// <summary>
@@ -198,12 +198,12 @@ public class GameManager : MonoBehaviour
     
     private void OnEnable()
     {
-        SceneManager.sceneLoaded += OnSceneLoaded;
+        UnityEngine.SceneManagement.SceneManager.sceneLoaded += OnSceneLoaded;
     }
     
     private void OnDisable()
     {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
+        UnityEngine.SceneManagement.SceneManager.sceneLoaded -= OnSceneLoaded;
     }
     
     /// <summary>

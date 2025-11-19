@@ -115,7 +115,7 @@ Thank you for playing!
     public void ReturnToMainMenu()
     {
         Debug.Log("Returning to main menu from credits...");
-        SceneManager.LoadScene(returnSceneName);
+        SceneManager.LoadSelectedScene(returnSceneName);
     }
     
     /// <summary>

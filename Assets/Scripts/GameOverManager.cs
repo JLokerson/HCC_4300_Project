@@ -148,12 +148,12 @@ public class GameOverManager : MonoBehaviour
     public void RestartGame()
     {
         // Load the main game scene
-        SceneManager.LoadScene("GameScene"); // Replace with your game scene name
+        UnityEngine.SceneManagement.SceneManager.LoadScene("GameScene"); // Replace with your game scene name
     }
     
     public void GoToMainMenu()
     {
         // Load the main menu scene
-        SceneManager.LoadScene("MainMenu"); // Replace with your main menu scene name
+        UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu"); // Replace with your main menu scene name
     }
 }

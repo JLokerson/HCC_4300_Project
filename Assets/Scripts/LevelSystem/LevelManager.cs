@@ -9,7 +9,8 @@ public class LevelManager : MonoBehaviour
     [HideInInspector]
     public static int currentLevel = 1;
 
-    public GameObject player;
+    public GameObject playerPrefab;
+    private GameObject player=null;
     public GameObject snail;
 
     private List<GameObject> spawnNodes = new List<GameObject>();
@@ -25,6 +26,8 @@ public class LevelManager : MonoBehaviour
 
     // Add the new objective system as well
     [SerializeField]public List<Objective> objectives = new List<Objective>();
+
+    public bool SetThisSceneAsActive = true;
 
     [Serializable]
     public class Objective
@@ -76,12 +79,40 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    void Awake()
+    void Start()
     {
-        //assign a random objective for the level from the list (old system)
-        if(potentialObjectives!=null && potentialObjectives.Count>0)
+
+        //find player in the ALWAYSLOADED scene
+        player = GameObject.Find("Player");
+        if(player!=null)
         {
-            currentObjective=potentialObjectives[UnityEngine.Random.Range(0,potentialObjectives.Count)];
+            Debug.Log("Found player");
+        }
+        else
+        {
+            if (playerPrefab != null)
+            {
+                GameObject instantiatedPlayer = GameObject.Instantiate(playerPrefab);
+                instantiatedPlayer.name = "Player";
+                player = instantiatedPlayer;
+                Debug.Log("Player not found, instantiating new player");
+            }
+            else
+            {
+                Debug.LogWarning("Player not found and no playerPrefab assigned.");
+            }
+        }
+
+        //set active scene to this scene if SetThisSceneAsActive is true
+        if (SetThisSceneAsActive)
+        {
+            UnityEngine.SceneManagement.SceneManager.SetActiveScene(gameObject.scene);
+        }
+
+        //assign a random objective for the level from the list (old system)
+        if (potentialObjectives!=null && potentialObjectives.Count>0)
+        {
+            currentObjective=Instantiate(potentialObjectives[UnityEngine.Random.Range(0,potentialObjectives.Count)]); //instantiate makes it a copy of the original
             Debug.Log("Assigned Level Objective: "+currentObjective.name);
         }
         else if (objectives == null || objectives.Count == 0)
@@ -116,14 +147,14 @@ public class LevelManager : MonoBehaviour
                 }
             }
         }
-        //spawn player at random player spawn node with the random offset within spawn radius
+        //teleport player to random player spawn node with the random offset within spawn radius
         if (playerSpawnNodes.Count>0)
         {
             GameObject playerSpawnNode=playerSpawnNodes[UnityEngine.Random.Range(0,playerSpawnNodes.Count)];
             Vector3 spawnPositionWithOffset=playerSpawnNode.GetComponent<ValidSpawnTypes>().GetRandomSpawnPosition();
             if (player != null)
             {
-                Instantiate(player,spawnPositionWithOffset,Quaternion.identity);
+                player.transform.position=spawnPositionWithOffset;
             }
             
         }
@@ -299,5 +330,10 @@ public class LevelManager : MonoBehaviour
 
         // Fallback: return last valid prefab
         return validEntries.Last().enemyPrefab;
+    }
+
+    public void increaseLevelCount() 
+    {         
+        currentLevel++;
     }
 }
