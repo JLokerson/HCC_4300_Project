@@ -3,8 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using static LevelManager;
-using static UnityEditor.PlayerSettings;
 
 public class LevelManager : MonoBehaviour
 {
@@ -160,8 +158,20 @@ public class LevelManager : MonoBehaviour
             else if (player != null && playerInstantiated) //teleports the player to the spawn point if they have already been created
             {
                 Debug.Log("Teleporting Player to: " + spawnPositionWithOffset);
+
+                //this whole mess with disabling/enabling the CharacterController is because it was calculating the position,
+                //I was teleporting the player, then it was applying its calculated position or something
+                //overriding where I just teleported it. 
                 player = GameObject.FindWithTag("Player");
-                player.transform.position=spawnPositionWithOffset;
+                Debug.Log("Player found? "+player!=null);
+                var controller=player.GetComponent<CharacterController>();
+                Debug.Log("Found controller "+ controller!=null);
+                controller.enabled = false;
+                Debug.Log("Controller enabled: " +controller.enabled);
+                player.transform.position = spawnPositionWithOffset;
+                controller.enabled = true;
+                Debug.Log("Controller enabled: " + controller.enabled);
+                Debug.Log("Player's actual position="+player.transform.position);
             }
 
         }
