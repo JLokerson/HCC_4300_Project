@@ -1,33 +1,33 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using static LevelManager;
+using static UnityEditor.PlayerSettings;
 
 public class LevelManager : MonoBehaviour
 {
     [HideInInspector]
     public static int currentLevel = 1;
 
-    public GameObject playerPrefab;
-    private GameObject player=null;
+    public GameObject player;
+    private static bool playerInstantiated = false; //used to make sure only one player is created
     public GameObject snail;
 
     private List<GameObject> spawnNodes = new List<GameObject>();
     private List<GameObject> playerSpawnNodes = new List<GameObject>();
-    private  List<GameObject> enemySpawnNodes = new List<GameObject>();
+    private List<GameObject> enemySpawnNodes = new List<GameObject>();
     private List<GameObject> snailSpawnNodes = new List<GameObject>();
 
     // Keep the old objective system for backward compatibility
-    public List<LevelObjectiveDefinition> potentialObjectives=new List<LevelObjectiveDefinition>();
+    public List<LevelObjectiveDefinition> potentialObjectives = new List<LevelObjectiveDefinition>();
     [HideInInspector]
     public LevelObjectiveDefinition currentObjective;
     public Event OnObjectiveCompleted = new Event();
 
     // Add the new objective system as well
-    [SerializeField]public List<Objective> objectives = new List<Objective>();
-
-    public bool SetThisSceneAsActive = true;
+    [SerializeField] public List<Objective> objectives = new List<Objective>();
 
     [Serializable]
     public class Objective
@@ -79,41 +79,40 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    void Start()
+    void Awake()
     {
+        UnityEngine.SceneManagement.SceneManager.sceneLoaded += levelStart;
+    }
+    void OnDestroy()
+    {
+        // important to unsubscribe to avoid stale handlers from instances that should be gone
+        UnityEngine.SceneManagement.SceneManager.sceneLoaded -= levelStart;
+    }
 
-        //find player in the ALWAYSLOADED scene
-        player = GameObject.Find("Player");
-        if(player!=null)
-        {
-            Debug.Log("Found player");
-        }
-        else
-        {
-            if (playerPrefab != null)
-            {
-                GameObject instantiatedPlayer = GameObject.Instantiate(playerPrefab);
-                instantiatedPlayer.name = "Player";
-                player = instantiatedPlayer;
-                Debug.Log("Player not found, instantiating new player");
-            }
-            else
-            {
-                Debug.LogWarning("Player not found and no playerPrefab assigned.");
-            }
-        }
+    //void waitForSceneStabilization(UnityEngine.SceneManagement.Scene scene, UnityEngine.SceneManagement.LoadSceneMode mode)
+    //{
+    //    Debug.Log("Scene " + scene.name + " has been fully loaded.");
+    //    StartCoroutine(levelInitStart());
+    //}
 
-        //set active scene to this scene if SetThisSceneAsActive is true
-        if (SetThisSceneAsActive)
-        {
-            UnityEngine.SceneManagement.SceneManager.SetActiveScene(gameObject.scene);
-        }
+    //private IEnumerator teleportPlayer(Vector3 pos)
+    //{
+    //    yield return new WaitForSeconds(1f);
+    //    Debug.Log("Teleporting Player to: " + pos);
+    //    player = GameObject.FindWithTag("Player");
+    //    player.transform.position = pos;
+    //    yield return new WaitForSeconds(5);
+    //    Debug.Log("Player's actual position is"+player.transform.position);
+    //}
 
+    private void levelStart(UnityEngine.SceneManagement.Scene scene, UnityEngine.SceneManagement.LoadSceneMode mode)
+    {
+        Debug.Log("Scene fully loaded: "+scene.name);
         //assign a random objective for the level from the list (old system)
-        if (potentialObjectives!=null && potentialObjectives.Count>0)
+        if (potentialObjectives != null && potentialObjectives.Count > 0)
         {
-            currentObjective=Instantiate(potentialObjectives[UnityEngine.Random.Range(0,potentialObjectives.Count)]); //instantiate makes it a copy of the original
-            Debug.Log("Assigned Level Objective: "+currentObjective.name);
+            currentObjective = potentialObjectives[UnityEngine.Random.Range(0, potentialObjectives.Count)];
+            Debug.Log("Assigned Level Objective: " + currentObjective.name);
         }
         else if (objectives == null || objectives.Count == 0)
         {
@@ -122,7 +121,7 @@ public class LevelManager : MonoBehaviour
 
         //get all spawn nodes in scene
         spawnNodes = new List<GameObject>(GameObject.FindGameObjectsWithTag("Respawn"));
-        if(spawnNodes==null || spawnNodes.Count<=0)
+        if (spawnNodes == null || spawnNodes.Count <= 0)
         {
             Debug.LogError("No spawn nodes found in the scene.");
             return;
@@ -130,75 +129,82 @@ public class LevelManager : MonoBehaviour
         //sort spawn nodes by valid spawn types
         foreach (GameObject node in spawnNodes)
         {
-            ValidSpawnTypes validSpawnTypes=node.GetComponent<ValidSpawnTypes>();
-            if(validSpawnTypes!=null)
+            ValidSpawnTypes validSpawnTypes = node.GetComponent<ValidSpawnTypes>();
+            if (validSpawnTypes != null)
             {
-                if(validSpawnTypes.canSpawnPlayer)
+                if (validSpawnTypes.canSpawnPlayer)
                 {
                     playerSpawnNodes.Add(node);
                 }
-                if(validSpawnTypes.canSpawnSnail)
+                if (validSpawnTypes.canSpawnSnail)
                 {
                     snailSpawnNodes.Add(node);
                 }
-                if(validSpawnTypes.canSpawnEnemy)
+                if (validSpawnTypes.canSpawnEnemy)
                 {
                     enemySpawnNodes.Add(node);
                 }
             }
         }
-        //teleport player to random player spawn node with the random offset within spawn radius
-        if (playerSpawnNodes.Count>0)
+        //spawn player at random player spawn node with the random offset within spawn radius
+        if (playerSpawnNodes.Count > 0)
         {
-            GameObject playerSpawnNode=playerSpawnNodes[UnityEngine.Random.Range(0,playerSpawnNodes.Count)];
-            Vector3 spawnPositionWithOffset=playerSpawnNode.GetComponent<ValidSpawnTypes>().GetRandomSpawnPosition();
-            if (player != null)
+            GameObject playerSpawnNode = playerSpawnNodes[UnityEngine.Random.Range(0, playerSpawnNodes.Count)];
+            Vector3 spawnPositionWithOffset = playerSpawnNode.GetComponent<ValidSpawnTypes>().GetRandomSpawnPosition();
+            if (player != null && !playerInstantiated) //creates the player if it hasn't been created yet
             {
+                Debug.Log("Spawning Player at: " + spawnPositionWithOffset);
+                Instantiate(player, spawnPositionWithOffset, Quaternion.identity);
+                togglePlayerInstantiation(true);
+            }
+            else if (player != null && playerInstantiated) //teleports the player to the spawn point if they have already been created
+            {
+                Debug.Log("Teleporting Player to: " + spawnPositionWithOffset);
+                player = GameObject.FindWithTag("Player");
                 player.transform.position=spawnPositionWithOffset;
             }
-            
+
         }
         else
         {
             Debug.LogError("No valid player spawn nodes found.");
         }
         //spawn snail at random snail spawn node with the random offset within spawn radius
-        if(snailSpawnNodes.Count>0)
+        if (snailSpawnNodes.Count > 0)
         {
-            GameObject snailSpawnNode=snailSpawnNodes[UnityEngine.Random.Range(0,snailSpawnNodes.Count)];
-            Vector3 spawnPositionWithOffset=snailSpawnNode.GetComponent<ValidSpawnTypes>().GetRandomSpawnPosition();
+            GameObject snailSpawnNode = snailSpawnNodes[UnityEngine.Random.Range(0, snailSpawnNodes.Count)];
+            Vector3 spawnPositionWithOffset = snailSpawnNode.GetComponent<ValidSpawnTypes>().GetRandomSpawnPosition();
             if (snail != null)
             {
-                Instantiate(snail,spawnPositionWithOffset,Quaternion.identity);
+                Instantiate(snail, spawnPositionWithOffset, Quaternion.identity);
             }
-            
+
         }
         else
         {
             Debug.LogError("No valid snail spawn nodes found.");
         }
-        
+
         // Start spawn cycles for both objective systems
         if (currentObjective != null)
         {
             StartCoroutine(SpawnCycle());
         }
-        
+
         foreach (Objective objective in objectives)
         {
             StartCoroutine(SpawnCycle(objective));
         }
     }
-
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     //starts spawning enemies (old system)
     private System.Collections.IEnumerator SpawnCycle()
-    {     
+    {
         if (currentObjective != null && !currentObjective.isCompleted)
         {
             for (int i = 0; i < currentObjective.spawnsPerWave; i++)
@@ -226,22 +232,23 @@ public class LevelManager : MonoBehaviour
                                 GameObject spawnedEnemy = Instantiate(selectWeightedEnemy(), EnemySpawnPositionWithOffset, Quaternion.identity);
                                 nearPlayer = false;
                             }
-                            else {                                 
+                            else
+                            {
                                 Debug.Log("Spawned enemy too close to player, retrying...");
                             }
                         }
 
-                    }                    
+                    }
                 }
             }
             yield return new WaitForSeconds(currentObjective.spawnRate);
             StartCoroutine(SpawnCycle());//do it again until objective is complete
-        }       
+        }
     }
 
     //starts spawning enemies (new system)
     private System.Collections.IEnumerator SpawnCycle(Objective obj)
-    {     
+    {
         if (!obj.isCompleted)
         {
             for (int i = 0; i < obj.spawnsPerWave; i++)
@@ -262,17 +269,17 @@ public class LevelManager : MonoBehaviour
             }
             yield return new WaitForSeconds(obj.spawnRate);
             StartCoroutine(SpawnCycle(obj));//do it again until objective is complete
-        }       
+        }
     }
 
     // Keep the old completion check function for backward compatibility
-    public void checkForCompletion() 
-    { 
+    public void checkForCompletion()
+    {
         if (currentObjective != null && currentObjective.enemiesDefeated >= currentObjective.enemiesToKill)
         {
             currentObjective.isCompleted = true;
             Debug.Log("Level Objective Completed!");
-            OnObjectiveCompleted.Invoke();            
+            OnObjectiveCompleted.Invoke();
         }
     }
 
@@ -331,9 +338,14 @@ public class LevelManager : MonoBehaviour
         // Fallback: return last valid prefab
         return validEntries.Last().enemyPrefab;
     }
-
-    public void increaseLevelCount() 
-    {         
+    public void increaseLevelCount()
+    {
         currentLevel++;
+    }
+
+    //toggles the state of the player instantiated bool
+    public static void togglePlayerInstantiation(bool value)
+    {
+        playerInstantiated = value;
     }
 }

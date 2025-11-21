@@ -2128,19 +2128,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 674263445}
         m_TargetAssemblyTypeName: SceneManager, Assembly-CSharp
-        m_MethodName: setActiveScene
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: ShopRoomTestScene
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 674263445}
-        m_TargetAssemblyTypeName: SceneManager, Assembly-CSharp
-        m_MethodName: LoadSelectedSceneAdditive
+        m_MethodName: LoadSelectedScene
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2148,18 +2136,6 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: DemoScene
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 674263445}
-        m_TargetAssemblyTypeName: SceneManager, Assembly-CSharp
-        m_MethodName: UnloadSelectedScene
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: ShopRoomTestScene
           m_BoolArgument: 0
         m_CallState: 2
   promptMessage: Press E to exit shop

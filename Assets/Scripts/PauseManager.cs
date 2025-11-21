@@ -172,6 +172,9 @@ public class PauseManager : MonoBehaviour
 
         if (mainMenuSceneName != null)
         {
+            //removes the player from its persistent scene
+            CharacterCore.Destroy(GameObject.FindWithTag("Player"));
+
             SceneManager.LoadSelectedScene(mainMenuSceneName);
         }
         else

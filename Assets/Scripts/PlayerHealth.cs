@@ -40,6 +40,9 @@ public class PlayerHealth : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
+        //removes the player from its persistent scene
+        CharacterCore.Destroy(GameObject.FindWithTag("Player"));
+
         // Use GameManager if present; otherwise try by scene name; finally by build index
         if (TryLoadViaGameManager()) return;
         if (TryLoadByName(mainMenuSceneName)) return;

@@ -1,8 +1,10 @@
+using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
-using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(CharacterController))]
 public class CharacterCore : MonoBehaviour
@@ -58,6 +60,8 @@ public class CharacterCore : MonoBehaviour
 
     private void Start()
     {
+        DontDestroyOnLoad(this.gameObject); //a built in Unity function that moves player into a permanent scene
+
         // Get StatManager and set up base stats
         statManager = GetComponent<StatManager>();
         upgradeManager = GetComponent<UpgradeManager>();
@@ -246,4 +250,10 @@ public class CharacterCore : MonoBehaviour
         isReloading = false;
     }
 
+    //built in unity event. runs when object destroyed. used to let level manager create a new, fresh player next play
+    void OnDestroy()
+    {
+        Debug.Log("Player is being deleted");
+        LevelManager.togglePlayerInstantiation(false);
+    }
 }
