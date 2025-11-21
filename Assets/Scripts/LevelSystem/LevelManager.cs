@@ -163,9 +163,9 @@ public class LevelManager : MonoBehaviour
                 //I was teleporting the player, then it was applying its calculated position or something
                 //overriding where I just teleported it. 
                 player = GameObject.FindWithTag("Player");
-                Debug.Log("Player found? "+player!=null);
+                Debug.Log($"Player found? {player!=null}");
                 var controller=player.GetComponent<CharacterController>();
-                Debug.Log("Found controller "+ controller!=null);
+                Debug.Log($"Found controller {controller!=null}");
                 controller.enabled = false;
                 Debug.Log("Controller enabled: " +controller.enabled);
                 player.transform.position = spawnPositionWithOffset;
