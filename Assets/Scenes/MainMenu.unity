@@ -1404,6 +1404,18 @@ MonoBehaviour:
   OnStartClicked:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 7729507188110105273, guid: 8987f853966e1274a9cf64e698efaa92, type: 3}
+        m_TargetAssemblyTypeName: LevelManager, Assembly-CSharp
+        m_MethodName: resetLevelCount
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: DemoScene
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 1657035490536933422, guid: 8987f853966e1274a9cf64e698efaa92, type: 3}
         m_TargetAssemblyTypeName: SceneManager, Assembly-CSharp
         m_MethodName: LoadSelectedScene
