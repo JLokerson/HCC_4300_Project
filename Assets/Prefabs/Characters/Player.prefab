@@ -316,23 +316,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseStats:
   - statType: 0
-    baseValue: 5
+    baseValue: 20
   - statType: 2
-    baseValue: 5
+    baseValue: 15
   - statType: 3
-    baseValue: 2
+    baseValue: 1.38
   - statType: 4
-    baseValue: 5
+    baseValue: 25
   - statType: 7
-    baseValue: 0.2
+    baseValue: 0.1
   - statType: 10
-    baseValue: 100
+    baseValue: 175
   - statType: 1
-    baseValue: 2
+    baseValue: 5
   - statType: 9
-    baseValue: 10
+    baseValue: 20
   - statType: 8
-    baseValue: 1
+    baseValue: 6
 --- !u!114 &7867365433831447381
 MonoBehaviour:
   m_ObjectHideFlags: 0

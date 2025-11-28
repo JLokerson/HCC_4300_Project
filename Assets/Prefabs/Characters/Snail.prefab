@@ -70,7 +70,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 1
+  m_Speed: 3
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 0
@@ -97,10 +97,10 @@ MonoBehaviour:
   target: {fileID: 0}
   TargetIsStationary: 0
   UpdateInterval: 0.5
-  maxHealth: 10
-  maxPiercingResistance: 3
+  maxHealth: 30
+  maxPiercingResistance: 5
   immortal: 1
-  stunDuration: 5
+  stunDuration: 2
   shellSprite: {fileID: 21300000, guid: b6a2a6d3956798f4f84769dc87064182, type: 3}
   footstepSound: {fileID: 8300000, guid: 562ff9c463bcf9b44920660e9ec7c192, type: 3}
   damageSound: {fileID: 8300000, guid: 81a47a57e719b7a43b37c740a87e5d85, type: 3}

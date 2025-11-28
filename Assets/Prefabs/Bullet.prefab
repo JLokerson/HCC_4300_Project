@@ -164,7 +164,7 @@ MonoBehaviour:
   lifetime: 3
   baseDamage: 1
   basePiercing: 0
-  maxBounces: 0
+  maxBounces: 4
   bounceSound: {fileID: 8300000, guid: 7a73efc6cf6e4e44e8267e60d02e2b4b, type: 3}
   breakSound: {fileID: 8300000, guid: 9f0155270045d7e4c8b460f66c7e2dd7, type: 3}
   spawnSound: {fileID: 8300000, guid: d1fa0f83642194642ae77981c3e84eda, type: 3}
