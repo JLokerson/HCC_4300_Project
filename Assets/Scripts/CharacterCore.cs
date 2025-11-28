@@ -155,8 +155,8 @@ public class CharacterCore : MonoBehaviour
 
         //shooting
         //if shoot action is pressed (held works too this way) and the time is greater than what is calculated as the next time a shot can be fired
-        //and not reloading and has bullets and game not paused
-        if (shootAction.IsPressed() && !isReloading &&!isShooting && CurrentBulletCount>0 && !pauseManager.IsPaused()) 
+        //and not reloading and has bullets and game not paused and not in shop
+        if (shootAction.IsPressed() && !isReloading &&!isShooting && CurrentBulletCount>0 && !pauseManager.IsPaused() && !ShopManager.Instance.IsShopOpen()) 
         {
             StartCoroutine(Shoot()); //start corutine lets us wait for some time without blocking the main thread
         }            
