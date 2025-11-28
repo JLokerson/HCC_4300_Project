@@ -155,8 +155,9 @@ public class CharacterCore : MonoBehaviour
 
         //shooting
         //if shoot action is pressed (held works too this way) and the time is greater than what is calculated as the next time a shot can be fired
-        //and not reloading and has bullets and game not paused and not in shop
-        if (shootAction.IsPressed() && !isReloading &&!isShooting && CurrentBulletCount>0 && !pauseManager.IsPaused() && !ShopManager.Instance.IsShopOpen()) 
+        //and not reloading and has bullets and game not paused and not in shop. the ?. operator checks for null before accessing to avoid errors and the ?? operator provides a default value if null,
+        //in this case if they don't exist we treat it as false
+        if (shootAction.IsPressed() && !isReloading &&!isShooting && CurrentBulletCount>0 && !(pauseManager?.IsPaused() ?? false) && !(ShopManager.Instance?.IsShopOpen() ?? false)) 
         {
             StartCoroutine(Shoot()); //start corutine lets us wait for some time without blocking the main thread
         }            

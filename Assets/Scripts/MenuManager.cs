@@ -91,6 +91,7 @@ public class MenuManager : MonoBehaviour
         Debug.Log("Starting game...");
         if (gameSceneName != null)
         {
+            Cursor.lockState = CursorLockMode.Confined; //keeps cursor in window
             OnStartClicked.Invoke();
         }
         else
