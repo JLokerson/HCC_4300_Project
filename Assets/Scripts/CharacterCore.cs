@@ -58,6 +58,8 @@ public class CharacterCore : MonoBehaviour
     private float footstepTimer = 0f;
     private float currentSpeed = 0f;
 
+    private PauseManager pauseManager;
+
     private void Start()
     {
         DontDestroyOnLoad(this.gameObject); //a built in Unity function that moves player into a permanent scene
@@ -112,6 +114,9 @@ public class CharacterCore : MonoBehaviour
 
         // Set up audio source
         audioSource = GetComponent<AudioSource>();
+
+        // Get PauseManager
+        pauseManager = FindFirstObjectByType<PauseManager>();
     }
 
     private void Update()
@@ -149,7 +154,9 @@ public class CharacterCore : MonoBehaviour
         }
 
         //shooting
-        if(shootAction.IsPressed() && !isReloading &&!isShooting && CurrentBulletCount>0) //if shoot action is pressed (held works too this way) and the time is greater than what is calculated as the next time a shot can be fired and not reloading and has bullets
+        //if shoot action is pressed (held works too this way) and the time is greater than what is calculated as the next time a shot can be fired
+        //and not reloading and has bullets and game not paused
+        if (shootAction.IsPressed() && !isReloading &&!isShooting && CurrentBulletCount>0 && !pauseManager.IsPaused()) 
         {
             StartCoroutine(Shoot()); //start corutine lets us wait for some time without blocking the main thread
         }            
@@ -225,7 +232,7 @@ public class CharacterCore : MonoBehaviour
             reticleRenderer.material = normalReticle;
         }
     }
-    private System.Collections.IEnumerator Reload() //system.collections.ienumerator lets us use yield return to wait
+    public System.Collections.IEnumerator Reload() //system.collections.ienumerator lets us use yield return to wait
     {
         isReloading = true;
         audioSource.PlayOneShot(reloadStartSound);
