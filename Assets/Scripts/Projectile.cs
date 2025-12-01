@@ -146,7 +146,7 @@ public class Projectile : MonoBehaviour
             // NEW: re-orient visual after changing direction
             OrientGraphic();
 
-            if (audioSource != null && bounceSound != null) audioSource.PlayOneShot(bounceSound);
+            if (audioSource != null && bounceSound != null) audioSource.PlayOneShot(bounceSound, .25f);
         }
     }
 
