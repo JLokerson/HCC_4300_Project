@@ -353,6 +353,11 @@ public class LevelManager : MonoBehaviour
         currentLevel++;
     }
 
+    public void resetLevelCount()
+    {
+        currentLevel = 1;
+    }
+
     //toggles the state of the player instantiated bool
     public static void togglePlayerInstantiation(bool value)
     {

@@ -192,7 +192,11 @@ public class ShopManager : MonoBehaviour
             {
                 audioSource.PlayOneShot(closeShopSound);
             }
-            
+
+            // Trigger player reload on shop close so that the ammo is refilled and the magazine size visually updates
+            CharacterCore player = GameObject.FindWithTag("Player")?.GetComponent<CharacterCore>();
+            player.StartCoroutine(player.Reload());
+
             ClearUpgradeDisplay();
             
             Time.timeScale = 1f;

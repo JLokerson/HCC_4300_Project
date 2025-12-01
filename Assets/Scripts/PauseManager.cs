@@ -158,7 +158,8 @@ public class PauseManager : MonoBehaviour
         
         
         Cursor.visible = false;
-        
+        Cursor.lockState = CursorLockMode.Confined; //keeps cursor in window
+
         Debug.Log("Game resumed");
     }
     
