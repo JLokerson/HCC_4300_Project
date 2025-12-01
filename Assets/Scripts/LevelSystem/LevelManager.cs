@@ -7,7 +7,7 @@ using UnityEngine;
 public class LevelManager : MonoBehaviour
 {
     [HideInInspector]
-    public static int currentLevel = 15;
+    public static int currentLevel = 1;
 
     public GameObject player;
     private static bool playerInstantiated = false; //used to make sure only one player is created
@@ -109,7 +109,7 @@ public class LevelManager : MonoBehaviour
         //assign a random objective for the level from the list (old system)
         if (potentialObjectives != null && potentialObjectives.Count > 0)
         {
-            currentObjective = Instantiate(potentialObjectives[UnityEngine.Random.Range(0, potentialObjectives.Count)]);
+            currentObjective = potentialObjectives[UnityEngine.Random.Range(0, potentialObjectives.Count)];
             Debug.Log("Assigned Level Objective: " + currentObjective.name);
         }
         else if (objectives == null || objectives.Count == 0)
