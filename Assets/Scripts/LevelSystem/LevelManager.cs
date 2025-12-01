@@ -109,7 +109,7 @@ public class LevelManager : MonoBehaviour
         //assign a random objective for the level from the list (old system)
         if (potentialObjectives != null && potentialObjectives.Count > 0)
         {
-            currentObjective = potentialObjectives[UnityEngine.Random.Range(0, potentialObjectives.Count)];
+            currentObjective = Instantiate(potentialObjectives[UnityEngine.Random.Range(0, potentialObjectives.Count)]);
             Debug.Log("Assigned Level Objective: " + currentObjective.name);
         }
         else if (objectives == null || objectives.Count == 0)
